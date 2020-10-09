@@ -9,34 +9,37 @@ import {Link as RouterLink} from 'react-router-dom';
 
 ProjectTable.propTypes = {};
 
+
+export const getAvatar = (index, project) => {
+  const length = project.projectUsers.length;
+  if (index <= 4 || (length - index === 1)) {
+    let photo = "";
+    if (project.projectUsers[index].user.userProfile && project.projectUsers[index].user.userProfile.photo) {
+      photo = project.projectUsers[index].user.userProfile.photo;
+    }
+    return (
+      <Tooltip title={project.projectUsers[index].user.username}>
+        <Avatar alt="..." src={photo}/>
+      </Tooltip>
+    )
+  } else {
+    let title = "";
+    let number = 0;
+    for (let i = index; i < length; i++) {
+      title += project.projectUsers[i].user.username + " ";
+      number++;
+    }
+    return (
+      <Tooltip title={title.trim()}>
+        <Avatar>+{number}</Avatar>
+      </Tooltip>
+    );
+  }
+};
+
 function ProjectTable({projects, sort, canEdit, handleDelete}) {
   let match = useRouteMatch("");
-  const getAvatar = (index, project) => {
-    const length = project.projectUsers.length;
-    if (index <= 4 || (length - index === 1)) {
-      let photo = "";
-      if (project.projectUsers[index].user.userProfile && project.projectUsers[index].user.userProfile.photo) {
-        photo = project.projectUsers[index].user.userProfile.photo;
-      }
-      return (
-        <Tooltip title={project.projectUsers[index].user.username}>
-          <Avatar alt="..." src={photo}/>
-        </Tooltip>
-      )
-    } else {
-      let title = "";
-      let number = 0;
-      for (let i = index; i < length; i++) {
-        title += project.projectUsers[i].user.username + " ";
-        number++;
-      }
-      return (
-        <Tooltip title={title.trim()}>
-          <Avatar>+{number}</Avatar>
-        </Tooltip>
-      );
-    }
-  };
+
 
   return (
     <div className="table-responsive">

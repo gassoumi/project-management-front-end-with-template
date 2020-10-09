@@ -26,30 +26,8 @@ import avatar4 from "../../assets/images/avatars/avatar4.jpg";
 import avatar6 from "../../assets/images/avatars/avatar6.jpg";
 import avatar5 from "../../assets/images/avatars/avatar5.jpg";
 import avatar7 from "../../assets/images/avatars/avatar7.jpg";
+import {getAvatar} from "../entities/project/ProjectTable";
 
-
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
-
-const EnhancedTableToolbar = (props) => {
-  const classes = useToolbarStyles();
-  return (
-    <Toolbar
-      className={clsx(classes.root)}
-    >
-      <Typography className={classes.title} variant="h6" component="div">
-        Dernier Projets
-      </Typography>
-    </Toolbar>
-  );
-};
 
 // https://stackoverflow.com/questions/60969224/how-to-override-muipaper-root-style-in-material-table
 // https://material-ui.com/styles/basics/#nesting-selectors
@@ -104,15 +82,20 @@ export default function LatestProject(props) {
                 <td className="font-weight-bold">{row.designation}</td>
                 <td className="text-center">{moment(row.created_at).format('LL')}</td>
                 <td className="text-center">
+                  {(row.projectUsers && row.projectUsers.length > 0) &&
                   <AvatarGroup className="d-flex justify-content-center">
-                    <Avatar alt="..." src={avatar1}/>
-                    <Avatar alt="..." src={avatar2}/>
-                    <Avatar alt="..." src={avatar3}/>
-                    <Avatar alt="..." src={avatar4}/>
-                    <Tooltip title="Shanelle Wynn • Beck Simpson">
-                      <Avatar>+2</Avatar>
-                    </Tooltip>
+                    {row.projectUsers.length > 0 &&
+                    getAvatar(0, row)}
+                    {row.projectUsers.length > 1 &&
+                    getAvatar(1, row)}
+                    {row.projectUsers.length > 2 &&
+                    getAvatar(2, row)}
+                    {row.projectUsers.length > 3 &&
+                    getAvatar(3, row)}
+                    {row.projectUsers.length > 4 &&
+                    getAvatar(4, row)}
                   </AvatarGroup>
+                  }
                 </td>
                 <td className="text-center">
                   <Tooltip arrow title="Consulter">
