@@ -9,7 +9,7 @@ import Link from '@material-ui/core/Link';
 
 SprintTable.propTypes = {};
 
-const getColorSprint = value => {
+export const getColorSprint = value => {
   switch (value) {
     case "Planifiè":
       return "success";

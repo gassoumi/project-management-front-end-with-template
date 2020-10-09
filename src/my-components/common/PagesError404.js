@@ -41,7 +41,7 @@ export default function LivePreviewExample() {
                         </p>
                         <Button
                           component={RouterLink}
-                          to="/DashboardDefault"
+                          to="/"
                           size="large"
                           color="secondary"
                           variant="contained"

@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import axios from "axios";
 import ProjectForm from './ProjectForm';
 import Loading from "../common/Loading";
 import Grid from "@material-ui/core/Grid";
-
 import {Card, Divider} from "@material-ui/core";
+import {SuspenseLoading} from "../../../Routes";
 
 function ProjectUpdate(props) {
 
@@ -51,7 +51,7 @@ function ProjectUpdate(props) {
   return (
     <>
       {!isNew && !isLoaded ?
-        <Loading/> :
+        <SuspenseLoading/> :
         <>
           <Grid container justify={"center"}>
             <Grid item xs={12} lg={9}>

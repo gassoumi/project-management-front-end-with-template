@@ -5,12 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import {Selector} from '../index'
 import {fetchProjectById, fetchProjectTasks} from "../../../redux";
 import {makeStyles} from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-import PeopleIcon from '@material-ui/icons/People';
-import {green, yellow, purple} from "@material-ui/core/colors";
 import Loading from '../common/Loading';
 import TeamList from './TeamList';
 import Button from "@material-ui/core/Button";
@@ -19,13 +16,10 @@ import TasksProjectTable from './TasksProjectTable';
 import {sleep} from "../../../redux/actions/sprint";
 import axios from "axios";
 import CircularProgress from '../common/CircularProgress';
+import {SuspenseLoading} from "../../../Routes";
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    wordWrap: 'break-word',
-    wordBreak: 'break-word',
-  },
   paper: {
     padding: theme.spacing(2),
   },
@@ -49,36 +43,38 @@ function ProjectDescription(props) {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.paper} elevation={2}>
-      <Grid container item xs={12}>
-        <Grid container justify={"flex-start"} item xs={8}>
-          <Typography color={"error"} gutterBottom variant="h5">
-            {props.project.designation}
-          </Typography>
-        </Grid>
-        {props.canEdit &&
-        <Grid item xs={4} container justify={"flex-end"}>
-          <Grid item>
-            <Button startIcon={<EditIcon/>}
-                    onClick={props.handleEdit}
-                    type="button"
-                    variant="contained"
-                    color={"secondary"}
-            >
-              Modifier
-            </Button>
+    <>
+      <Paper className={classes.paper} elevation={2}>
+        <Grid container item xs={12}>
+          <Grid container justify={"flex-start"} item xs={8}>
+            <Typography color={"error"} gutterBottom variant="h5">
+              {props.project.designation}
+            </Typography>
           </Grid>
+          {props.canEdit &&
+          <Grid item xs={4} container justify={"flex-end"}>
+            <Grid item>
+              <Button startIcon={<EditIcon/>}
+                      onClick={props.handleEdit}
+                      type="button"
+                      variant="contained"
+                      color={"secondary"}
+              >
+                Modifier
+              </Button>
+            </Grid>
+          </Grid>
+          }
         </Grid>
-        }
-      </Grid>
-      <Typography gutterBottom variant='caption' paragraph>
-        {moment(props.project.created_at).format('LL')}
-      </Typography>
-      <Typography color={"textPrimary"} gutterBottom variant="h6">Objective</Typography>
-      <Typography paragraph>
-        {props.project.objective}
-      </Typography>
-    </Paper>
+        <Typography gutterBottom variant='caption' paragraph>
+          {moment(props.project.created_at).format('LL')}
+        </Typography>
+        <Typography color={"textPrimary"} gutterBottom variant="h6">Objective</Typography>
+        <Typography paragraph>
+          {props.project.objective}
+        </Typography>
+      </Paper>
+    </>
   )
 }
 
@@ -134,7 +130,7 @@ function ProjectDetail(props) {
     <>
       {
         !props.isProjectLoaded ?
-          <Loading/> :
+          <SuspenseLoading/> :
           <Grid className={classes.root} container spacing={3}>
             <Grid className={classes.markdown} item xs={12} md={8}>
               <Grid container spacing={3}>

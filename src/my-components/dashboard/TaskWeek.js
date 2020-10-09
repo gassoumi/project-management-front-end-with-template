@@ -1,25 +1,11 @@
 import React, {Fragment} from 'react';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import clsx from 'clsx';
-import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import Toolbar from '@material-ui/core/Toolbar';
 import {Link as RouterLink} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
 import {getDisplayString} from "../utils";
 import Link from "@material-ui/core/Link";
-import {Avatar, Card, Divider, Grid} from "@material-ui/core";
-import Trend from "react-trend";
-import CountUp from "react-countup";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Avatar, Card} from "@material-ui/core";
 import {getColorTask} from "../entities/task/TaskTable";
 
 
@@ -54,7 +40,7 @@ export default function WeekTask(props) {
         {/*  </div>*/}
 
         <div className="table-responsive">
-          <table className="table table-borderless text-nowrap mb-0">
+          <table className="table table-borderless table-hover text-nowrap mb-0">
             <thead>
             <tr>
               <th>Nom Projet</th>
@@ -69,7 +55,9 @@ export default function WeekTask(props) {
               <tr key={row.id}>
                 <td>
                   <Link component={RouterLink} to={`/project/${row.sprint.project.id}`}>
+                    <span className="text-primary">
                     {getDisplayString(row.sprint.project.designation, 20)}
+                    </span>
                   </Link>
                 </td>
                 <td className="text-left">
