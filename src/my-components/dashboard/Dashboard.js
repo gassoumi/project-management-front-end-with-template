@@ -68,7 +68,7 @@ function Dashboard(props) {
         <SuspenseLoading/> :
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               {props.taskWeek && props.taskWeek.length !== 0 &&
               <Grid item xs={12}>
                 <TaskWeek rows={props.taskWeek}/>
@@ -83,16 +83,16 @@ function Dashboard(props) {
 
           <Grid item xs={12} md={4}>
             {/*  space between all included grid */}
-            <Grid item container direction="column" spacing={2}>
+            <Grid container direction="column" spacing={3}>
               {props.sprintWeek.length !== 0 &&
-              <Grid item>
+              <Grid item xs={12}>
                 <WeekSprint items={props.sprintWeek}/>
               </Grid>
               }
-              <Grid item>
+              <Grid item xs={12}>
                 <DiscussionList items={props.latestDiscussion} title="Derniers Discussions"/>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <DiscussionList items={props.topDiscussion} title="Top Discussions"/>
               </Grid>
             </Grid>

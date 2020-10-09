@@ -14,86 +14,78 @@ import Link from '@material-ui/core/Link';
 import {getDisplayString} from "../utils";
 
 const useStyles = makeStyles((theme) => ({
-    inline: {
-        display: 'inline',
+  inline: {
+    display: 'inline',
+  },
+  root: {
+    width: '100%',
+    "& .MuiListSubheader-root": {
+      color: 'black',
     },
-    root: {
-        width: '100%',
-        "& .MuiListSubheader-root": {
-            color: 'black',
-        },
-        "& .MuiListSubheader-sticky": {
-            position: 'inherit',
-        }
-
-        /*   height: '100%', */
-        /*   display: 'flex',
-          flexDirection: 'column', */
-        /*  maxWidth: 360, */
-    },
-    paper: {
-        width: '100%',
-        wordWrap: 'break-word',
-        wordBreak: 'break-word',
-        /*   marginBottom: theme.spacing(2), */
-        /*         height: '100%',
-                display: 'flex',
-                flexDirection: 'column', */
-    },
+    "& .MuiListSubheader-sticky": {
+      position: 'inherit',
+    }
+  },
+  paper: {
+    width: '100%',
+  },
 }));
 
 
-export default function DiscussionList(props) {
-    const classes = useStyles();
-    const {items} = props;
+export default function DiscussionList({items, title}) {
+  const classes = useStyles();
 
-    return (
-        <div className={classes.root}>
-            <Paper className={classes.paper}>
-                <List
-                    subheader={
-                        <ListSubheader id="nested-list-subheader2" component="div">
-                            {props.title}
-                        </ListSubheader>}
-
-                >
-                    {items.map((item, index) => (
-                        <React.Fragment key={item.id}>
-                            <ListItem alignItems="flex-start">
-                                <ListItemAvatar>
-                                    <Avatar alt="Remy Sharp" src={item.user.userProfile &&
-                                    item.user.userProfile.photo ? item.user.userProfile.photo : ""}>
-                                        {item.user.username.charAt(0).toUpperCase()}
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={
-                                        <Link component={RouterLink} to={`/discussion/${item.id}`}>
-                                            {item.object}
-                                        </Link>
-                                    }
-                                    secondary={
-                                        <React.Fragment>
-                                            <Typography
-                                                component="span"
-                                                variant="body2"
-                                                className={classes.inline}
-                                                color="textPrimary"
-                                            >
-                                                {item.user.username}
-                                            </Typography>
-
-                                            {` — ${getDisplayString(item.description, 47)}`}
-                                        </React.Fragment>
-                                    }
-                                />
-                            </ListItem>
-                            {index !== (items.length - 1) && <Divider variant="inset" component="li"/>}
-                        </React.Fragment>
-                    ))
+  return (
+    <>
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          <List
+            subheader={
+              <ListSubheader id="nested-list-subheader2" component="div">
+                {title}
+              </ListSubheader>}
+          >
+            <Divider/>
+            {items.map((item, index) => (
+              <React.Fragment key={item.id}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar alt="Remy Sharp" src={item.user.userProfile &&
+                    item.user.userProfile.photo ? item.user.userProfile.photo : ""}>
+                      {item.user.username.charAt(0).toUpperCase()}
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <Link component={RouterLink} to={`/discussion/${item.id}`}>
+                        <span className="text-primary">
+                        {item.object}
+                        </span>
+                      </Link>
                     }
-                </List>
-            </Paper>
-        </div>
-    );
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          {item.user.username}
+                        </Typography>
+
+                        {` — ${getDisplayString(item.description, 50)}`}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+                {index !== (items.length - 1) && <Divider variant="inset" component="li"/>}
+              </React.Fragment>
+            ))
+            }
+          </List>
+        </Paper>
+      </div>
+    </>
+  );
 }

@@ -78,13 +78,14 @@ export default function WeekSprint({items}) {
 
   return (
     <>
-      <Card className="card-box mb-4">
-        <div className="card-header">
-          <h4 className="font-size-lg mb-0 py-2 font-weight-bold">
-            Sprint de cette semaine
-          </h4>
-        </div>
-        <List className="pt-0">
+      <Card className="card-box">
+        <List
+          subheader={
+            <ListSubheader style={{color: 'black'}} id="nested-list-subheader2" component="div">
+              Sprint de cette semaine
+            </ListSubheader>}
+        >
+          <Divider/>
           {items.map((item, index) => {
             return (
               <Fragment key={item.id}>

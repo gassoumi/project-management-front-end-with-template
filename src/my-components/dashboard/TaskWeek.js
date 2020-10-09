@@ -14,7 +14,7 @@ export default function WeekTask(props) {
 
   return (
     <Fragment>
-      <Card className="card-box mb-4">
+      <Card className="card-box">
         <div className="card-header">
           <div className="card-header--title font-size-lg  px-1 py-1 font-weight-bold">
             Plan d'action de cette semaine
