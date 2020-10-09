@@ -8,12 +8,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 export default function TeamList({items}) {
   return (
     <>
-      <Card className="card-box mb-4">
+      <Card className="card-box">
         <div className="card-header">
-          <div className="card-header--title">
-            <h4 className="font-size-lg mb-0 py-2 font-weight-bold">
-              Team Scrum
-            </h4>
+          <div className="card-header--title font-size-md font-weight-bold py-2">
+            Team Scrum
           </div>
         </div>
         <CardContent className="p-3">

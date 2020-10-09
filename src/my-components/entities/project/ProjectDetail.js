@@ -17,7 +17,42 @@ import {sleep} from "../../../redux/actions/sprint";
 import axios from "axios";
 import CircularProgress from '../common/CircularProgress';
 import {SuspenseLoading} from "../../../Routes";
+import Card from "@material-ui/core/Card";
+import {CardContent, TablePagination} from "@material-ui/core";
+import {ExampleWrapperSimple} from "../../../layout-components";
+import {Doughnut} from "react-chartjs-2";
+import {getTaskCodeColor} from "../task/TaskTable";
 
+
+const data = {
+  labels: ['Red', 'Green', 'Yellow'],
+  datasets: [
+    {
+      data: [300, 50, 100],
+      backgroundColor: ['#f83245', '#4191ff', '#f4772e'],
+      hoverBackgroundColor: ['#f83245', '#4191ff', '#f4772e']
+    }
+  ]
+};
+
+
+const getData = stat => {
+  const labels = stat.map(item => item.status);
+  const data = stat.map(item => item.count);
+  const backgroundColor = labels.map(label => getTaskCodeColor(label));
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        data: data,
+        backgroundColor,
+        hoverBackgroundColor: backgroundColor,
+      }
+    ]
+  };
+  console.log(chartData);
+  return chartData;
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProjectDescription(props) {
   const classes = useStyles();
+
 
   return (
     <>
@@ -115,6 +151,7 @@ function ProjectDetail(props) {
     }
   }, [id]);
 
+  console.log(stat);
 
   // const isFetching = !props.isProjectLoaded || props.isFetchingProjectTasks || !isStatLoaded;
 
@@ -124,6 +161,17 @@ function ProjectDetail(props) {
 
   const fetchTasks = (page, pageSize) => {
     props.fetchProjectTasks(page, pageSize, id);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    //setPage(newPage);
+    fetchTasks(newPage + 1, props.pageSize);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    //setRowsPerPage(parseInt(event.target.value, 10));
+    //setPage(0);
+    fetchTasks(1, parseInt(event.target.value, 10));
   };
 
   return (
@@ -146,13 +194,35 @@ function ProjectDetail(props) {
                     {
                       props.isFetchingProjectTasks ?
                         <CircularProgress/> :
-                        <TasksProjectTable
-                          rows={props.tasks}
-                          count={props.count}
-                          fetchTasks={fetchTasks}
-                          page={props.page - 1}
-                          pageSize={props.pageSize}
-                        />
+                        <div className="example-card-seamless mb-4-spacing">
+                          <Card className="card-box mb-4">
+                            <div className="card-header pr-2">
+                              <div className="card-header--title">Les taches du projet</div>
+                            </div>
+                            <CardContent className="p-3">
+                              <div className="table-responsive">
+                                <TasksProjectTable
+                                  rows={props.tasks}
+
+                                  fetchTasks={fetchTasks}
+                                  page={props.page - 1}
+                                  pageSize={props.pageSize}
+                                />
+                              </div>
+                            </CardContent>
+                            <div className="card-footer p-1 bg-secondary">
+                              <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={props.count}
+                                page={props.page - 1}
+                                rowsPerPage={props.pageSize}
+                                onChangePage={handleChangePage}
+                                onChangeRowsPerPage={handleChangeRowsPerPage}
+                              />
+                            </div>
+                          </Card>
+                        </div>
                     }
                   </Grid>
                 }
@@ -166,15 +236,15 @@ function ProjectDetail(props) {
                 {
                   stat.length > 0 &&
                   <Grid item xs={12}>
+                    <Fragment>
+                      <ExampleWrapperSimple sectionHeading="Task en chart">
+                        <Doughnut data={getData(stat)}/>
+                      </ExampleWrapperSimple>
+                    </Fragment>
                   </Grid>
                 }
               </Grid>
             </Grid>
-            {/*{props.tasks.length !== 0 &&*/}
-            {/*<Grid item xs={12} md={8}>*/}
-            {/*    <TaskProjectTable rows={props.tasks}/>*/}
-            {/*</Grid>*/}
-            {/*}*/}
           </Grid>
       }
     </>
@@ -197,6 +267,7 @@ const mapStateToProps = (state, ownProps) => {
   const {
     pagination: {projectTasks},
   } = state;
+
   return {
     isProjectLoaded: isLoaded,
     project,
@@ -211,18 +282,3 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {fetchProjectById, fetchProjectTasks})(ProjectDetail);
 
-/*
-
-<Paper elevation={2} className={classes.paper}>
-                                <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-                                    <PeopleIcon style={{color: purple[500]}} fontSize={"default"}/>
-                                    Team Scrum
-                                </Typography>
-                                {props.project.projectUsers.map((projectUser) => (
-                                    <Typography display="block" variant="body1" key={projectUser.username}>
-                                        {projectUser.username}
-                                    </Typography>
-                                ))}
-                            </Paper>
-
- */

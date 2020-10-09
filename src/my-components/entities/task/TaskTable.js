@@ -27,6 +27,23 @@ export const getColorTask = value => {
   }
 };
 
+export const getTaskCodeColor = (value) => {
+  switch (value) {
+    case "A Faire":
+      return "#5383ff";
+    case "En Cours":
+      return "#11c5db";
+    case "A Verifier":
+      return "#f4772e";
+    case "Termine":
+      return "#1bc943";
+    case "Backlog":
+      return "#f83245";
+    default:
+      return "#f4772e";
+  }
+};
+
 
 function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete}) {
   return (

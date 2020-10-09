@@ -30,6 +30,7 @@
     "draft-js": "0.11.4",
     "draftjs-to-html": "0.9.1",
     "html-to-draftjs": "01.5.0",
+    "recharts": "^1.8.5",
     "react-gauge-chart": "0.2.5",
     "react-circle": "1.1.1",
     "react-joyride": "2.2.1",
