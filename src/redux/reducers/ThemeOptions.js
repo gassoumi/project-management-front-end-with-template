@@ -120,6 +120,9 @@ export const setPageTitleDescription = pageTitleDescription => ({
   type: SET_PAGE_TITLE_DESCRIPTION,
   pageTitleDescription
 });
+
+// we change the sidebarFooter to false in this file
+
 export default function reducer(
   state = {
     // Sidebar
@@ -127,7 +130,7 @@ export default function reducer(
     sidebarShadow: false,
     sidebarFixed: true,
     sidebarToggleMobile: false,
-    sidebarFooter: true,
+    sidebarFooter: false,
     sidebarUserbox: true,
     sidebarToggle: false,
     sidebarHover: false,

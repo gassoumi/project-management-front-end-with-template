@@ -301,11 +301,12 @@ const ProjectForm = ({
                 Enregistrer
               </Button>
               <Button
-                className="text-github"
-                color="secondary"
+
                 startIcon={<CancelIcon/>}
                 onClick={cancel}
                 variant="outlined"
+                className="text-github"
+                color="secondary"
               >
                 Annuler
               </Button>

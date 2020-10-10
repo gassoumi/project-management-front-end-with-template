@@ -1,16 +1,19 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-import { IconButton, Box } from '@material-ui/core';
+import {IconButton, Box} from '@material-ui/core';
 
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import projectLogo from '../../assets/images/react.svg';
+// import projectLogo from '../../assets/images/react.svg';
+// import projectLogo from '../../assets/images/logo.svg';
+import projectLogo from '../../assets/images/logo.png';
+// import projectLogo from '../../assets/images/logo.jpg';
 
 const HeaderLogo = props => {
-  const { sidebarToggle, sidebarHover } = props;
+  const {sidebarToggle, sidebarHover} = props;
   return (
     <Fragment>
       <div
@@ -20,20 +23,20 @@ const HeaderLogo = props => {
         })}>
         <Box
           className="header-logo-wrapper"
-          title="Carolina React Admin Dashboard with Material-UI PRO">
-          <Link to="/DashboardDefault" className="header-logo-wrapper-link">
+          title="Digital sprint">
+          <Link to="/" className="header-logo-wrapper-link">
             <IconButton
               color="primary"
               size="medium"
               className="header-logo-wrapper-btn">
               <img
                 className="app-header-logo-img"
-                alt="Carolina React Admin Dashboard with Material-UI PRO"
+                alt="Digital sprint"
                 src={projectLogo}
               />
             </IconButton>
           </Link>
-          <Box className="header-logo-text">Carolina</Box>
+          <Box className="header-logo-text">Digital sprint</Box>
         </Box>
       </div>
     </Fragment>

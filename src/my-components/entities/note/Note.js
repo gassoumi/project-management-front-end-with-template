@@ -232,7 +232,7 @@ function Note(props) {
       <Card className="card-box mb-4">
         <div>
           <AddNew
-            canEdit={props.canEdit}
+            canEdit
             label="Story"
             count={props.count}
             buttonLabel="Ajouter une story"

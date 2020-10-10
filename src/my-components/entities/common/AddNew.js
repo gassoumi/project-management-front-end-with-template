@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 AddNew.propTypes = {};
 
-function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, buttonLabel}) {
+function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, buttonLabel, canEdit}) {
   return (
     <div className="d-block p-3 d-md-flex justify-content-between align-items-center text-center text-md-left">
       <div className="d-flex flex-md-row flex-column align-items-center">
@@ -41,23 +41,26 @@ function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, 
           </Button>
         </div>
       </div>
-      <div className="d-block d-md-flex align-items-center">
-        <Button
-          onClick={handleAdd}
-          size="small"
-          variant="outlined"
-          color="primary"
-          className="font-weight-bold px-3">
+      {
+        canEdit && <div className="d-block d-md-flex align-items-center">
+          <Button
+            onClick={handleAdd}
+            size="small"
+            variant="outlined"
+            color="primary"
+            className="font-weight-bold px-3">
           <span className="btn-wrapper--icon">
             <FontAwesomeIcon
               icon={['fas', 'plus-circle']}
               className="text-success"
             />
           </span>
-          <span className="btn-wrapper--label"> {buttonLabel}</span>
+            <span className="btn-wrapper--label"> {buttonLabel}</span>
 
-        </Button>
-      </div>
+          </Button>
+        </div>
+      }
+
     </div>
 
   );

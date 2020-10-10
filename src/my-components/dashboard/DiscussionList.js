@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import {getDisplayString} from "../utils";
+import {Card} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   inline: {
@@ -39,10 +40,17 @@ export default function DiscussionList({items, title}) {
     <>
       <div className={classes.root}>
         <Paper className={classes.paper}>
+          {/*<div className="card-header">*/}
+          {/*  <div className="card-header--title font-size-lg font-weight-bold">*/}
+          {/*    {title}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <List
             subheader={
               <ListSubheader id="nested-list-subheader2" component="div">
-                {title}
+                <div className="font-size-lg font-weight-bold">
+                  {title}
+                </div>
               </ListSubheader>}
           >
             <Divider/>

@@ -11,7 +11,11 @@ import {
   setSidebarToggle,
   setSidebarToggleMobile
 } from '../../redux/reducers/ThemeOptions';
-import projectLogo from '../../assets/images/react.svg';
+
+// import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/logo.png';
+// import projectLogo from '../../assets/images/logo.svg';
+// import projectLogo from '../../assets/images/logo.jpg';
 
 import HeaderLogo from '../../layout-components/HeaderLogo';
 import HeaderDots from '../../layout-components/HeaderDots';
@@ -54,21 +58,21 @@ const Header = props => {
           <Hidden lgUp>
             <Box
               className="app-logo-wrapper"
-              title="Carolina React Admin Dashboard with Material-UI PRO">
-              <Link to="/DashboardDefault" className="app-logo-link">
+              title="Digital sprint">
+              <Link to="/" className="app-logo-link">
                 <IconButton
                   color="primary"
                   size="medium"
                   className="app-logo-btn">
                   <img
                     className="app-logo-img"
-                    alt="Carolina React Admin Dashboard with Material-UI PRO"
+                    alt="Digital sprint"
                     src={projectLogo}
                   />
                 </IconButton>
               </Link>
               <Hidden smDown>
-                <Box className="app-logo-text">Carolina</Box>
+                <Box className="app-logo-text">Digital sprint</Box>
               </Hidden>
             </Box>
           </Hidden>

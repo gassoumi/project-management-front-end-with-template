@@ -37,8 +37,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
 }));
 
@@ -275,25 +278,29 @@ function TaskForm(props) {
               }
             </FormControl>
           </Grid>
-          <Grid className={classes.buttons} item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              className="m-2"
-              startIcon={<SaveIcon/>}
-              type="submit"
-            >
-              Enregistrer
-            </Button>
-            <Button
-              onClick={handleCancel}
-              variant="outlined"
-              className="text-github m-2"
-              color="secondary"
-              startIcon={<CancelIcon/>}
-            >
-              Annuler
-            </Button>
+          <Grid container>
+            <Grid container justify={"flex-end"} item xs={12}>
+              <div className={classes.buttons}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="m-2"
+                  startIcon={<SaveIcon/>}
+                  type="submit"
+                >
+                  Enregistrer
+                </Button>
+                <Button
+                  onClick={handleCancel}
+                  variant="outlined"
+                  className="text-github"
+                  color="secondary"
+                  startIcon={<CancelIcon/>}
+                >
+                  Annuler
+                </Button>
+              </div>
+            </Grid>
           </Grid>
         </Grid>
       </form>

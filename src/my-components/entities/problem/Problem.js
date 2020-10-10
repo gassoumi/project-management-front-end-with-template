@@ -156,7 +156,7 @@ function Problem(props) {
       <Card className="card-box mb-4">
         <div>
           <AddNew
-            canEdit={props.canEdit}
+            canEdit
             label="Problèmes"
             count={props.count}
             buttonLabel="Ajouter un problème"

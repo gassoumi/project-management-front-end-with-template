@@ -82,7 +82,9 @@ export default function WeekSprint({items}) {
         <List
           subheader={
             <ListSubheader style={{color: 'black'}} id="nested-list-subheader2" component="div">
-              Sprint de cette semaine
+              <div className="font-size-lg font-weight-bold">
+                Sprint de cette semaine
+              </div>
             </ListSubheader>}
         >
           <Divider/>

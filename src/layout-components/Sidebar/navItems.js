@@ -92,6 +92,64 @@ export default [
     "label": "Discussion",
     "icon": "ChatIcon",
     "to": "/discussion"
+  }
+]`,
+      (key, value) => {
+        if (key === 'icon') {
+          return iconsMap[value];
+        } else {
+          return value;
+        }
+      }
+    )
+  }
+];
+
+// the old one
+export const navItems = [
+  {
+    label: 'Navigation menu',
+    content: JSON.parse(
+      `[
+  {
+    "label": "Dashboard",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/dashboard"
+  },
+  {
+    "label": "Projets",
+    "icon": "LockOpenIcon",
+    "to": "/project"
+  },
+  {
+    "label": "Sprints",
+    "icon": "EventNoteIcon",
+    "to": "/sprint"
+  },
+  {
+    "label": "Taches",
+    "icon": "AssignmentIcon",
+    "to": "/task"
+  },
+  {
+    "label": "Story",
+    "icon": "NoteIcon",
+    "to": "/note"
+  },
+  {
+    "label": "Problèmes",
+    "icon": "ErrorIcon",
+    "to": "/problem"
+  },
+  {
+    "label": "Documents",
+    "icon": "DescriptionIcon",
+    "to": "/document"
+  },
+  {
+    "label": "Discussion",
+    "icon": "ChatIcon",
+    "to": "/discussion"
   },
  
   {
