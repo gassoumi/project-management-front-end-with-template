@@ -468,10 +468,6 @@ const Routes = () => {
                       path="/ApplicationsProjects"
                       component={ApplicationsProjects}
                     />
-                    {/*<Route*/}
-                    {/*  path="/project"*/}
-                    {/*  component={Project}*/}
-                    {/*/>*/}
                     <Route
                       path="/ApplicationsWidgets"
                       component={ApplicationsWidgets}
