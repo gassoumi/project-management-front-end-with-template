@@ -63,6 +63,9 @@ export const clearCacheComment = () => dispatch => {
 // create a comment
 export const createComment = (comment) => (dispatch, getState) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_COMMENT
+  });
   // inject the user here
   const newComment = {...comment, user: getState().auth.user.id};
   axios.post('/api/comments/', newComment)
@@ -83,6 +86,9 @@ export const createComment = (comment) => (dispatch, getState) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_COMMENT
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })
@@ -91,6 +97,9 @@ export const createComment = (comment) => (dispatch, getState) => {
 // update a comment
 export const updateComment = (idComment, comment) => (dispatch, getState) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_COMMENT
+  });
   // inject the user here
   const newComment = {...comment, user: getState().auth.user.id};
   axios.put(`/api/comments/${idComment}/`, newComment)
@@ -111,6 +120,9 @@ export const updateComment = (idComment, comment) => (dispatch, getState) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_COMMENT
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })

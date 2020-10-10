@@ -55,13 +55,6 @@ import FormsToggleSwitch from './example-pages/FormsToggleSwitch';
 
 import PrivateRoute from "./my-components/common/PrivateRoute";
 import Entities from './my-components/entities';
-import Dashboard from "./my-components/dashboard";
-import Sprint from "./my-components/entities/sprint";
-import Task from "./my-components/entities/task";
-import Document from "./my-components/entities/document";
-import Discussion from "./my-components/entities/discussion";
-import Note from "./my-components/entities/note";
-import Problem from "./my-components/entities/problem";
 
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const DashboardAnalytics = lazy(() =>

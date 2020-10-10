@@ -55,7 +55,7 @@ function ProblemForm(props) {
   const classes = useStyles();
 
   const {
-    handleCancel, problem, updateSuccess, disablePickTask,
+    handleCancel, problem, updateSuccess, disablePickTask, isUpdating,
     isNewProblem, createProblem, updateProblem, clearCacheProblem
   } = props;
 
@@ -308,6 +308,7 @@ function ProblemForm(props) {
             <Grid container justify={"flex-end"} item xs={12}>
               <div className={classes.buttons}>
                 <Button
+                  disabled={isUpdating}
                   variant="contained"
                   color="primary"
                   startIcon={<SaveIcon/>}
@@ -336,7 +337,8 @@ function ProblemForm(props) {
 ProblemForm.propTypes = {};
 
 const mapStateToProps = state => ({
-  updateSuccess: state.entity.problem.updateSuccess
+  updateSuccess: state.entity.problem.updateSuccess,
+  isUpdating: state.entity.problem.isUpdating,
 });
 
 export default connect(mapStateToProps, {createProblem, updateProblem, clearCacheProblem})(ProblemForm);

@@ -23,7 +23,7 @@ function Sprint(props) {
 
   const {
     pageSize, sprints, page, count, isFetching,
-    fetchSprints, canEdit, deleteSprintById,
+    fetchSprints, canEdit, deleteSprintById, isUpdating
   } = props;
 
   const [open, setOpen] = React.useState(false);
@@ -208,6 +208,7 @@ function Sprint(props) {
           title=" Êtes-vous sûr de vouloir supprimer ce sprint?"
           label={sprintToDelete.name}/>
         <SprintUpdate
+          isUpdating={isUpdating}
           createSprint={props.createSprint}
           updateSprint={props.updateSprint}
           isNew={isNew}
@@ -301,6 +302,7 @@ const mapStateToProps = (state) => {
     pageSize: sprints.pageSize,
     updateSuccess: state.entity.sprint.updateSuccess,
     deleteSuccess: state.entity.sprint.deleteSuccess,
+    isUpdating: state.entity.sprint.isUpdating,
   };
 };
 

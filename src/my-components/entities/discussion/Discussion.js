@@ -17,142 +17,144 @@ import GreenButton from "../common/GreenButton";
 
 
 const useStyles = makeStyles((theme) => ({
-    paginationDisplay: {
-        // paddingLeft: theme.spacing(2),
-        marginLeft: theme.spacing(2),
-    },
+  paginationDisplay: {
+    // paddingLeft: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
 
 }));
 
 function Discussion(props) {
 
-    const {
-        canEdit, list, count, nextPageUrl, updateSuccess,
-        fetchDiscussions, isFetching, pageSize, page,
-    } = props;
+  const {
+    canEdit, list, count, nextPageUrl, updateSuccess,
+    fetchDiscussions, isFetching, pageSize, page, isUpdating,
+  } = props;
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const [discussion, setDiscussion] = useState({});
-    const [page2, setPage] = React.useState(1);
-    const [open, setOpen] = React.useState(false);
-
-
-    useEffect(() => {
-        fetchDiscussions();
-    }, []);
-
-    useEffect(() => {
-        if (updateSuccess) {
-            setOpen(false);
-            fetchDiscussions();
-        }
-    }, [updateSuccess]);
+  const [discussion, setDiscussion] = useState({});
+  const [page2, setPage] = React.useState(1);
+  const [open, setOpen] = React.useState(false);
 
 
-    const handleEdit = (id) => {
-        props.history.push(`/discussion/${id}/edit`);
-    };
+  useEffect(() => {
+    fetchDiscussions();
+  }, []);
+
+  useEffect(() => {
+    if (updateSuccess) {
+      setOpen(false);
+      fetchDiscussions();
+    }
+  }, [updateSuccess]);
 
 
-    const createNew = () => {
-        // props.history.push("/discussion/create");
-        setOpen(true);
-    };
+  const handleEdit = (id) => {
+    props.history.push(`/discussion/${id}/edit`);
+  };
 
-    const handleChange = (event, value) => {
-        //setPage(value);
-        fetchDiscussions(value);
-    };
 
-    return (
-        <>
-            <DiscussionDialogForm
-                isNew
-                discussion={{}}
-                open={open}
-                handleClose={() => setOpen(false)}
-            />
-            <Grid container spacing={4}>
-                <Grid item container spacing={2}>
-                    <Grid xs={6} item container justify={"flex-start"}>
-                    </Grid>
-                    <Grid xs={6} item container justify={"flex-end"}>
-                        <GreenButton startIcon={<AddCircleOutlineIcon/>}
-                                     onClick={createNew}
-                                     type="button"
-                                     variant="contained"
-                                     color={"secondary"}
-                        >
-                            Ajouter une discussion
-                        </GreenButton>
-                    </Grid>
-                </Grid>
-                {isFetching ?
-                    <Loading/>
-                    :
-                    (<>
-                            < Grid item xs={12}>
-                                <DiscussionList
-                                    canEdit={canEdit}
-                                    discussions={list}
-                                    count={count}
-                                    handleEdit={handleEdit}
-                                    fetchDiscussions={fetchDiscussions}
-                                    page={page - 1}
-                                    pageSize={pageSize}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Grid container justify={"center"}>
-                                    <Grid container item xs={9}>
-                                        <Grid container item xs={6} justify={"flex-start"}>
-                                            <Typography
-                                                className={classes.paginationDisplay}
-                                                variant={"body1"}
-                                            >
-                                                {`Affichage ${count === 0 ? 0 : (page - 1) * pageSize + 1}
+  const createNew = () => {
+    // props.history.push("/discussion/create");
+    setOpen(true);
+  };
+
+  const handleChange = (event, value) => {
+    //setPage(value);
+    fetchDiscussions(value);
+  };
+
+  return (
+    <>
+      <DiscussionDialogForm
+        isUpdating={isUpdating}
+        isNew
+        discussion={{}}
+        open={open}
+        handleClose={() => setOpen(false)}
+      />
+      <Grid container spacing={4}>
+        <Grid item container spacing={2}>
+          <Grid xs={6} item container justify={"flex-start"}>
+          </Grid>
+          <Grid xs={6} item container justify={"flex-end"}>
+            <GreenButton startIcon={<AddCircleOutlineIcon/>}
+                         onClick={createNew}
+                         type="button"
+                         variant="contained"
+                         color={"secondary"}
+            >
+              Ajouter une discussion
+            </GreenButton>
+          </Grid>
+        </Grid>
+        {isFetching ?
+          <Loading/>
+          :
+          (<>
+              < Grid item xs={12}>
+                <DiscussionList
+                  canEdit={canEdit}
+                  discussions={list}
+                  count={count}
+                  handleEdit={handleEdit}
+                  fetchDiscussions={fetchDiscussions}
+                  page={page - 1}
+                  pageSize={pageSize}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container justify={"center"}>
+                  <Grid container item xs={9}>
+                    <Grid container item xs={6} justify={"flex-start"}>
+                      <Typography
+                        className={classes.paginationDisplay}
+                        variant={"body1"}
+                      >
+                        {`Affichage ${count === 0 ? 0 : (page - 1) * pageSize + 1}
                                                 -${nextPageUrl == null ? count : page * pageSize}
                                                  De ${count} Discussion(s)`}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid container item xs={6} justify={"flex-end"}>
-                                            <Pagination
-                                                variant="outlined"
-                                                color="secondary"
-                                                count={Math.ceil(count / pageSize)}
-                                                page={page}
-                                                onChange={handleChange}/>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </>
-                    )
-                }
-            </Grid>
-        </>
-    );
+                      </Typography>
+                    </Grid>
+                    <Grid container item xs={6} justify={"flex-end"}>
+                      <Pagination
+                        variant="outlined"
+                        color="secondary"
+                        count={Math.ceil(count / pageSize)}
+                        page={page}
+                        onChange={handleChange}/>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </>
+          )
+        }
+      </Grid>
+    </>
+  );
 }
 
 Discussion.propTypes = {};
 
 const mapStateToProps = (state) => {
-    const {
-        pagination: {discussions},
-    } = state;
-    const listDiscussion = Selector.getDiscussionsPage(state);
+  const {
+    pagination: {discussions},
+  } = state;
+  const listDiscussion = Selector.getDiscussionsPage(state);
 
-    return {
-        list: listDiscussion,
-        nextPageUrl: discussions.nextPageUrl,
-        page: discussions.page,
-        isFetching: discussions.isFetching,
-        canEdit: state.auth.user.is_staff,
-        count: discussions.count,
-        pageSize: discussions.pageSize,
-        updateSuccess: state.entity.discussion.updateSuccess,
-    };
+  return {
+    list: listDiscussion,
+    nextPageUrl: discussions.nextPageUrl,
+    page: discussions.page,
+    isFetching: discussions.isFetching,
+    canEdit: state.auth.user.is_staff,
+    count: discussions.count,
+    pageSize: discussions.pageSize,
+    updateSuccess: state.entity.discussion.updateSuccess,
+    isUpdating: state.entity.discussion.isUpdating,
+  };
 };
 
 export default connect(mapStateToProps, {fetchDiscussions})(Discussion);

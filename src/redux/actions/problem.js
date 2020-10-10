@@ -101,6 +101,10 @@ export const fetchProblemsByTask = (page = 1, idTask, pageSize) => async (dispat
 
 // create a problem
 export const createProblem = (problem) => (dispatch) => {
+
+  dispatch({
+    type: ActionTypes.START_UPDATE_PROBLEM
+  });
   // dispatch(showLoading());
   axios.post('/api/problems/', problem)
     .then(response => {
@@ -120,6 +124,9 @@ export const createProblem = (problem) => (dispatch) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_PROBLEM
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })
@@ -128,6 +135,9 @@ export const createProblem = (problem) => (dispatch) => {
 // update a problem
 export const updateProblem = (idProblem, problem) => dispatch => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_PROJECT
+  });
   axios.put(`/api/problems/${idProblem}/`, problem)
     .then(response => {
       const description = response.data.description;
@@ -146,6 +156,9 @@ export const updateProblem = (idProblem, problem) => dispatch => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_PROBLEM
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })

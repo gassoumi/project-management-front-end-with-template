@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import {Box, Button, Card, CardContent, Grid} from "@material-ui/core";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Card, CardContent} from "@material-ui/core";
 
 
 export default function TeamList({items}) {

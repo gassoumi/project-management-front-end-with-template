@@ -1,7 +1,7 @@
 const entity = ({types}) => {
 
   const [requestType, logout, updateSuccessType, removeSuccessType,
-    starredFetch, fetchFailure, fetchSuccess, clearCache] = types;
+    starredFetch, fetchFailure, fetchSuccess, clearCache, startUpdate, updateFailure] = types;
 
   const initialState = {
     // for create or update an entity
@@ -23,6 +23,17 @@ const entity = ({types}) => {
         return {
           ...state,
           updateSuccess: true,
+          isUpdating: false
+        };
+      case startUpdate:
+        return {
+          ...state,
+          isUpdating: true
+        };
+      case updateFailure:
+        return {
+          ...state,
+          isUpdating: false
         };
       case starredFetch:
       case fetchFailure:
@@ -39,6 +50,7 @@ const entity = ({types}) => {
         return {
           ...state,
           deleteSuccess: true,
+          isUpdating: false
         };
       case clearCache:
         return {

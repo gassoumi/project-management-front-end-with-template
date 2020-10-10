@@ -58,7 +58,7 @@ function TaskForm(props) {
   const classes = useStyles();
 
   const {
-    handleCancel, task, updateSuccess,
+    handleCancel, task, updateSuccess, isUpdating,
     isNewTask, createTask, updateTask
   } = props;
 
@@ -282,6 +282,7 @@ function TaskForm(props) {
             <Grid container justify={"flex-end"} item xs={12}>
               <div className={classes.buttons}>
                 <Button
+                  disabled={isUpdating}
                   variant="contained"
                   color="primary"
                   className="m-2"
@@ -311,7 +312,8 @@ function TaskForm(props) {
 TaskForm.propTypes = {};
 
 const mapStateToProps = state => ({
-  updateSuccess: state.entity.task.updateSuccess
+  updateSuccess: state.entity.task.updateSuccess,
+  isUpdating: state.entity.task.isUpdating,
 });
 
 export default connect(mapStateToProps, {createTask, updateTask})(TaskForm);

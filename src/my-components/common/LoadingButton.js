@@ -8,10 +8,6 @@ import {green} from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center'
-  },
   wrapper: {
     margin: theme.spacing(1),
     position: 'relative'
@@ -35,12 +31,13 @@ const useStyles = makeStyles(theme => ({
 export default function LoadingButton(props) {
   const classes = useStyles();
   // const [loading, setLoading] = React.useState(false);
-  const {color, classname, variant, title, size, loading} = props;
+  const {color, classname, variant, title, size, loading, startIcon} = props;
 
   return (
     <Fragment>
       <div className={classes.wrapper}>
         <Button
+          startIcon={startIcon}
           type="submit"
           variant={variant || "contained"}
           color={color || "primary"}

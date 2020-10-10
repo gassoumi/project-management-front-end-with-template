@@ -48,7 +48,7 @@ const iconsMap = {
   ViewModuleIcon: ViewModuleIcon
 };
 
-export default [
+const navItems2 = [
   {
     label: 'Navigation menu',
     content: JSON.parse(
@@ -106,7 +106,7 @@ export default [
 ];
 
 // the old one
-export const navItems = [
+const navItems = [
   {
     label: 'Navigation menu',
     content: JSON.parse(
@@ -760,3 +760,5 @@ export const navItems = [
     )
   }
 ];
+
+export default navItems2;

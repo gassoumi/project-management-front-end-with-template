@@ -162,6 +162,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_PROJECT,
       ActionTypes.FETCH_SUCCESS_PROJECT,
       ActionTypes.CLEAR_CACHE_PROJECT,
+      ActionTypes.START_UPDATE_PROJECT,
+      ActionTypes.UPDATE_FAILURE_PROJECT
     ],
   }),
   sprint: entity({
@@ -174,6 +176,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_SPRINT,
       ActionTypes.FETCH_SUCCESS_SPRINT,
       ActionTypes.CLEAR_CACHE_SPRINT,
+      ActionTypes.START_UPDATE_SPRINT,
+      ActionTypes.UPDATE_FAILURE_SPRINT
     ],
   }),
   note: entity({
@@ -186,6 +190,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_NOTE,
       ActionTypes.FETCH_SUCCESS_NOTE,
       ActionTypes.CLEAR_CACHE_NOTE,
+      ActionTypes.START_UPDATE_NOTE,
+      ActionTypes.UPDATE_FAILURE_NOTE
     ],
   }),
   problem: entity({
@@ -198,6 +204,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_PROBLEM,
       ActionTypes.FETCH_SUCCESS_PROBLEM,
       ActionTypes.CLEAR_CACHE_PROBLEM,
+      ActionTypes.START_UPDATE_PROBLEM,
+      ActionTypes.UPDATE_FAILURE_PROBLEM
     ],
   }),
   task: entity({
@@ -210,6 +218,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_TASK,
       ActionTypes.FETCH_SUCCESS_TASK,
       ActionTypes.CLEAR_CACHE_TASK,
+      ActionTypes.START_UPDATE_TASK,
+      ActionTypes.UPDATE_FAILURE_TASK
     ],
   }),
   discussion: entity({
@@ -222,6 +232,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_DISCUSSION,
       ActionTypes.FETCH_SUCCESS_DISCUSSION,
       ActionTypes.CLEAR_CACHE_DISCUSSION,
+      ActionTypes.START_UPDATE_DISCUSSION,
+      ActionTypes.UPDATE_FAILURE_DISCUSSION
     ],
   }),
   comment: entity({
@@ -234,6 +246,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_COMMENT,
       ActionTypes.FETCH_SUCCESS_COMMENT,
       ActionTypes.CLEAR_CACHE_COMMENT,
+      ActionTypes.START_UPDATE_COMMENT,
+      ActionTypes.UPDATE_FAILURE_COMMENT
     ],
   }),
   document: entity({
@@ -246,6 +260,8 @@ const createEntity = combineReducers({
       ActionTypes.FETCH_FAILURE_DOCUMENT,
       ActionTypes.FETCH_SUCCESS_DOCUMENT,
       ActionTypes.CLEAR_CACHE_DOCUMENT,
+      ActionTypes.START_UPDATE_DOCUMENT,
+      ActionTypes.UPDATE_FAILURE_DOCUMENT
     ],
   }),
 });

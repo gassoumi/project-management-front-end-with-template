@@ -225,6 +225,9 @@ export const clearCacheTask = () => (dispatch) => {
 // create a task
 export const createTask = (task) => (dispatch) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_TASK
+  });
   axios
     .post("/api/tasks/", task)
     .then((response) => {
@@ -249,9 +252,9 @@ export const createTask = (task) => (dispatch) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_TASK
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_TASK
+      });
     })
     .finally(() => {
       // dispatch(hideLoading())
@@ -261,6 +264,9 @@ export const createTask = (task) => (dispatch) => {
 // update a task
 export const updateTask = (idTask, task) => (dispatch) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_TASK
+  });
   axios
     .put(`/api/tasks/${idTask}/`, task)
     .then((response) => {
@@ -285,9 +291,9 @@ export const updateTask = (idTask, task) => (dispatch) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_TASK
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_TASK
+      });
     })
     .finally(() => {
       // dispatch(hideLoading())

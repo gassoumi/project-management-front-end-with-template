@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const PrivateRoute = ({component: Component, auth, ...rest}) => {
 
-  const from = rest.location;
+  // const from = rest.location;
 
   return (<Route
       {...rest}

@@ -57,6 +57,9 @@ export const fetchNotes = (page = 1, pageSize, sort, searchQuery) => async (disp
 // create a note
 export const createNote = (note) => (dispatch, getState) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_NOTE
+  });
   const newNote = {...note, user: getState().auth.user.id};
   axios.post('/api/notes/', newNote)
     .then(response => {
@@ -76,6 +79,9 @@ export const createNote = (note) => (dispatch, getState) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_NOTE
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })
@@ -84,6 +90,9 @@ export const createNote = (note) => (dispatch, getState) => {
 // update a note
 export const updateNote = (idNote, note) => (dispatch, getState) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_PROBLEM
+  });
   const newNote = {...note, user: getState().auth.user.id};
   axios.put(`/api/notes/${idNote}/`, newNote)
     .then(response => {
@@ -103,6 +112,9 @@ export const updateNote = (idNote, note) => (dispatch, getState) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_NOTE
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })

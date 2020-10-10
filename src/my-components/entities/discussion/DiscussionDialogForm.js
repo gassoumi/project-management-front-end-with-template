@@ -62,7 +62,7 @@ const DialogActions = withStyles((theme) => ({
 
 
 function DiscussionDialogForm({
-                                open, handleClose, discussion,
+                                open, handleClose, discussion, isUpdating,
                                 createDiscussion, updateDiscussion, isNew,
                               }) {
 
@@ -143,6 +143,7 @@ function DiscussionDialogForm({
             type="submit"
             // startIcon={<SaveIcon/>}
             variant="contained"
+            disabled={isUpdating}
             color="primary"
           >
             Enregistrer

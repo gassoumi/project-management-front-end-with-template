@@ -82,6 +82,9 @@ export const deleteDocumentById = document => (dispatch) => {
 // update a document
 export const updateDocument = (id, formData) => async dispatch => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_DOCUMENT
+  });
   const config = {
     headers: {
       'content-type': 'multipart/form-data'
@@ -108,9 +111,9 @@ export const updateDocument = (id, formData) => async dispatch => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_DOCUMENT
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_DOCUMENT
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })

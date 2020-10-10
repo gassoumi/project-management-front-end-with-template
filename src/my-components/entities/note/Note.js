@@ -59,7 +59,7 @@ function Note(props) {
   );
   const [query, setQuery] = React.useState(paginationState.search);
 
-  const {isFetching, fetchNotes, deleteNote, notes, pageSize, page, createNote, updateNote, count} = props;
+  const {isFetching, fetchNotes, deleteNote, notes, pageSize, page, createNote, updateNote, isUpdating, count} = props;
 
 
   const handleInput = (event) => {
@@ -214,6 +214,7 @@ function Note(props) {
         handleClose={() => setOpenDetailDialog(false)}
       />
       <NoteUpdate
+        isUpdating={isUpdating}
         createNote={createNote}
         updateNote={updateNote}
         fetchNotes={fetchNotes}
@@ -328,6 +329,7 @@ const mapStateToProps = (state) => {
     value: state.setting.tabValueNote,
     updateSuccess: state.entity.note.updateSuccess,
     deleteSuccess: state.entity.note.deleteSuccess,
+    isUpdating: state.entity.note.isUpdating,
   };
 };
 

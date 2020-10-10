@@ -73,7 +73,7 @@ const DialogActions = withStyles((theme) => ({
 
 function SprintUpdate({
                         open = false, handleClose, sprint,
-                        createSprint, updateSprint, isNew, updateSuccess, fetchSprints, deleteSuccess
+                        createSprint, updateSprint, isNew, isUpdating
                       }) {
 
   const defaultValue = {
@@ -235,6 +235,7 @@ function SprintUpdate({
             form="form-sprint"
             type="submit"
             // startIcon={<SaveIcon/>}
+            disabled={isUpdating}
             variant="contained"
             color="primary"
           >

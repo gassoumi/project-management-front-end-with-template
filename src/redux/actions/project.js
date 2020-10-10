@@ -96,8 +96,12 @@ export const clearCacheProject = () => dispatch => {
 };
 
 // create a project
-export const createProject = (project) => dispatch => {
+export const createProject = (project) => async dispatch => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_PROJECT
+  });
+  await sleep(1e3);
   axios.post('/api/projects/', project)
     .then(response => {
       const designation = response.data.designation;
@@ -119,9 +123,9 @@ export const createProject = (project) => dispatch => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_PROJECT
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_PROJECT
+      })
     }).finally(() => {
     // dispatch(hideLoading())
   })
@@ -130,6 +134,9 @@ export const createProject = (project) => dispatch => {
 // update a project
 export const updateProject = (idProject, project) => dispatch => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_PROJECT
+  });
   axios.put(`/api/projects/${idProject}/`, project)
     .then(response => {
       const designation = response.data.designation;
@@ -151,9 +158,9 @@ export const updateProject = (idProject, project) => dispatch => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_PROJECT
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_PROJECT
+      })
     }).finally(() => {
     // dispatch(hideLoading())
   })

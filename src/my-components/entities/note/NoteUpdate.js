@@ -67,7 +67,7 @@ const DialogActions = withStyles((theme) => ({
 
 
 function NoteUpdate({
-                      open, handleClose, note,
+                      open, handleClose, note, isUpdating,
                       createNote, updateNote, isNew,
                     }) {
 
@@ -206,6 +206,7 @@ function NoteUpdate({
           <Button
             form="form-note"
             type="submit"
+            disabled={isUpdating}
             // startIcon={<SaveIcon/>}
             variant="contained"
             color="primary"

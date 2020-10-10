@@ -200,6 +200,9 @@ export const fetchDiscussion = id => async (dispatch) => {
 // create a discussion
 export const createDiscussion = (discussion) => (dispatch, getState) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_DISCUSSION
+  });
   const newDiscussion = {...discussion, user: getState().auth.user.id};
   axios.post('/api/discussions/', newDiscussion)
     .then(response => {
@@ -222,9 +225,9 @@ export const createDiscussion = (discussion) => (dispatch, getState) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_TASK
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_DISCUSSION
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })
@@ -233,6 +236,9 @@ export const createDiscussion = (discussion) => (dispatch, getState) => {
 // update a discussion
 export const updateDiscussion = (idDiscussion, discussion) => async (dispatch, getState) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_DISCUSSION
+  });
   const newDiscussion = {...discussion, user: getState().auth.user.id};
   try {
     const response = await axios.put(`/api/discussions/${idDiscussion}/`, newDiscussion);
@@ -252,9 +258,9 @@ export const updateDiscussion = (idDiscussion, discussion) => async (dispatch, g
       const {data, status} = error.response;
       dispatch(returnErrors(data, status));
     }
-    // dispatch({
-    //     type: ActionTypes.ACTION_FAILURE_TASK
-    // })
+    dispatch({
+      type: ActionTypes.UPDATE_FAILURE_DISCUSSION
+    });
   } finally {
     // dispatch(hideLoading());
   }

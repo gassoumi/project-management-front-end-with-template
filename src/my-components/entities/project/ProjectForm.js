@@ -15,7 +15,7 @@ import {createProject, updateProject, deleteProjectById, clearCacheProject} from
 import {connect} from "react-redux";
 import {green, red} from '@material-ui/core/colors';
 import CancelIcon from '@material-ui/icons/Cancel';
-import {Card, Tooltip} from "@material-ui/core";
+import {Tooltip} from "@material-ui/core";
 
 
 let id = 0;
@@ -109,7 +109,7 @@ const UserInput = ({user, register, addUser, removeUser, errors, displayMinus}) 
 
 const ProjectForm = ({
                        project, isNew, createProject, updateProject, cancel, updateSuccess, deleteSuccess,
-                       clearCacheProject
+                       clearCacheProject, isUpdating
                      }) => {
 
   const classes = useStyles();
@@ -295,13 +295,13 @@ const ProjectForm = ({
             <div className={classes.buttons}>
               <Button
                 startIcon={<SaveIcon/>}
+                disabled={isUpdating}
                 type="submit"
                 variant="contained"
                 color="primary">
-                Enregistrer
+                Enregistrer{isUpdating && '...'}
               </Button>
               <Button
-
                 startIcon={<CancelIcon/>}
                 onClick={cancel}
                 variant="outlined"
@@ -323,6 +323,7 @@ const ProjectForm = ({
 const mapStateToProps = state => ({
   updateSuccess: state.entity.project.updateSuccess,
   deleteSuccess: state.entity.project.deleteSuccess,
+  isUpdating: state.entity.project.isUpdating,
 });
 
 const mapDispatchToProps = {

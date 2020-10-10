@@ -174,6 +174,9 @@ export const fetchWeekSprints = (page = 1, pageSize = 3) => async (dispatch, get
 // create a sprint
 export const createSprint = (sprint) => (dispatch) => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_SPRINT
+  });
   axios.post('/api/sprints/', sprint)
     .then(response => {
       const name = response.data.name;
@@ -195,9 +198,9 @@ export const createSprint = (sprint) => (dispatch) => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_SPRINT
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_SPRINT
+      });
     }).finally(() => {
     // dispatch(hideLoading())
   })
@@ -206,6 +209,9 @@ export const createSprint = (sprint) => (dispatch) => {
 // update a sprint
 export const updateSprint = (idSprint, sprint) => dispatch => {
   // dispatch(showLoading());
+  dispatch({
+    type: ActionTypes.START_UPDATE_SPRINT
+  });
   axios.put(`/api/sprints/${idSprint}/`, sprint)
     .then(response => {
       const name = response.data.name;
@@ -228,9 +234,9 @@ export const updateSprint = (idSprint, sprint) => dispatch => {
         const {data, status} = error.response;
         dispatch(returnErrors(data, status));
       }
-      // dispatch({
-      //     type: ActionTypes.ACTION_FAILURE_SPRINT
-      // })
+      dispatch({
+        type: ActionTypes.UPDATE_FAILURE_SPRINT
+      })
     }).finally(() => {
     // dispatch(hideLoading())
   })
