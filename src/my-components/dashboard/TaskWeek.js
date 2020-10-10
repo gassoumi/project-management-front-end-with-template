@@ -98,7 +98,8 @@ export default function WeekTask(props) {
             // variant="outlined"
             variant="contained"
             component={RouterLink}
-            to="/task" color="primary">
+            to="/task" color="primary"
+          >
             Voir tout
           </Button>
         </div>

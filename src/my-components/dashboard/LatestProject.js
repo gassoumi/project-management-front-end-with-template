@@ -78,7 +78,10 @@ export default function LatestProject(props) {
           </table>
         </div>
         <div className="card-footer py-3 text-center">
-          <Button size="small" variant="outlined" color="secondary">
+          <Button
+            component={RouterLink}
+            to="/project"
+            size="small" variant="outlined" color="secondary">
             Voir tout
           </Button>
         </div>
