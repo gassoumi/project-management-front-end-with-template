@@ -108,14 +108,14 @@ function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete}) {
             </div>
             }
           </td>
-          <td>
+          <td className="text-center">
             <div className={`badge badge-${getColorTask(task.status)} px-4`}>{task.status}</div>
           </td>
           <td className="text-center">
-            {moment(task.start_at).format('LL')}
+            {moment(task.start_at).format('L')}
           </td>
           <td className="text-center">
-            {moment(task.end_at).format('LL')}
+            {moment(task.end_at).format('L')}
           </td>
           {canEdit &&
           <td className="text-center">

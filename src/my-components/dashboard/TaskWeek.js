@@ -45,7 +45,7 @@ export default function WeekTask(props) {
             <tr>
               <th>Nom Projet</th>
               <th className="text-left">Tache</th>
-              <th className="text-center">Responsable</th>
+              <th className="text-left">Responsable</th>
               <th className="text-left">Status</th>
               <th className="text-center">Deadline</th>
             </tr>

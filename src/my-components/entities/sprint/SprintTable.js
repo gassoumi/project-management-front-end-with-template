@@ -39,7 +39,7 @@ function SprintTable({sprints, canEdit, sort, handleEdit, handleDelete}) {
         <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('project')}>
           Projet <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('desired_at')}>
+        <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('desired_at')}>
           Date <FontAwesomeIcon icon="sort"/>
         </th>
         <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('status')}>
@@ -63,7 +63,7 @@ function SprintTable({sprints, canEdit, sort, handleEdit, handleDelete}) {
                       </span>
             </Link>}
           </td>
-          <td>
+          <td className="text-center">
             {moment(sprint.desired_at).format('LL')}
           </td>
           <td className="text-center">

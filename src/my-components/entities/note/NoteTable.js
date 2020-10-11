@@ -23,7 +23,7 @@ function NoteTable({notes, sort, handleEdit, handleDelete}) {
         <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('comment')}>
           Commentaire <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('date')}>
+        <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('date')}>
           Date <FontAwesomeIcon icon="sort"/>
         </th>
         <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('ok')}>
@@ -42,7 +42,7 @@ function NoteTable({notes, sort, handleEdit, handleDelete}) {
           <td>
             {note.comment ? getDisplayString(note.comment, 45) : "Pas encore de commentaires"}
           </td>
-          <td>
+          <td className="text-center">
             {moment(note.date).format('LL')}
           </td>
           <td className="text-center">
