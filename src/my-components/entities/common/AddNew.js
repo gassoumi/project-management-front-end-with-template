@@ -45,7 +45,7 @@ function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, 
         canEdit && <div className="d-block d-md-flex align-items-center">
           <Button
             onClick={handleAdd}
-            size="small"
+            size="medium"
             variant="outlined"
             color="primary"
             className="font-weight-bold px-3">
@@ -56,7 +56,6 @@ function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, 
             />
           </span>
             <span className="btn-wrapper--label"> {buttonLabel}</span>
-
           </Button>
         </div>
       }

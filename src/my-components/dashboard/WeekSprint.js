@@ -128,7 +128,9 @@ export default function WeekSprint({items}) {
                   />
 
                   <ListItemSecondaryAction>
-                    <div className={`badge badge-${getColorSprint(item.status)} px-4`}>{item.status}</div>
+                    <h5>
+                      <span className={`badge badge-${getColorSprint(item.status)} px-4`}>{item.status}</span>
+                    </h5>
                   </ListItemSecondaryAction>
                 </ListItem>
                 {(index !== items.length - 1) && <Divider variant="middle" component="li"/>}
