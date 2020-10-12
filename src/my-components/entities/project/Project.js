@@ -171,7 +171,6 @@ const ApplicationsProjectsContent = (props) => {
         titleHeading="Projets"
         // titleDescription="Building a projects related application? Start from this layout."
       />
-
       <Fragment>
         <DeleteDialog
           object={project}
@@ -243,15 +242,25 @@ const ApplicationsProjectsContent = (props) => {
             )
         }
       </Fragment>
-
     </Fragment>
   )
-
-
 };
 
 ApplicationsProjectsContent.prototype = {
-  projects: PropTypes.array.isRequired
+  projects: PropTypes.array.isRequired,
+  page: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  updateSuccess: PropTypes.bool.isRequired,
+  deleteSuccess: PropTypes.bool.isRequired,
+  nextPageUrl: PropTypes.string,
+  fetchProjects: PropTypes.func.isRequired,
+  clearCacheProject: PropTypes.func.isRequired,
+  deleteProjectById: PropTypes.func.isRequired,
+  setTabValueProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

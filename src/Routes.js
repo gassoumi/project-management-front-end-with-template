@@ -99,10 +99,6 @@ const ApplicationsProjects = lazy(() =>
   import('./example-pages/ApplicationsProjects')
 );
 
-const Project = lazy(() =>
-  import('./my-components/entities/project/Project')
-);
-
 const ApplicationsWidgets = lazy(() =>
   import('./example-pages/ApplicationsWidgets')
 );

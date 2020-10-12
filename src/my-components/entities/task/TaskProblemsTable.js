@@ -13,305 +13,295 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import moment from 'moment';
-import {Link as RouterLink} from 'react-router-dom';
-import Link from '@material-ui/core/Link';
-import {getDisplayString} from "../../utils";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {green, yellow, brown} from '@material-ui/core/colors';
 
 
 // TODO 7
 // https://github.com/gregnb/mui-datatables#remote-data
 function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
 }
 
 function getComparator(order, orderBy) {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
 }
 
 
 function getHeadCells(canEdit) {
-    const headCells = [
-        {id: 'description', numeric: false, align: 'left', disablePadding: false, label: 'description'},
-        {id: 'cause', numeric: false, align: 'left', disablePadding: false, label: 'Cause'},
-        {id: 'resolutionTools', numeric: false, align: 'left', disablePadding: false, label: 'Outils de résolutions'},
-        {id: 'status', numeric: false, align: 'left', disablePadding: false, label: 'Statut'},
-        {id: 'start_at', numeric: false, align: 'left', disablePadding: false, label: 'Date Début'},
-        {id: 'end_at', numeric: false, align: 'left', disablePadding: false, label: 'Date Fin'},
-    ];
-    // if (displayProjectName) {
-    // put an element in the front of array
-    //     headCells.unshift(
-    //         {id: 'project', numeric: false, align: 'left', disablePadding: false, label: 'Nom du Projet'}
-    //     )
-    // }
-    return headCells;
+  const headCells = [
+    {id: 'description', numeric: false, align: 'left', disablePadding: false, label: 'description'},
+    {id: 'cause', numeric: false, align: 'left', disablePadding: false, label: 'Cause'},
+    {id: 'resolutionTools', numeric: false, align: 'left', disablePadding: false, label: 'Outils de résolutions'},
+    {id: 'status', numeric: false, align: 'left', disablePadding: false, label: 'Statut'},
+    {id: 'start_at', numeric: false, align: 'left', disablePadding: false, label: 'Date Début'},
+    {id: 'end_at', numeric: false, align: 'left', disablePadding: false, label: 'Date Fin'},
+  ];
+  // if (displayProjectName) {
+  // put an element in the front of array
+  //     headCells.unshift(
+  //         {id: 'project', numeric: false, align: 'left', disablePadding: false, label: 'Nom du Projet'}
+  //     )
+  // }
+  return headCells;
 }
 
 
 function EnhancedTableHead(props) {
-    const {
-        classes, onSelectAllClick, order, orderBy, numSelected, rowCount,
-        onRequestSort, canEdit,
-    } = props;
-    const createSortHandler = (property) => (event) => {
-        onRequestSort(event, property);
-    };
+  const {
+    classes, onSelectAllClick, order, orderBy, numSelected, rowCount,
+    onRequestSort, canEdit,
+  } = props;
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
 
-    return (
-        <TableHead>
-            <TableRow>
-                {getHeadCells(canEdit).map((headCell) => (
-                    <TableCell
-                        key={headCell.id}
-                        // align={headCell.numeric ? 'right' : 'left'}
-                        align={headCell.align}
-                        padding={headCell.disablePadding ? 'none' : 'default'}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
-                        >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <span className={classes.visuallyHidden}>
+  return (
+    <TableHead>
+      <TableRow>
+        {getHeadCells(canEdit).map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            // align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.align}
+            padding={headCell.disablePadding ? 'none' : 'default'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <span className={classes.visuallyHidden}>
                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                 </span>
-                            ) : null}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
-            </TableRow>
-        </TableHead>
-    );
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
 }
 
 EnhancedTableHead.propTypes = {
-    classes: PropTypes.object.isRequired,
-    numSelected: PropTypes.number.isRequired,
-    onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
-    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-    orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
+  numSelected: PropTypes.number.isRequired,
+  onRequestSort: PropTypes.func.isRequired,
+  onSelectAllClick: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  orderBy: PropTypes.string.isRequired,
+  rowCount: PropTypes.number.isRequired,
 };
 
 const useToolbarStyles = makeStyles((theme) => ({
-    root: {
-        paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(1),
-    },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-            }
-            : {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark,
-            },
-    title: {
-        flex: '1 1 100%',
-    },
+  root: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(1),
+  },
+  highlight:
+    theme.palette.type === 'light'
+      ? {
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
+      : {
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
+  title: {
+    flex: '1 1 100%',
+  },
 }));
 
 const EnhancedTableToolbar = (props) => {
-    const classes = useToolbarStyles();
-    const {numSelected, dense, handleChangeDense} = props;
+  const classes = useToolbarStyles();
+  const {numSelected, dense, handleChangeDense} = props;
 
-    return (
-        <Toolbar
-            className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
-            })}
-        >
-            <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                Problèms
-            </Typography>
-        </Toolbar>
-    );
+  return (
+    <Toolbar
+      className={clsx(classes.root, {
+        [classes.highlight]: numSelected > 0,
+      })}
+    >
+      <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        Problèms
+      </Typography>
+    </Toolbar>
+  );
 };
 
 EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
+  numSelected: PropTypes.number.isRequired,
 };
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
+  root: {
+    width: '100%',
+  },
+  buttons: {
+    '& > *': {
+      margin: theme.spacing(1),
     },
-    buttons: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-    tableCellMargin: {
-        margin: theme.spacing(1),
-    },
-    paper: {
-        width: '100%',
-        marginBottom: theme.spacing(2),
-    },
-    table: {
-        minWidth: 750,
-    },
-    visuallyHidden: {
-        border: 0,
-        clip: 'rect(0 0 0 0)',
-        height: 1,
-        margin: -1,
-        overflow: 'hidden',
-        padding: 0,
-        position: 'absolute',
-        top: 20,
-        width: 1,
-    },
+  },
+  tableCellMargin: {
+    margin: theme.spacing(1),
+  },
+  paper: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 750,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
 }));
 
 function TaskProblemsTable(props) {
-    const {
-        rows, count, handleEdit, handleDelete, page, pageSize: rowsPerPage, canEdit,
-        fetchProblems,
-    } = props;
-    const classes = useStyles();
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('name');
-    const [selected, setSelected] = React.useState([]);
-    //const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(true);
-    //const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const {
+    rows, count, handleEdit, handleDelete, page, pageSize: rowsPerPage, canEdit,
+    fetchProblems,
+  } = props;
+  const classes = useStyles();
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
+  const [selected, setSelected] = React.useState([]);
+  //const [page, setPage] = React.useState(0);
+  const [dense, setDense] = React.useState(true);
+  //const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelecteds = rows.map((n) => n.name);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  };
 
-    const handleChangePage = (event, newPage) => {
-        //setPage(newPage);
-        fetchProblems(newPage + 1, rowsPerPage);
-    };
+  const handleChangePage = (event, newPage) => {
+    //setPage(newPage);
+    fetchProblems(newPage + 1, rowsPerPage);
+  };
 
-    const handleChangeRowsPerPage = (event) => {
-        //setRowsPerPage(parseInt(event.target.value, 10));
-        //setPage(0);
-        fetchProblems(1, parseInt(event.target.value, 10));
-    };
+  const handleChangeRowsPerPage = (event) => {
+    //setRowsPerPage(parseInt(event.target.value, 10));
+    //setPage(0);
+    fetchProblems(1, parseInt(event.target.value, 10));
+  };
 
-    const handleChangeDense = (event) => {
-        setDense(event.target.checked);
-    };
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
 
 
-    return (
-        <div className={classes.root}>
-            <Paper className={classes.paper}>
-                <EnhancedTableToolbar dense={dense} handleChangeDense={handleChangeDense}
-                                      numSelected={selected.length}/>
-                <TableContainer>
-                    <Table
-                        className={classes.table}
-                        aria-labelledby="tableTitle"
-                        size={dense ? 'small' : 'medium'}
-                        aria-label="enhanced table"
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <EnhancedTableToolbar dense={dense} handleChangeDense={handleChangeDense}
+                              numSelected={selected.length}/>
+        <TableContainer>
+          <Table
+            className={classes.table}
+            aria-labelledby="tableTitle"
+            size={dense ? 'small' : 'medium'}
+            aria-label="enhanced table"
+          >
+            <EnhancedTableHead
+              canEdit={canEdit}
+              classes={classes}
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {stableSort(rows, getComparator(order, orderBy))
+              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const labelId = `enhanced-table-checkbox-${index}`;
+                  return (
+                    <TableRow
+                      hover
+                      // onClick={(event) => handleClick(event, row.name)}
+                      tabIndex={-1}
+                      key={row.id}
                     >
-                        <EnhancedTableHead
-                            canEdit={canEdit}
-                            classes={classes}
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
-                            onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
-                        />
-                        <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
-                            // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    const labelId = `enhanced-table-checkbox-${index}`;
-                                    return (
-                                        <TableRow
-                                            hover
-                                            // onClick={(event) => handleClick(event, row.name)}
-                                            tabIndex={-1}
-                                            key={row.id}
-                                        >
 
-                                            <TableCell align="left">
-                                                {row.description}
-                                            </TableCell>
-                                            <TableCell align="left">
-                                                {row.cause}
-                                            </TableCell>
+                      <TableCell align="left">
+                        {row.description}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.cause}
+                      </TableCell>
 
-                                            <TableCell component="th" id={labelId} scope="row" padding="default">
-                                                {row.resolutionTools}
-                                            </TableCell>
-                                            <TableCell align="left">
-                                                {row.status}
-                                            </TableCell>
-                                            <TableCell
-                                                align="left">{moment(row.start_at).format('LL')}
-                                            </TableCell>
-                                            <TableCell
-                                                align="left">{moment(row.end_at).format('LL')}
-                                            </TableCell>
-                                        </TableRow>
-                                    );
-                                })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={count}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-            </Paper>
-        </div>
-    );
+                      <TableCell component="th" id={labelId} scope="row" padding="default">
+                        {row.resolutionTools}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.status}
+                      </TableCell>
+                      <TableCell
+                        align="left">{moment(row.start_at).format('LL')}
+                      </TableCell>
+                      <TableCell
+                        align="left">{moment(row.end_at).format('LL')}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={count}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </div>
+  );
 }
 
 export default TaskProblemsTable;

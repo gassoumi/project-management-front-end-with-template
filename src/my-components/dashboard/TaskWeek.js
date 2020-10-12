@@ -8,9 +8,11 @@ import Link from "@material-ui/core/Link";
 import {Avatar, Card} from "@material-ui/core";
 import {getColorTask} from "../entities/task/TaskTable";
 
+WeekTask.prototype = {
+  rows: PropTypes.array.isRequired
+};
 
-export default function WeekTask(props) {
-  const {rows} = props;
+export default function WeekTask({rows}) {
 
   return (
     <Fragment>

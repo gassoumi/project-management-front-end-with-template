@@ -15,9 +15,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import moment from 'moment';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-
 import {useForm, Controller} from "react-hook-form";
 import AsyncComboBox from '../common/AsyncComboBox';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -72,7 +69,7 @@ const DialogActions = withStyles((theme) => ({
 
 
 function SprintUpdate({
-                        open = false, handleClose, sprint,
+                        open, handleClose, sprint,
                         createSprint, updateSprint, isNew, isUpdating
                       }) {
 
@@ -234,7 +231,6 @@ function SprintUpdate({
           <Button
             form="form-sprint"
             type="submit"
-            // startIcon={<SaveIcon/>}
             disabled={isUpdating}
             variant="contained"
             color="primary"
@@ -242,7 +238,6 @@ function SprintUpdate({
             Enregistrer
           </Button>
           <Button
-            // startIcon={<CancelIcon/>}
             onClick={handleClose}
             variant="contained"
             color="secondary"
@@ -257,7 +252,15 @@ function SprintUpdate({
 }
 
 
-SprintUpdate.propTypes = {};
+SprintUpdate.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  sprint: PropTypes.object.isRequired,
+  createSprint: PropTypes.func.isRequired,
+  updateSprint: PropTypes.func.isRequired,
+  isNew: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+};
 
 
 export default SprintUpdate;

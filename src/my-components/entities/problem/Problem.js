@@ -1,12 +1,9 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import Grid from "@material-ui/core/Grid";
-
 import {Selector} from "../index";
 import {connect} from "react-redux";
 import {fetchProblems, deleteProblemById, clearCacheProblem} from "../../../redux";
 import ProblemTable from './ProblemTable';
-import Loading from '../common/Loading';
 import DeleteDialog from '../common/DeleteDialog';
 import {PageTitle} from "../../../layout-components";
 import Card from "@material-ui/core/Card";
@@ -28,7 +25,6 @@ function Problem(props) {
   );
 
   const [query, setQuery] = React.useState(paginationState.search);
-
 
   const handleInput = (event) => {
     setQuery(event.target.value);
@@ -216,7 +212,18 @@ function Problem(props) {
   );
 }
 
-Problem.propTypes = {};
+Problem.propTypes = {
+  problems: PropTypes.array.isRequired,
+  nextPageUrl: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
+  count: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  deleteSuccess: PropTypes.bool.isRequired,
+  fetchProblems: PropTypes.func.isRequired,
+  deleteProblemById: PropTypes.func.isRequired,
+  clearCacheProblem: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
   const {

@@ -5,8 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {Controller} from "react-hook-form";
-// import {connect} from "react-redux";
-// import {returnErrors} from "../index";
 
 // https://codesandbox.io/s/react-hook-form-controller-079xx?file=/src/MuiAutoComplete.js
 function sleep(delay = 0) {
@@ -126,7 +124,5 @@ function ComboBoxUser(props) {
     />
   );
 }
-
-// export default connect(null, {returnErrors})(ComboBoxUser);
 
 export default ComboBoxUser

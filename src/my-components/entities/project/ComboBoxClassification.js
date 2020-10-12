@@ -24,14 +24,6 @@ export default function ComboBoxClassification({register, name, errors, defaultV
   );
 }
 
-/*
-Scrum Master
-/ Product Owner / Chef Equipe /
- Responsable Développement /
- Responsable /
-  Conception/Assistante de direction
- */
-
 const classifications2 = [
   'Scrum Master',
   'Product Owner',
@@ -42,12 +34,12 @@ const classifications2 = [
   'Executive Assistant',
 ];
 
-const classifications = [
-  {title: 'Scrum Master'},
-  {title: 'Project Owner '},
-  {title: 'Team Leader'},
-  {title: 'Responsible development'},
-  {title: 'Responsible'},
-  {title: 'Conception'},
-  {title: 'Executive assistant'},
-];
+// const classifications = [
+//   {title: 'Scrum Master'},
+//   {title: 'Project Owner '},
+//   {title: 'Team Leader'},
+//   {title: 'Responsible development'},
+//   {title: 'Responsible'},
+//   {title: 'Conception'},
+//   {title: 'Executive assistant'},
+// ];

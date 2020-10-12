@@ -15,6 +15,7 @@ import {getColorSprint} from "../entities/sprint/SprintTable";
 import Link from "@material-ui/core/Link";
 import {Link as RouterLink} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,43 +26,18 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiListSubheader-root": {
       color: 'black',
     }
-    /*  maxWidth: 360, */
   },
   inline: {
     display: 'inline',
   },
   paper: {
     width: '100%',
-    wordWrap: 'break-word',
-    wordBreak: 'break-word',
-    /*   marginBottom: theme.spacing(2), */
-    /*         height: '100%',
-            display: 'flex',
-            flexDirection: 'column', */
   },
 }));
 
-const getBackgroundColor = value => {
-  let style = {};
-  switch (value) {
-    case "Cloturé":
-      style.backgroundColor = "#007bff";
-      break;
-    case "En Cours":
-      style.backgroundColor = "#6c757d";
-      break;
-    case "Archivé":
-      style.backgroundColor = "#ffc107";
-      break;
-    case "Planifiè":
-      style.backgroundColor = "#28a745";
-      break;
-    default:
-      style.backgroundColor = "#ffc107";
-  }
-  return style;
+WeekSprint.prototype = {
+  items: PropTypes.array.isRequired
 };
-
 
 export default function WeekSprint({items}) {
   const classes = useStyles();

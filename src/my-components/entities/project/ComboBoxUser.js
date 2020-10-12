@@ -15,7 +15,7 @@ const URL = '/api/auth/users';
 const PARAM_SEARCH = "search=";
 
 function ComboBoxUser(props) {
-  const {register, name, errors, returnErrors, defaultValue} = props;
+  const {register, name, errors, defaultValue} = props;
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [loading, setLoading] = React.useState(false);

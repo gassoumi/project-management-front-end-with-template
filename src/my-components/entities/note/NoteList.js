@@ -1,21 +1,16 @@
-import React, {Fragment} from 'react';
-
+import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-
-import {Button, Card, Fab, Grid, Tooltip} from '@material-ui/core';
-
-import stock1 from '../../../assets/images/stock-photos/stock-1.jpg';
-import stock2 from '../../../assets/images/stock-photos/stock-2.jpg';
-import stock3 from '../../../assets/images/stock-photos/stock-3.jpg';
-
-import avatar2 from '../../../assets/images/avatars/avatar2.jpg';
+import {Fab, Grid, Tooltip} from '@material-ui/core';
 import moment from 'moment';
-import {Link as RouterLink} from "react-router-dom";
-import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {red} from "@material-ui/core/colors";
+import PropTypes from 'prop-types';
 
+NoteList.propTypes = {
+  notes: PropTypes.array.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};
 
 export function getColorNoteStatus(value) {
   if (value) {
@@ -25,15 +20,12 @@ export function getColorNoteStatus(value) {
   }
 }
 
-export default function NoteList(props) {
-
-  const {notes, handleEdit, handleDelete} = props;
+export default function NoteList({notes, handleEdit, handleDelete}) {
   return (
     <div className="pt-3">
       <Grid container spacing={4}>
         {notes.map(note => (
           <Grid key={note.id} item xs={12} sm={6} md={4}>
-
             <div
               className="card card-box-hover-rise mb-4"
               style={{height: '100%'}}
@@ -57,9 +49,8 @@ export default function NoteList(props) {
                       icon={['far', 'clock']}
                       className="text-warning mr-1"
                     />
-                    <span className="text-warning ">A faire à {moment(note.date).calendar()} </span>
+                    <span className="text-warning ">A faire à {moment(note.date).format('L')} </span>
                   </div>
-
                   <div className="d-flex justify-content-end align-items-end ">
                     <Tooltip arrow title="Modifier">
                       <Fab size="small" color="primary" onClick={() => handleEdit(note.id)} className="m-2">
@@ -72,12 +63,9 @@ export default function NoteList(props) {
                       </Fab>
                     </Tooltip>
                   </div>
-
                 </div>
               </div>
-
             </div>
-
           </Grid>
         ))
         }

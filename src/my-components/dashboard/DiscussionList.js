@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import {getDisplayString} from "../utils";
-import {Card} from "@material-ui/core";
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   inline: {
@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+DiscussionList.prototype = {
+  items: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired
+};
 
 export default function DiscussionList({items, title}) {
   const classes = useStyles();

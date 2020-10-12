@@ -1,41 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import ProblemForm from './ProblemForm';
-import Paper from '@material-ui/core/Paper';
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import {makeStyles} from '@material-ui/core/styles';
 import axios from 'axios';
-import Loading from '../common/Loading';
 import queryString from "query-string";
 import {Card, Divider} from "@material-ui/core";
 import {SuspenseLoading} from "../../../Routes";
 
-//   color: theme.palette.text.secondary,
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    color: theme.palette.text.black,
-  },
-  formTitle: {
-    textAlign: 'center',
-  }
-}));
-
 function ProblemUpdate(props) {
 
-  const classes = useStyles();
   const isNewProblem = !props.match.params || !props.match.params.id;
   const [problem, setProblem] = useState({});
   const [isLoaded, setIsLoaded] = useState(false);
 
-
   // const idTask = queryString.parse(props.location.search).idTask || null;
-
 
   // https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await
   useEffect(() => {
@@ -119,8 +96,5 @@ function ProblemUpdate(props) {
     </>
   );
 }
-
-
-ProblemUpdate.propTypes = {};
 
 export default ProblemUpdate;

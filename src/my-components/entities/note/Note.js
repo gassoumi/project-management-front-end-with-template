@@ -189,9 +189,11 @@ function Note(props) {
     setOpenDeleteDialog(true);
   };
 
-  const handleChangePagination = (event, value) => {
-    //setPage(value);
-    // fetchDiscussions(value);
+  const handleChangePagination = (event, newPage) => {
+    setPaginationState({
+      ...paginationState,
+      activePage: newPage
+    });
   };
 
   const sort = p => () => {
@@ -307,12 +309,28 @@ function Note(props) {
             </Card>
           </Fragment>
       }
-
     </>
   );
 }
 
-Note.propTypes = {};
+Note.propTypes = {
+  notes: PropTypes.array.isRequired,
+  nextPageUrl: PropTypes.string,
+  page: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  updateSuccess: PropTypes.bool.isRequired,
+  deleteSuccess: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  fetchNotes: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
+  clearCacheNote: PropTypes.func.isRequired,
+  createNote: PropTypes.func.isRequired,
+  updateNote: PropTypes.func.isRequired,
+  setTabValueNote: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
   const {

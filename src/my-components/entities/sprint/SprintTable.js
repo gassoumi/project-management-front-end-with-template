@@ -7,7 +7,13 @@ import {getDisplayString} from "../../utils";
 import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 
-SprintTable.propTypes = {};
+SprintTable.propTypes = {
+  sprints: PropTypes.array.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  sort: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
 
 export const getColorSprint = value => {
   switch (value) {

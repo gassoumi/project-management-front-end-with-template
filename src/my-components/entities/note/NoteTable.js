@@ -1,12 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {IconButton, Tooltip} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import moment from 'moment';
 import {getDisplayString} from "../../utils";
 import {getColorNoteStatus} from './NoteList';
+import PropTypes from 'prop-types';
 
-NoteTable.propTypes = {};
+NoteTable.propTypes = {
+  notes: PropTypes.array.isRequired,
+  sort: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};
 
 
 function NoteTable({notes, sort, handleEdit, handleDelete}) {

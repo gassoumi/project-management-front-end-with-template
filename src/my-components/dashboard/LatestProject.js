@@ -3,20 +3,16 @@ import PropTypes from 'prop-types';
 import {Link as RouterLink} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
-import {getDisplayString} from "../utils";
 import {Card, IconButton, Tooltip} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AvatarGroup from "@material-ui/lab/AvatarGroup/AvatarGroup";
 import {getAvatar} from "../entities/project/ProjectTable";
 
+LatestProject.prototype = {
+  rows: PropTypes.array.isRequired
+};
+export default function LatestProject({rows}) {
 
-// https://stackoverflow.com/questions/60969224/how-to-override-muipaper-root-style-in-material-table
-// https://material-ui.com/styles/basics/#nesting-selectors
-
-
-export default function LatestProject(props) {
-
-  const {rows} = props;
   return (
     <Fragment>
       <Card className="card-box">

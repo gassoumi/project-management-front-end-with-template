@@ -4,10 +4,12 @@ import moment from 'moment';
 import {Avatar} from "@material-ui/core";
 import {getColorTask} from "../task/TaskTable";
 
+TasksProjectTable.prototype = {
+  rows: PropTypes.array.isRequired,
+};
 
 // TODO 7
 // https://github.com/gregnb/mui-datatables#remote-data
-
 function TasksProjectTable({rows}) {
   return (
     <>

@@ -1,32 +1,36 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {Button, Card, Grid, Tooltip} from "@material-ui/core";
-import people2 from "../../../assets/images/stock-photos/people-2.jpg";
 import {getDisplayString} from "../../utils";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useRouteMatch} from "react-router-dom";
 import {Link as RouterLink} from 'react-router-dom';
 
-ProjectList.propTypes = {};
+function getUsersClasses(index) {
+  let classes = "badge mt-1 mb-4 font-weight-normal font-size-lg px-4 py-1 h-auto badge-neutral-";
+  const remainder = index % 3;
+  switch (remainder) {
+    case 0 :
+      classes += "success text-success";
+      break;
+    case 1:
+      classes += "danger text-danger";
+      break;
+    default:
+      classes += "warning text-warning";
+      break;
+  }
+  return classes;
+}
+
+ProjectList.propTypes = {
+  projects: PropTypes.array.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};
 
 function ProjectList({projects, canEdit, handleDelete}) {
   let match = useRouteMatch("");
-  const getUsersClasses = index => {
-    let classes = "badge mt-1 mb-4 font-weight-normal font-size-lg px-4 py-1 h-auto badge-neutral-";
-    const remainder = index % 3;
-    switch (remainder) {
-      case 0 :
-        classes += "success text-success";
-        break;
-      case 1:
-        classes += "danger text-danger";
-        break;
-      default:
-        classes += "warning text-warning";
-        break;
-    }
-    return classes;
-  };
 
   return (
     <Fragment>

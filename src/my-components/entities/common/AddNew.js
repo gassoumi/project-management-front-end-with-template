@@ -8,7 +8,17 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-AddNew.propTypes = {};
+AddNew.propTypes = {
+  label: PropTypes.string,
+  count: PropTypes.number.isRequired,
+  queryValue: PropTypes.string,
+  handleInput: PropTypes.func.isRequired,
+  handleQuery: PropTypes.func.isRequired,
+  handleAdd: PropTypes.func.isRequired,
+  buttonLabel: PropTypes.string.isRequired,
+  canEdit: PropTypes.bool.isRequired
+
+};
 
 function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, buttonLabel, canEdit}) {
   return (

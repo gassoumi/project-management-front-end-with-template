@@ -334,7 +334,17 @@ function ProblemForm(props) {
   );
 }
 
-ProblemForm.propTypes = {};
+ProblemForm.propTypes = {
+  updateSuccess: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  createProblem: PropTypes.func.isRequired,
+  updateProblem: PropTypes.func.isRequired,
+  clearCacheProblem: PropTypes.func.isRequired,
+  isNewProblem: PropTypes.bool.isRequired,
+  problem: PropTypes.object.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  disablePickTask: PropTypes.bool,
+};
 
 const mapStateToProps = state => ({
   updateSuccess: state.entity.problem.updateSuccess,

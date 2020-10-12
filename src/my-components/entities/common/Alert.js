@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiAlert from "@material-ui/lab/Alert";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Card} from "@material-ui/core";
 
-Alert.propTypes = {};
+
+Alert.propTypes = {
+  label: PropTypes.string.isRequired
+};
 
 function Alert({label}) {
   return (

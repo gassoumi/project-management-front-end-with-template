@@ -1,7 +1,6 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import ProjectForm from './ProjectForm';
-import Loading from "../common/Loading";
 import Grid from "@material-ui/core/Grid";
 import {Card, Divider} from "@material-ui/core";
 import {SuspenseLoading} from "../../../Routes";

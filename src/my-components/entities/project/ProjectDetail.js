@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Paper from '@material-ui/core/Paper';
@@ -8,7 +8,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-import Loading from '../common/Loading';
 import TeamList from './TeamList';
 import Button from "@material-ui/core/Button";
 import EditIcon from '@material-ui/icons/Edit';
@@ -24,23 +23,11 @@ import {Doughnut} from "react-chartjs-2";
 import {getTaskCodeColor} from "../task/TaskTable";
 
 
-const data = {
-  labels: ['Red', 'Green', 'Yellow'],
-  datasets: [
-    {
-      data: [300, 50, 100],
-      backgroundColor: ['#f83245', '#4191ff', '#f4772e'],
-      hoverBackgroundColor: ['#f83245', '#4191ff', '#f4772e']
-    }
-  ]
-};
-
-
 const getData = stat => {
   const labels = stat.map(item => item.status);
   const data = stat.map(item => item.count);
   const backgroundColor = labels.map(label => getTaskCodeColor(label));
-  const chartData = {
+  return {
     labels,
     datasets: [
       {
@@ -50,8 +37,6 @@ const getData = stat => {
       }
     ]
   };
-  console.log(chartData);
-  return chartData;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ProjectDescription(props) {
   const classes = useStyles();
-
 
   return (
     <>
@@ -150,8 +134,6 @@ function ProjectDetail(props) {
       active = false;
     }
   }, [id]);
-
-  console.log(stat);
 
   // const isFetching = !props.isProjectLoaded || props.isFetchingProjectTasks || !isStatLoaded;
 
@@ -234,7 +216,7 @@ function ProjectDetail(props) {
                   <TeamList items={props.project.projectUsers}/>
                 </Grid>
                 {
-                  stat.length > 0 &&
+                  isStatLoaded && stat.length > 0 &&
                   <Grid item xs={12}>
                     <Fragment>
                       <ExampleWrapperSimple sectionHeading="Task en chart">
@@ -255,7 +237,15 @@ function ProjectDetail(props) {
 
 ProjectDetail.propTypes = {
   project: PropTypes.object.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  isProjectLoaded: PropTypes.bool.isRequired,
+  tasks: PropTypes.array.isRequired,
+  isFetchingProjectTasks: PropTypes.bool.isRequired,
+  count: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
   fetchProjectById: PropTypes.func.isRequired,
+  fetchProjectTasks: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {

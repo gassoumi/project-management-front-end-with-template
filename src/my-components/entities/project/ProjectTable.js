@@ -7,9 +7,6 @@ import {Avatar, Button, IconButton, Tooltip} from "@material-ui/core";
 import {useRouteMatch} from "react-router-dom";
 import {Link as RouterLink} from 'react-router-dom';
 
-ProjectTable.propTypes = {};
-
-
 export const getAvatar = (index, project) => {
   const length = project.projectUsers.length;
   if (index <= 4 || (length - index === 1)) {
@@ -18,7 +15,7 @@ export const getAvatar = (index, project) => {
       photo = project.projectUsers[index].user.userProfile.photo;
     }
     return (
-      <Tooltip title={project.projectUsers[index].user.username}>
+      <Tooltip title={project.projectUsers[index].user.username || ""}>
         <Avatar alt="..." src={photo}/>
       </Tooltip>
     )
@@ -37,9 +34,15 @@ export const getAvatar = (index, project) => {
   }
 };
 
+ProjectTable.propTypes = {
+  projects: PropTypes.array.isRequired,
+  sort: PropTypes.func.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};
+
 function ProjectTable({projects, sort, canEdit, handleDelete}) {
   let match = useRouteMatch("");
-
 
   return (
     <div className="table-responsive">

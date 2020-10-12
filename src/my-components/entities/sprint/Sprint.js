@@ -1,13 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-
 import {connect} from "react-redux";
 import {Selector} from '../index';
 import {fetchSprints, deleteSprintById, clearCacheSprint, createSprint, updateSprint} from "../../../redux/actions";
 import SprintUpdate from './SprintUpdate';
 import axios from 'axios';
 import SprintTable from './SprintTable';
-
 import {SuspenseLoading} from "../../../Routes";
 import DeleteDialog from '../common/DeleteDialog';
 import {PageTitle} from "../../../layout-components";
@@ -22,8 +20,8 @@ import Alert from "../common/Alert";
 function Sprint(props) {
 
   const {
-    pageSize, sprints, page, count, isFetching,
-    fetchSprints, canEdit, deleteSprintById, isUpdating
+    pageSize, sprints, page, count, isFetching, deleteSuccess, updateSuccess, clearCacheSprint,
+    fetchSprints, canEdit, deleteSprintById, isUpdating, createSprint, updateSprint,
   } = props;
 
   const [open, setOpen] = React.useState(false);
@@ -123,7 +121,7 @@ function Sprint(props) {
   useEffect(() => {
     // fetchSprints(1, 10);
     return () => {
-      props.clearCacheSprint();
+      clearCacheSprint();
     }
   }, []);
 
@@ -133,7 +131,7 @@ function Sprint(props) {
 
 
   useEffect(() => {
-    if (props.updateSuccess || props.deleteSuccess) {
+    if (updateSuccess || deleteSuccess) {
       handleClose();
       if (paginationState.activePage === 1) {
         sortEntities();
@@ -144,7 +142,7 @@ function Sprint(props) {
         });
       }
     }
-  }, [props.deleteSuccess, props.updateSuccess]);
+  }, [deleteSuccess, updateSuccess]);
 
   useEffect(() => {
     const params = new URLSearchParams(props.location.search);
@@ -209,8 +207,8 @@ function Sprint(props) {
           label={sprintToDelete.name}/>
         <SprintUpdate
           isUpdating={isUpdating}
-          createSprint={props.createSprint}
-          updateSprint={props.updateSprint}
+          createSprint={createSprint}
+          updateSprint={updateSprint}
           isNew={isNew}
           sprint={sprint}
           open={open}
@@ -219,9 +217,9 @@ function Sprint(props) {
         <Card className="card-box mb-4">
           <div>
             <AddNew
-              canEdit={props.canEdit}
+              canEdit={canEdit}
               label="Sprints"
-              count={props.count}
+              count={count}
               buttonLabel="Ajouter un sprint"
               handleAdd={createNew}
               handleInput={handleInput}
@@ -261,9 +259,9 @@ function Sprint(props) {
                   <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={props.count}
-                    rowsPerPage={props.pageSize}
-                    page={props.page - 1}
+                    count={count}
+                    rowsPerPage={pageSize}
+                    page={page - 1}
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                   />
@@ -276,14 +274,29 @@ function Sprint(props) {
                 </Card>
               </Fragment>
             )
-
         }
       </Fragment>
     </>
   );
 }
 
-Sprint.propTypes = {};
+Sprint.propTypes = {
+  sprints: PropTypes.array.isRequired,
+  nextPageUrl: PropTypes.string,
+  page: PropTypes.number.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  count: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  updateSuccess: PropTypes.bool.isRequired,
+  deleteSuccess: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  fetchSprints: PropTypes.func.isRequired,
+  deleteSprintById: PropTypes.func.isRequired,
+  clearCacheSprint: PropTypes.func.isRequired,
+  createSprint: PropTypes.func.isRequired,
+  updateSprint: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
   const {

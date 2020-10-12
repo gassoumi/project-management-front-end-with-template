@@ -7,7 +7,12 @@ import {getDisplayString} from "../../utils";
 import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 
-ProblemTable.propTypes = {};
+ProblemTable.propTypes = {
+  problems: PropTypes.array.isRequired,
+  sort: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
 
 export const getColorProblem = value => {
     if (value === "NON_CLOTURE") {
@@ -16,7 +21,6 @@ export const getColorProblem = value => {
     return "success";
   }
 ;
-
 
 function ProblemTable({problems, sort, handleEdit, handleDelete}) {
   return (

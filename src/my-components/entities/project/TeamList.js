@@ -2,7 +2,11 @@ import React, {Fragment} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import {Card, CardContent} from "@material-ui/core";
+import PropTypes from 'prop-types';
 
+TeamList.prototype = {
+  items: PropTypes.array.isRequired
+};
 
 export default function TeamList({items}) {
   return (

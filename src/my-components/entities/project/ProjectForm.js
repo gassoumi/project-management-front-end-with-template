@@ -1,5 +1,5 @@
 import {makeStyles} from "@material-ui/core/styles";
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, useEffect} from "react";
 import Grid from "@material-ui/core/Grid";
 import ComboBoxUser from "./ComboBoxUser";
 import ComboBoxClassification from "./ComboBoxClassification";
@@ -16,6 +16,7 @@ import {connect} from "react-redux";
 import {green, red} from '@material-ui/core/colors';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {Tooltip} from "@material-ui/core";
+import PropTypes from 'prop-types';
 
 
 let id = 0;
@@ -106,6 +107,7 @@ const UserInput = ({user, register, addUser, removeUser, errors, displayMinus}) 
     </>
   )
 };
+
 
 const ProjectForm = ({
                        project, isNew, createProject, updateProject, cancel, updateSuccess, deleteSuccess,
@@ -318,6 +320,19 @@ const ProjectForm = ({
 
   );
 
+};
+
+ProjectForm.propTypes = {
+  project: PropTypes.object.isRequired,
+  isNew: PropTypes.bool.isRequired,
+  cancel: PropTypes.func.isRequired,
+  updateSuccess: PropTypes.bool.isRequired,
+  deleteSuccess: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  createProject: PropTypes.func.isRequired,
+  updateProject: PropTypes.func.isRequired,
+  clearCacheProject: PropTypes.func.isRequired,
+  deleteProjectById: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

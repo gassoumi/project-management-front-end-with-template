@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,9 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-
 import {useForm, Controller} from "react-hook-form";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -21,6 +18,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import PropTypes from 'prop-types';
 
 
 const styles = (theme) => ({
@@ -96,8 +94,7 @@ function NoteUpdate({
       updateNote(note.id, newNote)
     }
   };
-
-
+  
   return (
     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
       <DialogTitle className="bg-light" id="form-dialog-ajout-note">
@@ -199,7 +196,6 @@ function NoteUpdate({
                 inputRef={register}/>
             } label={statusInput ? "DONE" : "NOT DONE"}/>
 
-
           </DialogContent>
         </MuiPickersUtilsProvider>
         <DialogActions>
@@ -207,14 +203,12 @@ function NoteUpdate({
             form="form-note"
             type="submit"
             disabled={isUpdating}
-            // startIcon={<SaveIcon/>}
             variant="contained"
             color="primary"
           >
             Enregistrer
           </Button>
           <Button
-            // startIcon={<CancelIcon/>}
             onClick={handleClose}
             variant="contained"
             color="secondary"
@@ -229,7 +223,15 @@ function NoteUpdate({
 }
 
 
-NoteUpdate.propTypes = {};
+NoteUpdate.propTypes = {
+  open: PropTypes.bool.isRequired,
+  isNew: PropTypes.bool.isRequired,
+  note: PropTypes.object.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  createNote: PropTypes.func.isRequired,
+  updateNote: PropTypes.func.isRequired,
+};
 
 
 export default NoteUpdate;

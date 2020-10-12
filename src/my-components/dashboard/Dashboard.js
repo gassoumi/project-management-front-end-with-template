@@ -18,7 +18,6 @@ import {
   clearCacheDiscussion,
 } from "../../redux";
 import {Selector} from "../entities";
-import Loading from "../entities/common/Loading";
 import {SuspenseLoading} from "../../Routes";
 import {PageTitle} from "../../layout-components";
 
@@ -103,7 +102,26 @@ function Dashboard(props) {
   )
 }
 
-Dashboard.propTypes = {};
+Dashboard.propTypes = {
+  latestDiscussion: PropTypes.array.isRequired,
+  topDiscussion: PropTypes.array.isRequired,
+  latestProjects: PropTypes.array.isRequired,
+  taskWeek: PropTypes.array.isRequired,
+  sprintWeek: PropTypes.array.isRequired,
+  isFetchingWeekTask: PropTypes.bool.isRequired,
+  isFetchingWeekSprint: PropTypes.bool.isRequired,
+  isFetchingLatestDiscussion: PropTypes.bool.isRequired,
+  isFetchingTopDiscussion: PropTypes.bool.isRequired,
+  fetchWeekTasks: PropTypes.func.isRequired,
+  fetchWeekSprints: PropTypes.func.isRequired,
+  fetchLatestProjects: PropTypes.func.isRequired,
+  fetchLatestDiscussions: PropTypes.func.isRequired,
+  fetchTopDiscussions: PropTypes.func.isRequired,
+  clearCacheTask: PropTypes.func.isRequired,
+  clearCacheSprint: PropTypes.func.isRequired,
+  clearCacheProject: PropTypes.func.isRequired,
+  clearCacheDiscussion: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => {
   const {

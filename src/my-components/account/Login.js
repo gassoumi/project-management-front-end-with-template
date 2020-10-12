@@ -72,7 +72,7 @@ const Login = (props) => {
   if (props.auth.isAuthenticated) {
     return <Redirect to={from}/>;
   }
-  
+
   if (props.auth.isLoading) {
     return <SuspenseLoading/>
   }
@@ -233,6 +233,11 @@ const Login = (props) => {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
+
+Login.prototype = {
+  auth: PropTypes.object,
+  login: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, {login})(Login);
 

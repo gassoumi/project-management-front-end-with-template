@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function DeleteDialog(props) {
-
   const {
     open, title,
     handleClose, deleteObject, object, label
@@ -16,7 +15,6 @@ function DeleteDialog(props) {
     handleClose();
   };
 
-  //  Êtes-vous sûr de vouloir supprimer cette entrée?
   return (
     <Dialog open={open} onClose={handleClose}>
       <div className="text-center p-5">
@@ -58,6 +56,13 @@ function DeleteDialog(props) {
 }
 
 
-DeleteDialog.propTypes = {};
+DeleteDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  handleClose: PropTypes.func.isRequired,
+  deleteObject: PropTypes.func.isRequired,
+  object: PropTypes.object,
+  label: PropTypes.string,
+};
 
 export default DeleteDialog;

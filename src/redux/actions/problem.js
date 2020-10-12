@@ -15,7 +15,7 @@ export function sleep(delay = 0) {
 }
 
 //get list of problems
-export const fetchProblems = (page = 1, pageSize) => async (dispatch, getState) => {
+export const fetchProblems = (page = 1, pageSize, sort, searchQuery) => async (dispatch, getState) => {
   // dispatch(showLoading());
   dispatch({
     type: ActionTypes.STARRED_REQUEST_PROBLEMS,
@@ -27,7 +27,7 @@ export const fetchProblems = (page = 1, pageSize) => async (dispatch, getState) 
 
   try {
     await sleep(1e1); // For demo purposes.
-    const res = await axios.get(`/api/problems/?page=${page}&page_size=${pageSizeToUse}`);
+    const res = await axios.get(`/api/problems/?search=${searchQuery}&page=${page}&page_size=${pageSizeToUse}&ordering=${sort}`);
     const {data: {results, next, count}} = res;
     const listTask = results.map(problem => problem.task);
     const filteredIdTask = _.uniq(listTask);
