@@ -602,18 +602,7 @@ const Routes = () => {
               '/note',
               '/problem',
             ]}>
-              <LeftSidebar>
-                <Switch location={location} key={location.pathname}>
-                  <motion.div
-                    initial="initial"
-                    animate="in"
-                    exit="out"
-                    variants={pageVariants}
-                    transition={pageTransition}>
-                    <PrivateRoute path="/" component={Entities}/>
-                  </motion.div>
-                </Switch>
-              </LeftSidebar>
+              <PrivateRoute path="/" component={Entities}/>
             </Route>
             <Route path='*'>
               <MinimalLayout>

@@ -8,7 +8,14 @@ import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import avatar7 from "../../../assets/images/avatars/avatar7.jpg";
 
-NoteTable.propTypes = {};
+NoteTable.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  sort: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  displayStatus: PropTypes.bool.isRequired,
+};
 
 export const getColorTask = value => {
   switch (value) {
@@ -45,7 +52,7 @@ export const getTaskCodeColor = (value) => {
 };
 
 
-function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete}) {
+function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete, displayStatus}) {
   return (
     <table className="text-nowrap mb-0 table table-borderless table-hover">
       <thead>
@@ -62,9 +69,13 @@ function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete}) {
         <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('user')}>
           Responsable <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('status')}>
-          Statut <FontAwesomeIcon icon="sort"/>
-        </th>
+        {
+          displayStatus &&
+          <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('status')}>
+            Statut <FontAwesomeIcon icon="sort"/>
+          </th>
+        }
+
         <th className="text-center" style={{cursor: 'pointer'}} onClick={sort('start_at')}>
           Date début <FontAwesomeIcon icon="sort"/>
         </th>
@@ -108,9 +119,12 @@ function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete}) {
             </div>
             }
           </td>
-          <td className="text-center">
-            <div className={`badge badge-${getColorTask(task.status)} px-4`}>{task.status}</div>
-          </td>
+          {
+            displayStatus &&
+            <td className="text-center">
+              <div className={`badge badge-${getColorTask(task.status)} px-4`}>{task.status}</div>
+            </td>
+          }
           <td className="text-center">
             {moment(task.start_at).format('L')}
           </td>

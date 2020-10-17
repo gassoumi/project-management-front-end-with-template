@@ -107,7 +107,6 @@ function ProblemForm(props) {
 
 
   const onSubmit = data => {
-    console.log(data);
     const {description, resolutionTools, start_at, end_at, cause, status, task} = data;
     const newProblem = {
       description,
@@ -137,7 +136,7 @@ function ProblemForm(props) {
               required
               multiline
               rows={5}
-              // variant="outlined"
+              variant="outlined"
               label="Description"
               name="description"
               inputRef={register({
@@ -159,7 +158,7 @@ function ProblemForm(props) {
               required
               multiline
               rows={5}
-              // variant="outlined"
+              variant="outlined"
               label="Cause"
               name="cause"
               inputRef={register({
@@ -178,8 +177,8 @@ function ProblemForm(props) {
             <TextField
               // defaultValue={task.description || ""}
               // margin={"normal"}
+              variant="outlined"
               required
-              variant="standard"
               label="Outils de résolution"
               name="resolutionTools"
               inputRef={register({
@@ -199,23 +198,23 @@ function ProblemForm(props) {
               required
               error={!!errors.status}
               fullWidth
-              // margin="normal"
-            >
-              <InputLabel id="problem-select-label">Statut</InputLabel>
+              variant="outlined">
+              <InputLabel id="demo-simple-select-outlined-statut">Statut</InputLabel>
               <Controller
                 name="status"
                 // defaultValue={""}
                 as={
                   <Select
-                    labelId="problem-select-label"
+                    labelId="demo-simple-select-outlined-statut"
+                    id="demo-simple-select-outlined"
+                    label="Statut"
                   >
                     <MenuItem value="">
                       <em>Choisir un statut</em>
                     </MenuItem>
                     <MenuItem value="CLOTURE">Cloturé</MenuItem>
                     <MenuItem value="NON_CLOTURE">Non Cloturé</MenuItem>
-                  </Select>
-                }
+                  </Select>}
                 control={control}
                 rules={{required: 'this field is required'}}
               />
@@ -224,11 +223,13 @@ function ProblemForm(props) {
               }
             </FormControl>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <FormControl
               fullWidth
             >
               <AsyncComboBox
+                variant="outlined"
                 disabled={disablePickTask}
                 control={control}
                 errors={errors}
@@ -252,7 +253,7 @@ function ProblemForm(props) {
               }}
               as={
                 <KeyboardDatePicker
-                  // inputVariant="outlined"
+                  inputVariant="outlined"
                   clearLabel="vider"
                   cancelLabel="annuler"
                   clearable
@@ -287,7 +288,7 @@ function ProblemForm(props) {
               // defaultValue={null}
               as={
                 <KeyboardDatePicker
-                  // inputVariant="outlined"
+                  inputVariant="outlined"
                   clearLabel="vider"
                   cancelLabel="annuler"
                   clearable

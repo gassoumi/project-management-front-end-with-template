@@ -185,10 +185,6 @@ function ProjectDetail(props) {
                               <div className="table-responsive">
                                 <TasksProjectTable
                                   rows={props.tasks}
-
-                                  fetchTasks={fetchTasks}
-                                  page={props.page - 1}
-                                  pageSize={props.pageSize}
                                 />
                               </div>
                             </CardContent>

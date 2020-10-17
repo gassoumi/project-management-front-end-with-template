@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {IconButton, Tooltip} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import moment from 'moment';
 import {getDisplayString} from "../../utils";
 import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 
-DocumentTable.propTypes = {};
+DocumentTable.propTypes = {
+  documents: PropTypes.array.isRequired,
+  canEdit: PropTypes.bool.isRequired,
+  sort: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
 
 export function getFileName(path) {
   if (typeof path !== "string") {
@@ -20,52 +25,55 @@ export function getFileName(path) {
   return path;
 }
 
+export function getFileExtension(path) {
+  if (typeof path !== "string") {
+    return undefined;
+  }
+  const index = path.lastIndexOf(".");
+  if (index > -1) {
+    return path.substring(index + 1);
+  }
+  return null;
+}
+
+
 function DocumentTable({documents, canEdit, sort, handleEdit, handleDelete}) {
   return (
     <table className="text-nowrap mb-0 table table-borderless table-hover">
       <thead>
       <tr>
-        <th style={{cursor: 'pointer'}} onClick={sort('id')}>
+        <th className="bg-neutral-danger" style={{cursor: 'pointer'}} onClick={sort('id')}>
           ID <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('code')}>
+        <th className="text-left bg-neutral-danger">
+          Projet
+        </th>
+        <th className="text-left bg-neutral-danger" style={{cursor: 'pointer'}} onClick={sort('code')}>
           Code Document <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('description')}>
-          Description <FontAwesomeIcon icon="sort"/>
+        <th className="text-left bg-neutral-danger" style={{cursor: 'pointer'}} onClick={sort('docFile')}>
+          Nom du document <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('version')}>
+        <th className="text-left bg-neutral-danger" style={{cursor: 'pointer'}} onClick={sort('version')}>
           Version <FontAwesomeIcon icon="sort"/>
         </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('task')}>
-          Tache <FontAwesomeIcon icon="sort"/>
-        </th>
-        <th className="text-left" style={{cursor: 'pointer'}} onClick={sort('version')}>
-          Nom du fichier <FontAwesomeIcon icon="sort"/>
-        </th>
-        {canEdit && <th className="text-center">Actions</th>}
+        {canEdit && <th className="text-center bg-neutral-danger">Actions</th>}
       </tr>
       </thead>
       <tbody>
       {documents.map(document => (
         <tr key={document.id}>
           <td>{document.id}</td>
-          <td>
-            {document.code}
-          </td>
-          <td>
-            {document.description}
-          </td>
-          <td>
-            {document.version}
-          </td>
           <td className="text-info">
-            {(document.task && document.task.description) &&
-            <Link component={RouterLink} to={`/task/${document.task.id}`}>
+            {(document.task && document.task.sprint && document.task.sprint.project) &&
+            <Link component={RouterLink} to={`/project/${document.task.sprint.project.id}`}>
                       <span className="text-primary">
-                        {getDisplayString(document.task.description)}
+                        {getDisplayString(document.task.sprint.project.designation)}
                       </span>
             </Link>}
+          </td>
+          <td>
+            {document.code}
           </td>
           <td>
             <Link target="_blank" rel="noreferrer" href={document.docFile}>
@@ -73,6 +81,9 @@ function DocumentTable({documents, canEdit, sort, handleEdit, handleDelete}) {
               {getFileName(document.docFile)}
                 </span>
             </Link>
+          </td>
+          <td>
+            {document.version}
           </td>
           {canEdit &&
           <td className="text-center">

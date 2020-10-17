@@ -1,5 +1,6 @@
 import React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route, useLocation} from 'react-router-dom';
+import {motion} from 'framer-motion';
 import Project from './project';
 import Sprint from './sprint';
 import Task from './task';
@@ -11,24 +12,83 @@ import {returnErrors} from "../../redux/actions/messages";
 import * as Selector from "../../redux/selectors";
 import Discussion from './discussion';
 import Dashboard from '../dashboard';
+import {LeftSidebar} from "../../layout-blueprints";
 
 // add all entities here
 const Routes = (props) => {
   const {match} = props;
+  const location = useLocation();
+
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      scale: 0.99
+    },
+    in: {
+      opacity: 1,
+      scale: 1
+    },
+    out: {
+      opacity: 0,
+      scale: 1.01
+    }
+  };
+
+  const pageTransition = {
+    type: 'tween',
+    ease: 'anticipate',
+    duration: 0.4
+  };
 
   return (
-    <Switch>
-      <Route exact path="/dashboard" component={Dashboard}/>
-      <Route path={`${match.url}project`} component={Project}/>
-      <Route path={`${match.url}sprint`} component={Sprint}/>
-      <Route path={`${match.url}task`} component={Task}/>
-      <Route path={`${match.url}document`} component={Document}/>
-      <Route path={`${match.url}discussion`} component={Discussion}/>
-      <Route path={`${match.url}note`} component={Note}/>
-      <Route path={`${match.url}problem`} component={Problem}/>
-      {/*<Redirect to="*"/>*/}
-    </Switch>
-
+    <>
+      <Route path={[
+        '/dashboard',
+        '/project',
+        '/sprint',
+        '/task',
+        '/discussion',
+        '/note',
+        '/problem',
+      ]}>
+        <LeftSidebar>
+          <Switch location={location} key={location.pathname}>
+            <motion.div
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}>
+              <Route exact path="/dashboard" component={Dashboard}/>
+              <Route path={`${match.url}project`} component={Project}/>
+              <Route path={`${match.url}sprint`} component={Sprint}/>
+              <Route path={`${match.url}task`} component={Task}/>
+              <Route path={`${match.url}document`} component={Document}/>
+              <Route path={`${match.url}discussion`} component={Discussion}/>
+              <Route path={`${match.url}note`} component={Note}/>
+              <Route path={`${match.url}problem`} component={Problem}/>
+            </motion.div>
+          </Switch>
+        </LeftSidebar>
+      </Route>
+      <Route
+        path='/document'>
+        <Route path={`${match.url}document`} component={Document}/>
+      </Route>
+      <>
+        {/*<Switch>*/}
+        {/*  <Route exact path="/dashboard" component={Dashboard}/>*/}
+        {/*  <Route path={`${match.url}project`} component={Project}/>*/}
+        {/*  <Route path={`${match.url}sprint`} component={Sprint}/>*/}
+        {/*  <Route path={`${match.url}task`} component={Task}/>*/}
+        {/*  <Route path={`${match.url}document`} component={Document}/>*/}
+        {/*  <Route path={`${match.url}discussion`} component={Discussion}/>*/}
+        {/*  <Route path={`${match.url}note`} component={Note}/>*/}
+        {/*  <Route path={`${match.url}problem`} component={Problem}/>*/}
+        {/*  /!*<Redirect to="*"/>*!/*/}
+        {/*</Switch>*/}
+      </>
+    </>
   );
 };
 

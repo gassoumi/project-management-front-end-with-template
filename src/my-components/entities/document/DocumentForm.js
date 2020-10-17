@@ -16,6 +16,7 @@ import {connect} from "react-redux";
 import {createDocument, updateDocument} from "../../../redux";
 import {getFileName} from "./DocumentTable";
 import Link from "@material-ui/core/Link";
+import clsx from 'clsx';
 
 const URL_TASK = "/api/tasks/";
 
@@ -73,12 +74,11 @@ function DocumentForm(props) {
   // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Submitting_forms_and_uploading_files
   const onSubmit = data => {
     // console.log(data);
-    const {code, description, version, task, docFile} = data;
+    const {code, version, task, docFile} = data;
     const file = docFile[0];
     // console.log(file);
     const formData = new FormData();
     formData.append('code', code);
-    formData.append('description', description);
     formData.append('version', version);
     if (task) {
       formData.append('task', task.id);
@@ -105,11 +105,10 @@ function DocumentForm(props) {
 
   return (
     <>
-      <form id="form-task" onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Grid item container justify="center" spacing={1}>
-          <Grid item xs={10}>
+      <form id="form-task" className="p-4 pr-5 pl-5" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
             <TextField
-              margin={"normal"}
               required
               variant="standard"
               label="Code Document"
@@ -126,28 +125,8 @@ function DocumentForm(props) {
               helperText={errors.code && errors.code.message}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <TextField
-              margin={"normal"}
-              required
-              variant="standard"
-              label="Description"
-              name="description"
-              inputRef={register({
-                required: 'this field is required',
-                minLength: {
-                  value: 2,
-                  message: 'Max length is 2',
-                },
-              })}
-              fullWidth
-              error={!!errors.description}
-              helperText={errors.description && errors.description.message}
-            />
-          </Grid>
-          <Grid item xs={10}>
-            <TextField
-              margin={"normal"}
               required
               variant="standard"
               label="Version"
@@ -164,10 +143,10 @@ function DocumentForm(props) {
               helperText={errors.version && errors.version.message}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <FormControl
               fullWidth
-              margin="normal"
+              // margin="normal"
             >
               <AsyncComboBox
                 control={control}
@@ -190,9 +169,9 @@ function DocumentForm(props) {
             </Grid>
 
           }
-          <Grid xs={10} item>
+          <Grid xs={12} item>
             <FormControl
-              margin="normal"
+              // margin="normal"
               required
               error={!!errors.docFile}
             >
@@ -220,7 +199,7 @@ function DocumentForm(props) {
             </FormControl>
           </Grid>
 
-          <Grid className={classes.buttons} item xs={10}>
+          <Grid className={classes.buttons} item xs={12}>
             <Button
               variant="contained"
               color="primary"
@@ -233,10 +212,11 @@ function DocumentForm(props) {
             </Button>
             <Button
               onClick={handleCancel}
-              variant="contained"
-              color="default"
+              variant="outlined"
+              className={clsx("text-github", classes.button)}
+              color="secondary"
               startIcon={<CancelIcon/>}
-              className={classes.button}>
+            >
               Annuler
             </Button>
           </Grid>

@@ -1,27 +1,46 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import Grid from "@material-ui/core/Grid";
-import {fade, makeStyles, withStyles} from "@material-ui/core/styles";
-import {green, purple} from '@material-ui/core/colors';
 import {Selector} from "../index";
 import {connect} from "react-redux";
 import {fetchTasks, deleteTaskById, clearCacheTask, clearCacheProject} from "../../../redux";
 import TaskTable from './TaskTable';
-import Loading from '../common/Loading';
-import {Link as RouterLink} from 'react-router-dom';
-import Button from "@material-ui/core/Button";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import DeleteDialog from '../common/DeleteDialog';
-import GreenButton from "../common/GreenButton";
 import {PageTitle} from "../../../layout-components";
 import Card from "@material-ui/core/Card";
 import AddNew from "../common/AddNew";
 import {getSortState, overridePaginationStateWithQueryParams} from "../../../utils";
 import {SuspenseLoading} from "../../../Routes";
-import {CardContent, IconButton, TablePagination, Tooltip} from "@material-ui/core";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import Alert from "../common/Alert";
+import {
+  Box,
+  CardContent,
+  Tab,
+  TablePagination,
+  Tabs,
+  Typography
+} from "@material-ui/core";
+import {getColorTask} from "./TaskTable";
+import Alert from '../common/Alert';
 
+
+function TabPanel(props) {
+  const {children, value, index, ...other} = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      {...other}>
+      {value === index && <Box p={2}>{children}</Box>}
+    </Typography>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+};
 
 // TODO file plugin
 // https://github.com/react-dropzone/react-dropzone/
@@ -159,6 +178,33 @@ function Task(props) {
     });
   };
 
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const getTabContent = (filter) => {
+    const newTasks = props.tasks.filter(task => task.status === filter);
+    if (newTasks.length === 0) {
+      return <Alert label="Pas de taches !!"/>;
+    } else {
+      return (
+        <div className="table-responsive">
+          <TaskTable
+            displayStatus={false}
+            canEdit={props.canEdit}
+            tasks={newTasks}
+            count={props.count}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            sort={sort}
+          />
+        </div>
+      )
+    }
+  };
+
   return (
     <>
       <PageTitle
@@ -190,28 +236,49 @@ function Task(props) {
         <SuspenseLoading/>
         : (props.tasks && props.tasks.length > 0) ?
           (<div className="example-card-seamless mb-4-spacing">
-            <Card className="card-box mb-4">
-              <div className="card-header pr-2">
-                <div className="card-header--title">Taches status</div>
-                <div className="card-header--actions">
-                  <Tooltip arrow title="Refresh">
-                    <IconButton size="small" color="primary" className="mr-3">
-                      <FontAwesomeIcon icon={['fas', 'cog']} spin/>
-                    </IconButton>
-                  </Tooltip>
-                </div>
-              </div>
+            <Card className="card-box bg-white mb-4">
               <CardContent className="p-3">
-                <div className="table-responsive">
-                  <TaskTable
-                    canEdit={props.canEdit}
-                    tasks={props.tasks}
-                    count={props.count}
-                    handleEdit={handleEdit}
-                    handleDelete={handleDelete}
-                    sort={sort}
-                  />
-                </div>
+                <Tabs
+                  value={value}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  variant="fullWidth"
+                  onChange={handleChange}>
+                  <Tab className="py-3" label="Tous"/>
+                  <Tab className={`py-3 text-${getColorTask('Backlog')}`} label="Backlog"/>
+                  <Tab className={`py-3 text-${getColorTask('A Faire')}`} label="A faire"/>
+                  <Tab className={`py-3 text-${getColorTask('En Cours')}`} label="En cours"/>
+                  <Tab className={`py-3 text-${getColorTask('A Verifier')}`} label="A vérifier"/>
+                  <Tab className={`py-3 text-${getColorTask('Termine')}`} label="Terminé"/>
+                </Tabs>
+                <TabPanel value={value} index={0}>
+                  <div className="table-responsive">
+                    <TaskTable
+                      displayStatus={true}
+                      canEdit={props.canEdit}
+                      tasks={props.tasks}
+                      count={props.count}
+                      handleEdit={handleEdit}
+                      handleDelete={handleDelete}
+                      sort={sort}
+                    />
+                  </div>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                  {getTabContent('Backlog')}
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                  {getTabContent('A Faire')}
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                  {getTabContent('En Cours')}
+                </TabPanel>
+                <TabPanel value={value} index={4}>
+                  {getTabContent('A Verifier')}
+                </TabPanel>
+                <TabPanel value={value} index={5}>
+                  {getTabContent('Termine')}
+                </TabPanel>
               </CardContent>
               <div className="card-footer p-1 bg-secondary">
                 <TablePagination

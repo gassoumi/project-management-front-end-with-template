@@ -30,7 +30,7 @@ function Problem(props) {
     setQuery(event.target.value);
   };
 
-  const handleQuery = (event) => {
+  const handleQuery = () => {
     setPaginationState({
       ...paginationState,
       activePage: 1,

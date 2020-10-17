@@ -761,4 +761,4 @@ const navItems = [
   }
 ];
 
-export default navItems2;
+export default navItems;

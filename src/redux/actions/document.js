@@ -120,7 +120,7 @@ export const updateDocument = (id, formData) => async dispatch => {
 };
 
 //get list of documents
-export const fetchDocuments = (page = 1, pageSize, queryString = "") => async (dispatch, getState) => {
+export const fetchDocuments = (page = 1, pageSize, queryString = "", sort, searchQuery) => async (dispatch, getState) => {
   // dispatch(showLoading());
   dispatch({
     type: ActionTypes.STARRED_REQUEST_DOCUMENTS,
@@ -133,7 +133,7 @@ export const fetchDocuments = (page = 1, pageSize, queryString = "") => async (d
   try {
     await sleep(1e2); // For demo purposes.
     const res = await axios
-      .get(`/api/documents/?page=${page}&page_size=${pageSizeToUse}&${queryString}`);
+      .get(`/api/documents/?page=${page}&page_size=${pageSizeToUse}&${queryString}&search=${searchQuery}&ordering=${sort}`);
     const {data: {results, next, count}} = res;
     // fetch all tasks of this list of documents
     const listTask = results.map(document => document.task).filter(item => item != null);
