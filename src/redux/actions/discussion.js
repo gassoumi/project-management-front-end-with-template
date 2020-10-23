@@ -13,7 +13,7 @@ import {fetchUserById} from "./user";
 
 
 //get list of discussions
-export const fetchDiscussions = (page = 1, pageSize) => async (dispatch, getState) => {
+export const fetchDiscussions = (page = 1, pageSize, searchQuery) => async (dispatch, getState) => {
   // dispatch(showLoading());
   // dispatch({
   //     type: ActionTypes.CLEAR_CACHE_COMMENT,
@@ -28,7 +28,7 @@ export const fetchDiscussions = (page = 1, pageSize) => async (dispatch, getStat
 
   try {
     await sleep(1e2); // For demo purposes.
-    const res = await axios.get(`/api/discussions/?page=${page}&page_size=${pageSizeToUse}`);
+    const res = await axios.get(`/api/discussions/?page=${page}&page_size=${pageSizeToUse}&search=${searchQuery}`);
     const {data: {results, next, count}} = res;
 
     // fetch all users of this list of discussions
@@ -211,10 +211,10 @@ export const createDiscussion = (discussion) => (dispatch, getState) => {
         added: `la discussion ${object}  a été creée `
       }));
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_DISCUSSION
+        type: ActionTypes.CLEAR_CACHE_TOP_DISCUSSION
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_TOP_DISCUSSION
+        type: ActionTypes.CLEAR_CACHE_DISCUSSION
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_DISCUSSION

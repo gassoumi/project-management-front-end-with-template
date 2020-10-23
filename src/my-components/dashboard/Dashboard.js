@@ -59,10 +59,10 @@ function Dashboard(props) {
 
   return (
     <>
-      <PageTitle
-        titleHeading="Dashboard"
-        // titleDescription="Building a projects related application? Start from this layout."
-      />
+      {/*<PageTitle*/}
+      {/*  titleHeading="Dashboard"*/}
+      {/*  // titleDescription="Building a projects related application? Start from this layout."*/}
+      {/*/>*/}
       {!isLoaded ?
         <SuspenseLoading/> :
         <Grid container spacing={3}>

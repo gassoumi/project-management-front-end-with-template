@@ -61,8 +61,8 @@ const ApplicationsProjectsContent = (props) => {
     props.setTabValueProject(newValue);
   };
 
-  const handleInput = (event) => {
-    setQuery(event.target.value);
+  const handleInput = (value) => {
+    setQuery(value);
   };
 
   const handleDelete = project => {
@@ -167,10 +167,10 @@ const ApplicationsProjectsContent = (props) => {
 
   return (
     <Fragment>
-      <PageTitle
-        titleHeading="Projets"
-        // titleDescription="Building a projects related application? Start from this layout."
-      />
+      {/*<PageTitle*/}
+      {/*  titleHeading="Projets"*/}
+      {/*  // titleDescription="Building a projects related application? Start from this layout."*/}
+      {/*/>*/}
       <Fragment>
         <DeleteDialog
           object={project}

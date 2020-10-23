@@ -40,7 +40,7 @@ const Sidebar = props => {
   const toggleHoverOff = () => setSidebarHover(false);
 
   const closeDrawer = () => setSidebarToggleMobile(!sidebarToggleMobile);
-  
+
 
   const sidebarMenuContent = (
     <div

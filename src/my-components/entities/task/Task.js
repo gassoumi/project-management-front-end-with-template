@@ -64,8 +64,8 @@ function Task(props) {
   const [query, setQuery] = React.useState(paginationState.search);
 
 
-  const handleInput = (event) => {
-    setQuery(event.target.value);
+  const handleInput = (value) => {
+    setQuery(value);
   };
 
   const handleQuery = (event) => {
@@ -207,9 +207,9 @@ function Task(props) {
 
   return (
     <>
-      <PageTitle
-        titleHeading="Taches"
-      />
+      {/*<PageTitle*/}
+      {/*  titleHeading="Taches"*/}
+      {/*/>*/}
       <DeleteDialog
         open={open}
         object={task}

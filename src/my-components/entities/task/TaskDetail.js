@@ -1,89 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import {makeStyles} from "@material-ui/core/styles";
 import {fetchTaskById, clearCacheTask, clearCacheProblem, fetchProblemsByTask} from "../../../redux";
 import {connect} from "react-redux";
 import {Selector} from "../index";
-import Loading from '../common/Loading';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {SuspenseLoading} from "../../../Routes";
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import TaskProblemsTable from './TaskProblemsTable';
 import CircularProgress from '../common/CircularProgress';
-
-TaskDetail.propTypes = {};
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiDivider-root ": {
-      padding: 0,
-      margin: 0
-    }
-  },
-  paper: {
-    wordWrap: 'break-word',
-    wordBreak: 'break-word',
-  },
-  content: {
-    padding: theme.spacing(2),
-  },
-  description: {
-    marginTop: theme.spacing(1),
-    // wordBreak: 'break-all',
-    // wordWrap: 'break-word',
-
-  },
-  comments: {
-    paddingLeft: theme.spacing(3)
-  },
-  inputComment: {
-    marginTop: theme.spacing(2),
-  },
-  circularProgress: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: theme.spacing(2),
-    justifyContent: 'center'
-  },
-  buttons: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    // marginLeft: theme.spacing(1),
-    // '& > *': {
-    //     margin: theme.spacing(1),
-    // },
-  },
-  title: {
-    fontWeight: 500,
-  }
-}));
-
-function createData(name, calories, fat, carbs, protein) {
-  return {name, calories, fat, carbs, protein};
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
+import Card from "@material-ui/core/Card";
+import {Avatar, CardContent, IconButton, TablePagination, Tooltip} from "@material-ui/core";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ReactMarkdown from "react-markdown";
+import Link from "@material-ui/core/Link";
+import {Link as RouterLink} from "react-router-dom";
+import {getDisplayString} from "../../utils";
+import {getColorTask} from "./TaskTable";
+import {getColorSprint} from "../sprint/SprintTable";
 
 function TaskDetail(props) {
-  const classes = useStyles();
   const id = props.match.params.id;
-  const {task, isLoaded, fetchTaskById, clearCacheTask, clearCacheProblem} = props;
+  const {task, isLoaded, fetchTaskById, clearCacheTask, clearCacheProblem, fetchProblemsByTask} = props;
 
   useEffect(() => {
     fetchTaskById(id);
@@ -96,158 +34,200 @@ function TaskDetail(props) {
 
   useEffect(() => {
     if (isLoaded) {
-      console.log("tasks is loaded");
-      props.fetchProblemsByTask(1, id, 10);
+      fetchProblemsByTask(1, id, 10);
     }
   }, [isLoaded]);
 
-  const OldElement = (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
-        <Typography variant={"subtitle2"} gutterBottom={true}>
-          Date Début
-        </Typography>
-        <Typography variant={"body1"} gutterBottom={true}>
-          {moment(task.start_at).format('LL')}
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Typography variant={"subtitle2"} gutterBottom={true}>
-          Date Fin
-        </Typography>
-        <Typography variant={"body1"} gutterBottom={true}>
-          {moment(task.end_at).format('LL')}
-        </Typography>
-      </Grid>
-    </Grid>
-  );
-
-  const NewElement = (
-    <>
-      <Typography variant={"subtitle2"} gutterBottom={true}>
-        Date Début
-      </Typography>
-      <Typography variant={"body1"} gutterBottom={true}>
-        {moment(task.start_at).format('LL')}
-      </Typography>
-
-      <Typography variant={"subtitle2"} gutterBottom={true}>
-        Date Fin
-      </Typography>
-      <Typography variant={"body1"} gutterBottom={true}>
-        {moment(task.end_at).format('LL')}
-      </Typography>
-    </>
-  );
-
-  const handleEdit = (id) => {
-    // props.history.push(`/task/${id}/edit`);
+  const handleChangePage = (event, newPage) => {
+    fetchProblemsByTask(newPage + 1, id, props.pageSize);
   };
 
-  const handleDelete = (task) => {
-    // setTask(task);
-    // setOpen(true);
+  const handleChangeRowsPerPage = (event) => {
+    fetchProblemsByTask(1, id, parseInt(event.target.value, 10));
   };
 
-  console.log(props.problems);
 
   return (
     <>
       {!isLoaded ?
-        <Loading/> :
+        <SuspenseLoading/> :
         <>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <Paper className={classes.paper} elevation={2}>
-                <Typography className={classes.content} variant={"h5"}>
-                  Information du tache
-                </Typography>
+              <Card className="mb-4">
+                <div className="card-header bg-neutral-first">
+                  <div className="card-header--title font-size-lg px-1 py-1 font-weight-bold">
+                    Informations du tache
+                  </div>
+                </div>
                 <Divider/>
-                <div className={classes.content}>
-                  <Typography variant={"subtitle2"} gutterBottom={true}>
-                    Description
-                  </Typography>
-                  <Typography variant={"body1"} gutterBottom={true}>
+                <div className="p-4">
+                  <h5 className="mb-1">
+                    Description :
+                  </h5>
+                  <ReactMarkdown className="font-size-lg text-black-50">
                     {task.description}
-                  </Typography>
-                  <Typography variant={"subtitle2"} gutterBottom={true}>
-                    Responsable
-                  </Typography>
-                  <Typography variant={"body1"} gutterBottom={true}>
-                    {task.user.username}
-                  </Typography>
+                  </ReactMarkdown>
+                  {
+                    task.sprint && task.sprint.project &&
+                    task.sprint.project.designation &&
+                    <div className="mb-3">
+                      <h5>
+                        Projet :
+                      </h5>
+                      <Link component={RouterLink}
+                            to={`/project/${task.sprint.project.id}`}>
+                               <span className="text-primary font-size-lg">
+                              {getDisplayString(task.sprint.project.designation, 50)}
+                               </span>
+                      </Link>
+                    </div>
+                  }
 
-                  <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                      <Typography variant={"subtitle2"} gutterBottom={true}>
-                        Date Début
-                      </Typography>
-                      <Typography variant={"body1"} gutterBottom={true}>
-                        {moment(task.start_at).format('LL')}
-                      </Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <h5>
+                        Responsable :
+                      </h5>
+                      <div className="d-flex align-items-center">
+                        <Avatar
+                          src={task.user.userProfile && task.user.userProfile.photo && task.user.userProfile.photo}
+                          className="mr-2"/>
+                        <div>
+                          <a
+                            href="#/"
+                            onClick={e => e.preventDefault()}
+                            className="font-weight-bold text-black"
+                          >
+                            {task.user.username}
+                          </a>
+                        </div>
+                      </div>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Typography variant={"subtitle2"} gutterBottom={true}>
-                        Date Fin
-                      </Typography>
-                      <Typography variant={"body1"} gutterBottom={true}>
-                        {moment(task.end_at).format('LL')}
-                      </Typography>
+                    <Grid item xs={12} md={6}>
+                      <h5>
+                        Statut :
+                      </h5>
+                      <h5>
+                          <span className={`badge badge-${getColorTask(task.status)}`}>
+                            {task.status === "NON_CLOTURE" ? "NON CLOTURE" : "CLOTURE"}
+                          </span>
+                      </h5>
                     </Grid>
                   </Grid>
+                  <div className="mb-3">
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={6}>
+                        <h5>
+                          Date début :
+                        </h5>
+                        <div className="font-size-lg text-black-50">
+                          {moment(task.start_at).format('LL')}
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <h5>
+                          Date fin :
+                        </h5>
+                        <div className="font-size-lg text-black-50">
+                          {moment(task.end_at).format('LL')}
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </div>
                 </div>
-              </Paper>
+              </Card>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Paper className={classes.paper} elevation={2}>
-                <Typography className={classes.content} variant={"h5"}>
-                  Information du Sprint
-                </Typography>
-                <Divider/>
-                <div className={classes.content}>
-                  <Typography variant={"subtitle2"} gutterBottom={true}>
-                    Sprint
-                  </Typography>
-                  <Typography variant={"body1"} gutterBottom={true}>
-                    {task.sprint.name}
-                  </Typography>
-
-                  <Typography variant={"subtitle2"} gutterBottom={true}>
-                    Date Souhaité
-                  </Typography>
-                  <Typography variant={"body1"} gutterBottom={true}>
-                    {moment(task.sprint.desired_at).format('LL')}
-                  </Typography>
-
-                  <Typography variant={"subtitle2"} gutterBottom={true}>
-                    Statut
-                  </Typography>
-                  <Typography variant={"body1"} gutterBottom={true}>
-                    {task.sprint.status}
-                  </Typography>
+              <Card className="mb-4">
+                <div className="card-header bg-neutral-first">
+                  <div className="card-header--title font-size-lg px-1 py-1 font-weight-bold">
+                    Information du sprint de cette tache
+                  </div>
                 </div>
-              </Paper>
+                <Divider/>
+                <div className="p-4">
+                  <h5 className="mb-1">
+                    Nom du sprint :
+                  </h5>
+                  <ReactMarkdown className="font-size-lg text-black-50">
+                    {task.sprint.name}
+                  </ReactMarkdown>
+                  <h5 className="mb-1">
+                    Statut :
+                  </h5>
+                  <h5 className="mb-3"><span className={`badge badge-${getColorSprint(task.sprint.status)}`}>
+                    {task.sprint.status}
+                  </span></h5>
+                  <div className="mb-3">
+                    <h5>
+                      Date :
+                    </h5>
+                    <div className="font-size-lg text-black-50">
+                      {moment(task.sprint.desired_at).format('LL')}
+                    </div>
+                  </div>
+                </div>
+              </Card>
             </Grid>
             {props.isFetching ?
               <CircularProgress/> :
-              <Grid item xs={12}>
-                <TaskProblemsTable
-                  canEdit={props.canEdit}
-                  rows={props.problems}
-                  count={props.count}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                  fetchProblems={props.fetchProblems}
-                  page={props.page - 1}
-                  pageSize={props.pageSize}
-                />
-              </Grid>
+              props.problems.length > 0 ?
+                <Grid item xs={12}>
+                  <div className="example-card-seamless mb-4-spacing">
+                    <Card className="card-box mb-4">
+                      <div className="card-header bg-neutral-first pr-2">
+                        <div className="card-header--title font-size-lg px-1 py-1 font-weight-bold">
+                          Les problèmes de tache
+                        </div>
+                        <div className="card-header--actions">
+                          <Tooltip arrow title="Refresh">
+                            <IconButton size="small" color="primary" className="mr-3">
+                              <FontAwesomeIcon icon={['fas', 'cog']} spin/>
+                            </IconButton>
+                          </Tooltip>
+                        </div>
+                      </div>
+                      <CardContent className="p-3">
+                        <div className="table-responsive">
+                          <TaskProblemsTable
+                            problems={props.problems}
+                          />
+                        </div>
+                      </CardContent>
+                      <div className="card-footer p-1 bg-secondary">
+                        <TablePagination
+                          rowsPerPageOptions={[5, 10, 25]}
+                          component="div"
+                          count={props.count}
+                          rowsPerPage={props.pageSize}
+                          page={props.page - 1}
+                          onChangePage={handleChangePage}
+                          onChangeRowsPerPage={handleChangeRowsPerPage}
+                        />
+                      </div>
+                    </Card>
+                  </div>
+                </Grid> : null
+
             }
           </Grid>
         </>}
     </>
   )
 }
+
+TaskDetail.propTypes = {
+  task: PropTypes.object.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
+  problems: PropTypes.array.isRequired,
+  nextPageUrl: PropTypes.string,
+  isFetching: PropTypes.bool.isRequired,
+  count: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  deleteSuccess: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -266,7 +246,6 @@ const mapStateToProps = (state, ownProps) => {
     problems: listProblems,
     nextPageUrl: problems.nextPageUrl,
     isFetching: problems.isFetching,
-    canEdit: state.auth.user.is_staff,
     count: problems.count,
     page: problems.page,
     pageSize: problems.pageSize,

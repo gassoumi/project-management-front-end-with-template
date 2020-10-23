@@ -88,10 +88,10 @@ export const fetchLatestProjects = (page = 1) => async dispatch => {
 
 export const clearCacheProject = () => dispatch => {
   dispatch({
-    type: ActionTypes.CLEAR_CACHE_PROJECT
+    type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
   });
   dispatch({
-    type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
+    type: ActionTypes.CLEAR_CACHE_PROJECT
   });
 };
 
@@ -109,10 +109,10 @@ export const createProject = (project) => async dispatch => {
         added: `le projet ${designation}  a été creé `
       }));
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_PROJECT
+        type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
+        type: ActionTypes.CLEAR_CACHE_PROJECT
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_PROJECT
@@ -144,10 +144,10 @@ export const updateProject = (idProject, project) => dispatch => {
         updated: `le projet ${designation} a été modifié `
       }));
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_PROJECT
+        type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
+        type: ActionTypes.CLEAR_CACHE_PROJECT
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_PROJECT
@@ -176,10 +176,10 @@ export const deleteProjectById = project => (dispatch) => {
           deleted: `le projet ${project.designation} a été supprimé`
         }));
         dispatch({
-          type: ActionTypes.CLEAR_CACHE_PROJECT
+          type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
         });
         dispatch({
-          type: ActionTypes.CLEAR_CACHE_LATEST_PROJECT
+          type: ActionTypes.CLEAR_CACHE_PROJECT
         });
         dispatch({
           type: ActionTypes.REMOVE_SUCCESS_PROJECT

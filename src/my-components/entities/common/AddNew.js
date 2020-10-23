@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
 import {
   InputAdornment,
   Button,
@@ -7,17 +8,17 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import CloseIcon from '@material-ui/icons/Close';
 
 AddNew.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,
-  queryValue: PropTypes.string,
+  queryValue: PropTypes.string.isRequired,
   handleInput: PropTypes.func.isRequired,
   handleQuery: PropTypes.func.isRequired,
   handleAdd: PropTypes.func.isRequired,
   buttonLabel: PropTypes.string.isRequired,
   canEdit: PropTypes.bool.isRequired
-
 };
 
 function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, buttonLabel, canEdit}) {
@@ -30,18 +31,31 @@ function AddNew({label, count, queryValue, handleInput, handleQuery, handleAdd, 
           <div className="divider-v position-relative"/>
         </div>
         <span className="text-black-50 font-size-md pr-3">
-                    {count} au total
-                  </span>
+          {count} au total
+        </span>
         <div>
           <TextField
             value={queryValue}
-            onChange={handleInput}
+            onChange={(e) => handleInput(e.target.value)}
             margin="dense"
             variant="outlined"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchIcon/>
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    size={"small"}
+                    aria-label="toggle password visibility"
+                    onClick={() => handleInput('')}
+                    // onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {queryValue !== '' && <CloseIcon style={{fontSize: 15}}/>}
+                  </IconButton>
                 </InputAdornment>
               )
             }}

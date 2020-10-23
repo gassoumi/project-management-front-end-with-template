@@ -221,7 +221,7 @@ function TaskForm(props) {
                 // defaultValue={task.sprint || null}
                 errors={errors}
                 name="sprint"
-                label="Coisir un sprint"
+                label="Choisir un sprint"
                 optionLabel="name"
                 url={URL_SPRINT}
                 rules={{required: 'this field is required'}}
@@ -238,7 +238,7 @@ function TaskForm(props) {
                 // defaultValue={task.sprint || null}
                 errors={errors}
                 name="user"
-                label="Coisir un responsable"
+                label="Choisir un responsable"
                 optionLabel="username"
                 url={URL_USER}
                 rules={{required: 'this field is required'}}
@@ -309,7 +309,15 @@ function TaskForm(props) {
   );
 }
 
-TaskForm.propTypes = {};
+TaskForm.propTypes = {
+  updateSuccess: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  createTask: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired,
+  isNewTask: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = state => ({
   updateSuccess: state.entity.task.updateSuccess,

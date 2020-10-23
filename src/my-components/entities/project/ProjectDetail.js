@@ -7,7 +7,6 @@ import {fetchProjectById, fetchProjectTasks} from "../../../redux";
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment';
 import TeamList from './TeamList';
 import Button from "@material-ui/core/Button";
 import EditIcon from '@material-ui/icons/Edit';
@@ -21,6 +20,7 @@ import {CardContent, TablePagination} from "@material-ui/core";
 import {ExampleWrapperSimple} from "../../../layout-components";
 import {Doughnut} from "react-chartjs-2";
 import {getTaskCodeColor} from "../task/TaskTable";
+import ReactMarkdown from 'react-markdown';
 
 
 const getData = stat => {
@@ -67,7 +67,7 @@ function ProjectDescription(props) {
       <Paper className={classes.paper} elevation={2}>
         <Grid container item xs={12}>
           <Grid container justify={"flex-start"} item xs={8}>
-            <Typography color={"error"} gutterBottom variant="h5">
+            <Typography color={"error"} gutterBottom variant="h2">
               {props.project.designation}
             </Typography>
           </Grid>
@@ -86,13 +86,14 @@ function ProjectDescription(props) {
           </Grid>
           }
         </Grid>
-        <Typography gutterBottom variant='caption' paragraph>
-          {moment(props.project.created_at).format('LL')}
-        </Typography>
-        <Typography color={"textPrimary"} gutterBottom variant="h6">Objective</Typography>
-        <Typography paragraph>
+        {/*<Typography gutterBottom variant='caption' paragraph>*/}
+        {/*  {moment(props.project.created_at).format('LL')}*/}
+        {/*</Typography>*/}
+
+        <Typography color={"textPrimary"} className="pt-2" gutterBottom variant="h4">Objective :</Typography>
+        <ReactMarkdown className="d-block font-size-lg text-black-50">
           {props.project.objective}
-        </Typography>
+        </ReactMarkdown>
       </Paper>
     </>
   )
@@ -109,7 +110,7 @@ function ProjectDetail(props) {
 
   useEffect(() => {
     props.fetchProjectById(id);
-    props.fetchProjectTasks(1, 10, id);
+    props.fetchProjectTasks(1, 5, id);
     let active = true;
     setIsStatLoaded(false);
     const fetch = async () => {

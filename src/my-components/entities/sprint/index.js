@@ -2,12 +2,13 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Sprint from './Sprint';
 import CalendarSprint from "./CalendarSprint";
+import ErrorBoundaryRoute from '../../common/ErrorBoundaryRoute';
 
 const Routes = ({match}) => (
   <>
     <Switch>
-      <Route path={match.url} component={Sprint}/>
-      <Route exact path={`${match.url}/calendar`} component={CalendarSprint}/>
+      <ErrorBoundaryRoute path={match.url} component={Sprint}/>
+      <ErrorBoundaryRoute exact path={`${match.url}/calendar`} component={CalendarSprint}/>
     </Switch>
   </>
 );

@@ -56,6 +56,8 @@ import FormsToggleSwitch from './example-pages/FormsToggleSwitch';
 import PrivateRoute from "./my-components/common/PrivateRoute";
 import Entities from './my-components/entities';
 
+import ErrorBoundaryRoute from './my-components/common/ErrorBoundaryRoute';
+
 const DashboardDefault = lazy(() => import('./example-pages/DashboardDefault'));
 const DashboardAnalytics = lazy(() =>
   import('./example-pages/DashboardAnalytics')
@@ -289,7 +291,7 @@ const Routes = () => {
                     variants={pageVariants}
                     transition={pageTransition}>
                     <Route path="/PagesLogin" component={PagesLogin}/>
-                    <Route path="/login" component={Login}/>
+                    <ErrorBoundaryRoute path="/login" component={Login}/>
                     <Route path="/PagesRegister" component={PagesRegister}/>
                     <Route
                       path="/PagesRecoverPassword"
@@ -613,7 +615,7 @@ const Routes = () => {
                     exit="out"
                     variants={pageVariants}
                     transition={pageTransition}>
-                    <Route path="*" component={MyPageError404}/>
+                    <ErrorBoundaryRoute path="*" component={MyPageError404}/>
                   </motion.div>
                 </Switch>
               </MinimalLayout>

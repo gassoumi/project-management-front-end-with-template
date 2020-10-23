@@ -13,6 +13,7 @@ import * as Selector from "../../redux/selectors";
 import Discussion from './discussion';
 import Dashboard from '../dashboard';
 import {LeftSidebar} from "../../layout-blueprints";
+import ErrorBoundaryRoute from '../common/ErrorBoundaryRoute';
 
 // add all entities here
 const Routes = (props) => {
@@ -59,21 +60,21 @@ const Routes = (props) => {
               exit="out"
               variants={pageVariants}
               transition={pageTransition}>
-              <Route exact path="/dashboard" component={Dashboard}/>
-              <Route path={`${match.url}project`} component={Project}/>
-              <Route path={`${match.url}sprint`} component={Sprint}/>
-              <Route path={`${match.url}task`} component={Task}/>
-              <Route path={`${match.url}document`} component={Document}/>
-              <Route path={`${match.url}discussion`} component={Discussion}/>
-              <Route path={`${match.url}note`} component={Note}/>
-              <Route path={`${match.url}problem`} component={Problem}/>
+              <ErrorBoundaryRoute exact path="/dashboard" component={Dashboard}/>
+              <ErrorBoundaryRoute path={`${match.url}project`} component={Project}/>
+              <ErrorBoundaryRoute path={`${match.url}sprint`} component={Sprint}/>
+              <ErrorBoundaryRoute path={`${match.url}task`} component={Task}/>
+              <ErrorBoundaryRoute path={`${match.url}document`} component={Document}/>
+              <ErrorBoundaryRoute path={`${match.url}discussion`} component={Discussion}/>
+              <ErrorBoundaryRoute path={`${match.url}note`} component={Note}/>
+              <ErrorBoundaryRoute path={`${match.url}problem`} component={Problem}/>
             </motion.div>
           </Switch>
         </LeftSidebar>
       </Route>
       <Route
         path='/document'>
-        <Route path={`${match.url}document`} component={Document}/>
+        <ErrorBoundaryRoute path={`${match.url}document`} component={Document}/>
       </Route>
       <>
         {/*<Switch>*/}

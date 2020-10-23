@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,9 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
 import TextField from '@material-ui/core/TextField';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-
 import {useForm} from "react-hook-form";
 import {connect} from "react-redux";
 import {updateDiscussion, createDiscussion} from "../../../redux/actions";
@@ -71,7 +68,7 @@ function DiscussionDialogForm({
     description: discussion.description || "",
   };
 
-  const {register, handleSubmit, errors, reset} = useForm({
+  const {register, handleSubmit, errors} = useForm({
     mode: "onChange",
     defaultValues: defaultValue,
   });
@@ -164,6 +161,14 @@ function DiscussionDialogForm({
 }
 
 
-DiscussionDialogForm.propTypes = {};
+DiscussionDialogForm.propTypes = {
+  createDiscussion: PropTypes.func.isRequired,
+  updateDiscussion: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  discussion: PropTypes.object.isRequired,
+  isUpdating: PropTypes.bool.isRequired,
+  isNew: PropTypes.bool.isRequired,
+};
 
 export default connect(null, {createDiscussion, updateDiscussion})(DiscussionDialogForm);

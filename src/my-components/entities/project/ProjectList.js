@@ -37,7 +37,8 @@ function ProjectList({projects, canEdit, handleDelete}) {
       {projects.map((project, index) => (
         <Grid key={project.id} item xs={12} md={6} lg={4}>
           <Card style={{height: '100%'}} className="card-box p-4 mb-4">
-            <div className="text-center">
+            {/*<Card style={{height: '100%'}} className="card-box p-4 mb-4 d-flex">*/}
+            <div className="text-center d-flex flex-column flex-grow-1">
               <>
                 {/*<div className="avatar-icon-wrapper rounded-circle m-0">*/}
                 {/*  <div className="d-block p-0 avatar-icon-wrapper m-0 d-90">*/}
@@ -52,16 +53,17 @@ function ProjectList({projects, canEdit, handleDelete}) {
               </Tooltip>
               {
                 (project.projectUsers && project.projectUsers.length > 0) &&
-                <div className={getUsersClasses(index)}>
-                  <span className="font-weight-bold pr-1"> {project.projectUsers.length} </span> utilisateurs
-                  actifs
+                <div>
+                  <div className={getUsersClasses(index)}>
+                    <span className="font-weight-bold pr-1"> {project.projectUsers.length} </span> utilisateurs
+                    actifs
+                  </div>
                 </div>
               }
-              <p className="mb-0 text-black-50">
+              <p className="text-black-50 flex-grow-1">
                 {getDisplayString(project.objective, 150)}
               </p>
-
-              <div className="pt-3">
+              <div className="pt-0">
                 {canEdit &&
                 <Tooltip arrow title="Modifier">
                   <Button
@@ -70,7 +72,7 @@ function ProjectList({projects, canEdit, handleDelete}) {
                     variant="outlined"
                     color="primary"
                     size="small"
-                    className="m-1 d-40"><span className="btn-wrapper--icon">
+                    className="mr-1 d-40"><span className="btn-wrapper--icon">
           <FontAwesomeIcon
             icon={['fas', 'pen']}
             className="font-size-lg"
@@ -86,7 +88,7 @@ function ProjectList({projects, canEdit, handleDelete}) {
                     variant="outlined"
                     color="inherit"
                     size="small"
-                    className="m-1 d-40 btn text-info">
+                    className="mr-1 d-40 btn text-info">
           <span className="btn-wrapper--icon">
           <FontAwesomeIcon
             icon={['fas', 'eye']}
@@ -99,7 +101,7 @@ function ProjectList({projects, canEdit, handleDelete}) {
                   <Button
                     onClick={() => handleDelete(project)}
                     color="inherit"
-                    className="m-1 d-40 btn text-danger"
+                    className="mr-1 d-40 btn text-danger"
                     variant="outlined"
                     size="small"
                   >

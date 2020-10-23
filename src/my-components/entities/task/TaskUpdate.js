@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import TaskForm from './TaskForm';
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import axios from 'axios';
 import Loading from '../common/Loading';
 import {Card, Divider} from "@material-ui/core";
 
-//   color: theme.palette.text.secondary,
 
 function TaskUpdate(props) {
 
@@ -79,8 +76,5 @@ function TaskUpdate(props) {
     </>
   );
 }
-
-
-TaskUpdate.propTypes = {};
 
 export default TaskUpdate;

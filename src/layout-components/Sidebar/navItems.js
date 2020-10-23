@@ -50,7 +50,7 @@ const iconsMap = {
 
 const navItems2 = [
   {
-    label: 'Navigation menu',
+    label: 'Menu de navigation',
     content: JSON.parse(
       `[
   {
@@ -761,4 +761,4 @@ const navItems = [
   }
 ];
 
-export default navItems;
+export default navItems2;

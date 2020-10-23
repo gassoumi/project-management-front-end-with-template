@@ -184,10 +184,10 @@ export const createSprint = (sprint) => (dispatch) => {
         added: `le sprint ${name}  a été creé `
       }));
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_SPRINT
+        type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
+        type: ActionTypes.CLEAR_CACHE_SPRINT
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_SPRINT
@@ -219,10 +219,10 @@ export const updateSprint = (idSprint, sprint) => dispatch => {
         updated: `le sprint ${name} a été modifié `
       }));
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_SPRINT
+        type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
+        type: ActionTypes.CLEAR_CACHE_SPRINT
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_SPRINT
@@ -252,10 +252,10 @@ export const deleteSprintById = sprint => (dispatch) => {
           deleted: `le sprint ${sprint.name} a été supprimé`
         }));
         dispatch({
-          type: ActionTypes.CLEAR_CACHE_SPRINT
+          type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
         });
         dispatch({
-          type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
+          type: ActionTypes.CLEAR_CACHE_SPRINT
         });
         dispatch({
           type: ActionTypes.REMOVE_SUCCESS_SPRINT
@@ -275,10 +275,10 @@ export const deleteSprintById = sprint => (dispatch) => {
 
 export const clearCacheSprint = () => dispatch => {
   dispatch({
-    type: ActionTypes.CLEAR_CACHE_SPRINT
+    type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
   });
   dispatch({
-    type: ActionTypes.CLEAR_CACHE_WEEK_SPRINT
+    type: ActionTypes.CLEAR_CACHE_SPRINT
   });
 };
 

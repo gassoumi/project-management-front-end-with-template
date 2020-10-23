@@ -30,6 +30,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Pagination from "@material-ui/lab/Pagination";
+import Alert from '../common/Alert';
 
 
 function TabPanel(props) {
@@ -159,7 +160,7 @@ function getFileIcon(path) {
 function Document(props) {
 
   const {
-    canEdit, documents, count, updateSuccess, clearCacheDocument,
+    canEdit, documents, count, clearCacheDocument,
     fetchDocuments, isFetching, pageSize, page, updateDocument, deleteSuccess,
   } = props;
 
@@ -204,7 +205,7 @@ function Document(props) {
     setQuery(event.target.value);
   };
 
-  const handleQuery = (event) => {
+  const handleQuery = () => {
     setPaginationState({
       ...paginationState,
       activePage: 1,
@@ -331,6 +332,13 @@ function Document(props) {
       setValue(0);
     }
   };
+  const getAlert = (
+    <div className="d-flex flex-grow-1 justify-content-center">
+      <div className="d-flex align-self-center">
+        <Alert label="Pas de documents trouvés"/>
+      </div>
+    </div>
+  );
 
   return (
     <Fragment>
@@ -363,7 +371,7 @@ function Document(props) {
               <span className="btn-wrapper--icon">
                 <FontAwesomeIcon icon={['fas', 'upload']}/>
               </span>
-              <span className="btn-wrapper--label">Upload</span>
+              <span className="btn-wrapper--label">Ajouter un document</span>
             </Button>
           </div>
           <PerfectScrollbar className="px-4">
@@ -453,7 +461,7 @@ function Document(props) {
                         </FormControl>
                       </Grid>
                       <Grid item xs={4}>
-                        <Tooltip arrow title={value !== 0 ? 'Grid' : 'Tableau'}>
+                        <Tooltip arrow title={value !== 0 ? 'Grille' : 'Tableau'}>
                           <Button
                             // variant="outlined"
                             color="inherit"
@@ -476,61 +484,65 @@ function Document(props) {
             <div className="divider bg-dark opacity-2"/>
           </div>
           {isFetching ? <SuspenseLoading/> :
-            <PerfectScrollbar>
-              <div className="px-5">
-                <h5 className="font-size-sm text-uppercase text-black-50 font-weight-bold my-4">
-                  {title}
-                </h5>
-                <Fragment>
-                  {value === 0 ?
-                    <Fragment>
-                      <DocumentList
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                        documents={getDisplayDocument(documents)}/>
-                    </Fragment>
-                    :
-                    <div className="example-card-seamless mb-4-spacing">
-                      <Card className="card-box mb-4">
-                        <div className="card-header pr-2">
-                          <div className="card-header--title">Documents status</div>
-                          <div className="card-header--actions">
-                            <Tooltip arrow title="Refresh">
-                              <IconButton size="small" color="primary" className="mr-3">
-                                <FontAwesomeIcon icon={['fas', 'cog']} spin/>
-                              </IconButton>
-                            </Tooltip>
+            documents.length > 0 ?
+              (<PerfectScrollbar>
+                <div className="px-5">
+                  <h5 className="font-size-sm text-uppercase text-black-50 font-weight-bold my-4">
+                    {title}
+                  </h5>
+                  <Fragment>
+                    {value === 0 ?
+                      <Fragment>
+                        <DocumentList
+                          handleEdit={handleEdit}
+                          handleDelete={handleDelete}
+                          documents={getDisplayDocument(documents)}/>
+                      </Fragment>
+                      :
+                      <div className="example-card-seamless mb-4-spacing">
+                        <Card className="card-box mb-4">
+                          <div className="card-header pr-2">
+                            <div className="card-header--title">Documents status</div>
+                            <div className="card-header--actions">
+                              <Tooltip arrow title="Refresh">
+                                <IconButton size="small" color="primary" className="mr-3">
+                                  <FontAwesomeIcon icon={['fas', 'cog']} spin/>
+                                </IconButton>
+                              </Tooltip>
+                            </div>
                           </div>
-                        </div>
-                        <CardContent className="p-3">
-                          <div className="table-responsive">
-                            <DocumentTable
-                              documents={getDisplayDocument(documents)}
-                              canEdit={canEdit}
-                              sort={sort}
-                              handleEdit={handleEdit}
-                              handleDelete={handleDelete}
+                          <CardContent className="p-3">
+                            <div className="table-responsive">
+                              <DocumentTable
+                                documents={getDisplayDocument(documents)}
+                                canEdit={canEdit}
+                                sort={sort}
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                              />
+                            </div>
+                          </CardContent>
+                          <div className="card-footer p-1 bg-neutral-danger">
+                            <TablePagination
+                              rowsPerPageOptions={[5, 10, 25]}
+                              component="div"
+                              count={count}
+                              rowsPerPage={pageSize}
+                              page={page - 1}
+                              onChangePage={handleChangePage}
+                              onChangeRowsPerPage={handleChangeRowsPerPage}
                             />
                           </div>
-                        </CardContent>
-                        <div className="card-footer p-1 bg-neutral-danger">
-                          <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component="div"
-                            count={count}
-                            rowsPerPage={pageSize}
-                            page={page - 1}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
-                          />
-                        </div>
-                      </Card>
-                    </div>}
-                </Fragment>
+                        </Card>
+                      </div>}
+                  </Fragment>
+                </div>
+              </PerfectScrollbar>) :
+              <div className="d-flex align-items-center flex-grow-1 justify-content-center py-3">
+                <Alert label=" Pas de documents trouvés"/>
               </div>
-            </PerfectScrollbar>
           }
-          {value === 0 && !isFetching &&
+          {value === 0 && !isFetching && documents.length > 0 &&
           <Pagination
             className="d-flex justify-content-center mb-4"
             variant="outlined"

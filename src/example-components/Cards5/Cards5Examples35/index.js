@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Grid,
@@ -16,6 +16,7 @@ import {
 import stock1 from '../../../assets/images/stock-photos/stock-1.jpg';
 import stock2 from '../../../assets/images/stock-photos/stock-2.jpg';
 import stock3 from '../../../assets/images/stock-photos/stock-3.jpg';
+
 
 export default function LivePreviewExample() {
   return (
@@ -55,7 +56,7 @@ export default function LivePreviewExample() {
                             alt="..."
                             className="card-img-top rounded-sm"
                             src={stock1}
-                            style={{ width: 140 }}
+                            style={{width: 140}}
                           />
                         </a>
                       </Card>
@@ -99,7 +100,7 @@ export default function LivePreviewExample() {
                             alt="..."
                             className="card-img-top rounded-sm"
                             src={stock2}
-                            style={{ width: 140 }}
+                            style={{width: 140}}
                           />
                         </a>
                       </Card>
@@ -162,7 +163,7 @@ export default function LivePreviewExample() {
                 <p className="text-black-50 mb-0">Checkout is almost done!</p>
               </div>
             </div>
-            <div className="divider mt-4" />
+            <div className="divider mt-4"/>
             <div className="scroll-area shadow-overflow">
               <PerfectScrollbar>
                 <div className="d-flex p-4 align-items-center justify-content-between">
@@ -177,7 +178,7 @@ export default function LivePreviewExample() {
                             alt="..."
                             className="card-img-top rounded-sm"
                             src={stock1}
-                            style={{ width: 120 }}
+                            style={{width: 120}}
                           />
                         </a>
                       </Card>
@@ -215,7 +216,7 @@ export default function LivePreviewExample() {
                     $56
                   </div>
                 </div>
-                <div className="divider opacity-7" />
+                <div className="divider opacity-7"/>
                 <div className="d-flex p-4 align-items-center justify-content-between">
                   <div className="d-flex align-items-center">
                     <div>
@@ -228,7 +229,7 @@ export default function LivePreviewExample() {
                             alt="..."
                             className="card-img-top rounded-sm"
                             src={stock2}
-                            style={{ width: 120 }}
+                            style={{width: 120}}
                           />
                         </a>
                       </Card>
@@ -266,7 +267,7 @@ export default function LivePreviewExample() {
                     $38
                   </div>
                 </div>
-                <div className="divider opacity-7" />
+                <div className="divider opacity-7"/>
                 <div className="d-flex p-4 align-items-center justify-content-between">
                   <div className="d-flex align-items-center">
                     <div>
@@ -279,7 +280,7 @@ export default function LivePreviewExample() {
                             alt="..."
                             className="card-img-top rounded-sm"
                             src={stock3}
-                            style={{ width: 120 }}
+                            style={{width: 120}}
                           />
                         </a>
                       </Card>
@@ -317,7 +318,7 @@ export default function LivePreviewExample() {
                     $21
                   </div>
                 </div>
-                <div className="divider opacity-7" />
+                <div className="divider opacity-7"/>
                 <div className="d-flex p-4 align-items-center justify-content-between">
                   <div className="d-flex align-items-center">
                     <div>
@@ -330,7 +331,7 @@ export default function LivePreviewExample() {
                             alt="..."
                             className="card-img-top rounded-sm"
                             src={stock1}
-                            style={{ width: 120 }}
+                            style={{width: 120}}
                           />
                         </a>
                       </Card>
@@ -370,14 +371,14 @@ export default function LivePreviewExample() {
                 </div>
               </PerfectScrollbar>
             </div>
-            <Divider />
+            <Divider/>
             <div className="bg-secondary font-size-lg p-4">
               <div className="d-flex justify-content-between">
                 <div>Total</div>
                 <div className="font-weight-bold">$456</div>
               </div>
             </div>
-            <Divider />
+            <Divider/>
             <div className="p-4">
               <Button
                 size="large"

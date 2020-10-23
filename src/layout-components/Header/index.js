@@ -83,7 +83,7 @@ const Header = props => {
                   className={clsx('btn-toggle-collapse', {
                     'btn-toggle-collapse-closed': sidebarToggle
                   })}>
-                  <Tooltip title="Toggle Sidebar" placement="right">
+                  <Tooltip title="Menu principal" placement="right">
                     <IconButton
                       color="inherit"
                       onClick={toggleSidebar}
@@ -98,16 +98,16 @@ const Header = props => {
                   </Tooltip>
                 </Box>
               )}
-              <HeaderSearch/>
-              <HeaderMenu/>
+              {/*<HeaderSearch/>*/}
+              {/*<HeaderMenu/>*/}
             </Box>
           </Hidden>
           <Box className="d-flex align-items-center">
-            <HeaderDots/>
+            {/*<HeaderDots/>*/}
             <HeaderUserbox/>
-            <HeaderDrawer/>
+            {/*<HeaderDrawer/>*/}
             <Box className="toggle-sidebar-btn-mobile">
-              <Tooltip title="Toggle Sidebar" placement="right">
+              <Tooltip title="Menu principal" placement="right">
                 <IconButton
                   color="inherit"
                   onClick={toggleSidebarMobile}

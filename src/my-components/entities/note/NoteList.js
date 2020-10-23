@@ -5,6 +5,7 @@ import moment from 'moment';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 
 NoteList.propTypes = {
   notes: PropTypes.array.isRequired,
@@ -40,9 +41,11 @@ export default function NoteList({notes, handleEdit, handleDelete}) {
                 <h5 className="card-title font-weight-bold font-size-lg">
                   {note.note}
                 </h5>
-                <p className="card-text flex-grow-1">
+
+                <ReactMarkdown className="card-text flex-grow-1">
                   {note.comment ? note.comment : "Pas encore de commentaire"}
-                </p>
+                </ReactMarkdown>
+               
                 <div className="card-date mt-2 d-flex align-items-end">
                   <div className="flex-grow-1 align-self-center">
                     <FontAwesomeIcon

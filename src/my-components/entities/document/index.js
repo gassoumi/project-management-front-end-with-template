@@ -5,6 +5,7 @@ import DocumentUpdate from './DocumentUpdate';
 import Document from './Document';
 import {CollapsedSidebar, LeftSidebar} from "../../../layout-blueprints";
 import {motion} from "framer-motion";
+import ErrorBoundaryRoute from '../../common/ErrorBoundaryRoute';
 
 const Routes = ({match}) => {
   const location = useLocation();
@@ -49,7 +50,7 @@ const Routes = ({match}) => {
               exit="out"
               variants={pageVariants}
               transition={pageTransition}>
-              <Route excat path={match.url} component={Document}/>
+              <ErrorBoundaryRoute excat path={match.url} component={Document}/>
             </motion.div>
           </Switch>
         </CollapsedSidebar>
@@ -68,9 +69,9 @@ const Routes = ({match}) => {
               exit="out"
               variants={pageVariants}
               transition={pageTransition}>
-              <Route exact path={`${match.url}/create`} component={DocumentUpdate}/>
-              <Route exact path={`${match.url}/:id`} component={DocumentDetail}/>
-              <Route exact path={`${match.url}/:id/edit`} component={DocumentUpdate}/>
+              <ErrorBoundaryRoute exact path={`${match.url}/create`} component={DocumentUpdate}/>
+              <ErrorBoundaryRoute exact path={`${match.url}/:id`} component={DocumentDetail}/>
+              <ErrorBoundaryRoute exact path={`${match.url}/:id/edit`} component={DocumentUpdate}/>
             </motion.div>
           </Switch>
         </LeftSidebar>

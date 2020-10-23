@@ -25,7 +25,17 @@ import navItems from '../Sidebar/navItems';
 
 import {NavLink as RouterLink} from 'react-router-dom';
 
-import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/logo.png';
+
+import DashboardTwoToneIcon from '@material-ui/icons/DashboardTwoTone';
+import LockOpenIcon from '@material-ui/icons/LockOpenOutlined';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import NoteIcon from '@material-ui/icons/Note';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
+import DescriptionIcon from '@material-ui/icons/Description';
+import ChatIcon from '@material-ui/icons/ChatOutlined';
+
 import {
   Settings,
   CloudDrizzle,
@@ -78,9 +88,9 @@ const SidebarCollapsed = props => {
             <div className="sidebar-collapsed-logo">
               <Box
                 className="header-logo-wrapper"
-                title="Carolina React Admin Dashboard with Material-UI PRO">
+                title="Digital sprint">
                 <Link
-                  to="/DashboardDefault"
+                  to="/dashboard"
                   className="header-logo-wrapper-link">
                   <IconButton
                     color="primary"
@@ -88,7 +98,7 @@ const SidebarCollapsed = props => {
                     className="header-logo-wrapper-btn">
                     <img
                       className="app-sidebar-logo"
-                      alt="Carolina React Admin Dashboard with Material-UI PRO"
+                      alt="Digital sprint"
                       src={projectLogo}
                     />
                   </IconButton>
@@ -105,100 +115,124 @@ const SidebarCollapsed = props => {
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/DashboardDefault">
+                      to="/dashboard">
                       <span>
-                        <Settings className="app-sidebar-btn-icon"/>
+                        <DashboardTwoToneIcon
+                          // className="app-sidebar-btn-icon"
+                        />
+                        {/*<Settings className="app-sidebar-btn-icon"/>*/}
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="Events calendar">
+                  <Tooltip arrow placement="right" title="Projets">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsCalendar">
+                      to="/project">
                       <span>
-                        <CloudDrizzle className="app-sidebar-btn-icon"/>
+                        {/*<CloudDrizzle className="app-sidebar-btn-icon"/>*/}
+                        <LockOpenIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="Chat">
+                  <Tooltip arrow placement="right" title="Sprint">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsChat">
+                      to="/sprint">
                       <span>
-                        <Search className="app-sidebar-btn-icon"/>
+                        {/*<Search className="app-sidebar-btn-icon"/>*/}
+                        <EventNoteIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="Contacts">
+                  <Tooltip arrow placement="right" title="Taches">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsContacts">
+                      to="/task">
                       <span>
-                        <Briefcase className="app-sidebar-btn-icon"/>
+                        {/*<Briefcase className="app-sidebar-btn-icon"/>*/}
+                        <AssignmentIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="File manager">
+                  <Tooltip arrow placement="right" title="Story">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsFileManager">
+                      to="/note">
                       <span>
-                        <Users className="app-sidebar-btn-icon"/>
+                        {/*<Users className="app-sidebar-btn-icon"/>*/}
+                        <NoteIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="Mail">
+                  <Tooltip arrow placement="right" title="Problems">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsMail">
+                      to="/problem">
                       <span>
-                        <LifeBuoy className="app-sidebar-btn-icon"/>
+                        {/*<LifeBuoy className="app-sidebar-btn-icon"/>*/}
+                        <ErrorIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="Projects">
+                  <Tooltip arrow placement="right" title="Documents">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsProjects">
+                      to="/document">
                       <span>
-                        <Coffee className="app-sidebar-btn-icon"/>
+                        {/*<Coffee className="app-sidebar-btn-icon"/>*/}
+                        <DescriptionIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
                 </li>
                 <li>
-                  <Tooltip arrow placement="right" title="App widgets">
+                  <Tooltip arrow placement="right" title="Discussion">
                     <Button
                       className="app-sidebar-btn-wrapper"
                       activeClassName="active"
                       component={RouterLink}
-                      to="/ApplicationsWidgets">
+                      to="/discussion">
                       <span>
-                        <Bell className="app-sidebar-btn-icon"/>
+                        {/*<Bell className="app-sidebar-btn-icon"/>*/}
+                        <ChatIcon
+                          // className="app-sidebar-btn-icon"
+                        />
                       </span>
                     </Button>
                   </Tooltip>
@@ -211,7 +245,7 @@ const SidebarCollapsed = props => {
                     color="secondary"
                     className="text-white text-center font-size-lg d-40"
                     component={RouterLink}
-                    to="/DashboardDefault">
+                    to="/dashboard">
                     <FontAwesomeIcon icon={['fas', 'arrow-left']}/>
                   </Button>
                 </Tooltip>

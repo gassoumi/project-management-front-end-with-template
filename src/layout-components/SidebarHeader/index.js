@@ -7,7 +7,7 @@ import {IconButton, Box, Tooltip} from '@material-ui/core';
 
 import {connect} from 'react-redux';
 
-import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/logo.png';
 
 import {setSidebarToggleMobile} from '../../redux/reducers/ThemeOptions';
 
@@ -38,33 +38,33 @@ const SidebarHeader = props => {
         })}>
         <Box
           className="header-logo-wrapper"
-          title="Carolina React Admin Dashboard with Material-UI PRO">
-          <Link to="/DashboardDefault" className="header-logo-wrapper-link">
+          title="Digital sprint">
+          <Link to="/dashboard" className="header-logo-wrapper-link">
             <IconButton
               color="primary"
               size="medium"
               className="header-logo-wrapper-btn">
               <img
                 className="app-sidebar-logo"
-                alt="Carolina React Admin Dashboard with Material-UI PRO"
+                alt="Digital sprint"
                 src={projectLogo}
               />
             </IconButton>
           </Link>
-          <Box className="header-logo-text">Carolina</Box>
+          <Box className="header-logo-text">Digital sprint</Box>
         </Box>
         <Box
           className={clsx('app-sidebar-header-btn', {
             'app-sidebar-header-btn-close': sidebarToggle && !sidebarHover
           })}>
-          <Tooltip title="Toggle Sidebar" placement="right">
+          <Tooltip title="Menu principal" placement="right">
             <IconButton color="inherit" onClick={toggleSidebar} size="medium">
               {sidebarToggle ? <MenuRoundedIcon/> : <MenuOpenRoundedIcon/>}
             </IconButton>
           </Tooltip>
         </Box>
         <Box className="app-sidebar-header-btn-mobile">
-          <Tooltip title="Toggle Sidebar" placement="right">
+          <Tooltip title="Menu principal" placement="right">
             <IconButton
               color="inherit"
               onClick={toggleSidebarMobile}

@@ -26,8 +26,8 @@ function Problem(props) {
 
   const [query, setQuery] = React.useState(paginationState.search);
 
-  const handleInput = (event) => {
-    setQuery(event.target.value);
+  const handleInput = (value) => {
+    setQuery(value);
   };
 
   const handleQuery = () => {
@@ -137,10 +137,10 @@ function Problem(props) {
 
   return (
     <>
-      <PageTitle
-        titleHeading="Problèmes"
-        // titleDescription="Building a projects related application? Start from this layout."
-      />
+      {/*<PageTitle*/}
+      {/*  titleHeading="Problèmes"*/}
+      {/*  // titleDescription="Building a projects related application? Start from this layout."*/}
+      {/*/>*/}
       <DeleteDialog
         open={open}
         object={problem}
@@ -181,6 +181,7 @@ function Problem(props) {
               <CardContent className="p-3">
                 <div className="table-responsive">
                   <ProblemTable
+                    authenticatedUser={props.authenticatedUser}
                     problems={props.problems}
                     sort={sort}
                     handleEdit={handleEdit}
@@ -223,6 +224,7 @@ Problem.propTypes = {
   fetchProblems: PropTypes.func.isRequired,
   deleteProblemById: PropTypes.func.isRequired,
   clearCacheProblem: PropTypes.func.isRequired,
+  authenticatedUser: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -240,6 +242,7 @@ const mapStateToProps = (state) => {
     page: problems.page,
     pageSize: problems.pageSize,
     deleteSuccess: problem.deleteSuccess,
+    authenticatedUser: state.auth.user
   };
 };
 

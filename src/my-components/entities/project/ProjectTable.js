@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {getDisplayString} from "../../utils";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
-import {Avatar, Button, IconButton, Tooltip} from "@material-ui/core";
+import {Avatar, IconButton, Tooltip} from "@material-ui/core";
 import {useRouteMatch} from "react-router-dom";
 import {Link as RouterLink} from 'react-router-dom';
 

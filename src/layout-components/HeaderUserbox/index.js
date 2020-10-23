@@ -48,7 +48,7 @@ const StyledBadge = withStyles({
   }
 })(Badge);
 
-export function HeaderUserbox({logout}) {
+export function HeaderUserbox({logout, auth}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -78,14 +78,15 @@ export function HeaderUserbox({logout}) {
               horizontal: 'right'
             }}
             variant="dot">
-            <Avatar sizes="44" alt="Dustin Watson" src={avatar4}/>
+            <Avatar sizes="44" alt={auth.user.username}
+                    src={auth.user.userProfile && auth.user.userProfile.photo ? auth.user.userProfile.photo : ""}/>
           </StyledBadge>
         </Box>
         <div className="d-none d-xl-block pl-3">
           <div className="font-weight-bold pt-2 line-height-1">
-            Dustin Watson
+            {auth.user.username}
           </div>
-          <span className="text-white-50">Senior React Developer</span>
+          {/*<span className="text-white-50">Senior React Developer</span>*/}
         </div>
         <span className="pl-1 pl-xl-3">
           <FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5"/>
@@ -117,67 +118,70 @@ export function HeaderUserbox({logout}) {
                   horizontal: 'right'
                 }}
                 variant="dot">
-                <Avatar sizes="44" alt="Dustin Watson" src={avatar4}/>
+                <Avatar sizes="44" alt={auth.user.username}
+                        src={auth.user.userProfile && auth.user.userProfile.photo ? auth.user.userProfile.photo : ""}/>
               </StyledBadge>
             </Box>
             <div className="pl-3 ">
               <div className="font-weight-bold text-center pt-2 line-height-1">
-                Dustin Watson
+                {auth.user.username}
               </div>
-              <span className="text-black-50 text-center">
-                Senior React Developer
-              </span>
+              {/*<span className="text-black-50 text-center">*/}
+              {/*  Senior React Developer*/}
+              {/*</span>*/}
             </div>
             <Divider className="w-100 mt-2"/>
-            <ListItem button>My Account</ListItem>
+            {/*<ListItem button>My Account</ListItem>*/}
             <ListItem button>Profile settings</ListItem>
-            <ListItem button>Active tasks</ListItem>
-            <ListItem onClick={handleLogout} button>Log out</ListItem>
-            <Divider className="w-100"/>
-            <ListItem className="p-0">
-              <div className="grid-menu grid-menu-2col w-100">
-                <div className="py-3">
-                  <div className="d-flex justify-content-center">
-                    <div className="d-flex align-items-center">
-                      <div>
-                        <FontAwesomeIcon
-                          icon={['far', 'chart-bar']}
-                          className="font-size-xxl text-info"
-                        />
-                      </div>
-                      <div className="pl-3 line-height-sm">
-                        <b className="font-size-lg">$9,693</b>
-                        <span className="text-black-50 d-block">revenue</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ListItem>
-            <Divider className="w-100"/>
-            <ListItem className="d-block rounded-bottom px-3 pt-3 pb-0 text-center">
-              <Tooltip arrow title="Facebook">
-                <Button color="default" className="text-facebook">
-                  <span className="btn-wrapper--icon">
-                    <FontAwesomeIcon icon={['fab', 'facebook']}/>
-                  </span>
-                </Button>
-              </Tooltip>
-              <Tooltip arrow title="Dribbble">
-                <Button color="default" className="text-dribbble mr-2 ml-2">
-                  <span className="btn-wrapper--icon">
-                    <FontAwesomeIcon icon={['fab', 'dribbble']}/>
-                  </span>
-                </Button>
-              </Tooltip>
-              <Tooltip arrow title="Twitter">
-                <Button color="default" className="text-twitter">
-                  <span className="btn-wrapper--icon">
-                    <FontAwesomeIcon icon={['fab', 'twitter']}/>
-                  </span>
-                </Button>
-              </Tooltip>
-            </ListItem>
+            {/*<ListItem button>Active tasks</ListItem>*/}
+            <ListItem onClick={handleLogout} button>Se déconnecter</ListItem>
+            <>
+              {/*<Divider className="w-100"/>*/}
+              {/*<ListItem className="p-0">*/}
+              {/*  <div className="grid-menu grid-menu-2col w-100">*/}
+              {/*    <div className="py-3">*/}
+              {/*      <div className="d-flex justify-content-center">*/}
+              {/*        <div className="d-flex align-items-center">*/}
+              {/*          <div>*/}
+              {/*            <FontAwesomeIcon*/}
+              {/*              icon={['far', 'chart-bar']}*/}
+              {/*              className="font-size-xxl text-info"*/}
+              {/*            />*/}
+              {/*          </div>*/}
+              {/*          <div className="pl-3 line-height-sm">*/}
+              {/*            <b className="font-size-lg">$9,693</b>*/}
+              {/*            <span className="text-black-50 d-block">revenue</span>*/}
+              {/*          </div>*/}
+              {/*        </div>*/}
+              {/*      </div>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</ListItem>*/}
+              {/*<Divider className="w-100"/>*/}
+              {/*<ListItem className="d-block rounded-bottom px-3 pt-3 pb-0 text-center">*/}
+              {/*  <Tooltip arrow title="Facebook">*/}
+              {/*    <Button color="default" className="text-facebook">*/}
+              {/*      <span className="btn-wrapper--icon">*/}
+              {/*        <FontAwesomeIcon icon={['fab', 'facebook']}/>*/}
+              {/*      </span>*/}
+              {/*    </Button>*/}
+              {/*  </Tooltip>*/}
+              {/*  <Tooltip arrow title="Dribbble">*/}
+              {/*    <Button color="default" className="text-dribbble mr-2 ml-2">*/}
+              {/*      <span className="btn-wrapper--icon">*/}
+              {/*        <FontAwesomeIcon icon={['fab', 'dribbble']}/>*/}
+              {/*      </span>*/}
+              {/*    </Button>*/}
+              {/*  </Tooltip>*/}
+              {/*  <Tooltip arrow title="Twitter">*/}
+              {/*    <Button color="default" className="text-twitter">*/}
+              {/*      <span className="btn-wrapper--icon">*/}
+              {/*        <FontAwesomeIcon icon={['fab', 'twitter']}/>*/}
+              {/*      </span>*/}
+              {/*    </Button>*/}
+              {/*  </Tooltip>*/}
+              {/*</ListItem>*/}
+            </>
           </List>
         </div>
       </Menu>

@@ -212,13 +212,13 @@ export const fetchWeekTasks = (page = 1) => async (
 
 export const clearCacheTask = () => (dispatch) => {
   dispatch({
-    type: ActionTypes.CLEAR_CACHE_TASK,
-  });
-  dispatch({
     type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
   });
   dispatch({
     type: ActionTypes.CLEAR_CACHE_PROJECT_TASKS,
+  });
+  dispatch({
+    type: ActionTypes.CLEAR_CACHE_TASK,
   });
 };
 
@@ -238,10 +238,10 @@ export const createTask = (task) => (dispatch) => {
         })
       );
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_TASK,
+        type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
+        type: ActionTypes.CLEAR_CACHE_TASK,
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_TASK,
@@ -277,10 +277,10 @@ export const updateTask = (idTask, task) => (dispatch) => {
         })
       );
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_TASK,
+        type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
+        type: ActionTypes.CLEAR_CACHE_TASK,
       });
       dispatch({
         type: ActionTypes.UPDATE_SUCCESS_TASK,
@@ -313,10 +313,10 @@ export const deleteTaskById = (task) => (dispatch) => {
         })
       );
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_TASK,
+        type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
       });
       dispatch({
-        type: ActionTypes.CLEAR_CACHE_WEEK_TASK,
+        type: ActionTypes.CLEAR_CACHE_TASK,
       });
       dispatch({
         type: ActionTypes.REMOVE_SUCCESS_TASK,

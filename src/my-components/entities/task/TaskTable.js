@@ -6,7 +6,7 @@ import moment from 'moment';
 import {getDisplayString} from "../../utils";
 import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
-import avatar7 from "../../../assets/images/avatars/avatar7.jpg";
+
 
 NoteTable.propTypes = {
   tasks: PropTypes.array.isRequired,
@@ -131,8 +131,9 @@ function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete, displayStatu
           <td className="text-center">
             {moment(task.end_at).format('L')}
           </td>
-          {canEdit &&
+
           <td className="text-center">
+            {canEdit &&
             <Tooltip arrow title="Modifier">
               <IconButton
                 onClick={() => handleEdit(task.id)}
@@ -143,6 +144,19 @@ function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete, displayStatu
                 />
               </IconButton>
             </Tooltip>
+            }
+            <Tooltip arrow title="Consulter">
+              <IconButton
+                component={RouterLink}
+                to={`/task/${task.id}`}
+                className="text-primary">
+                <FontAwesomeIcon
+                  icon={['fas', 'eye']}
+                  className="font-size-sm"
+                />
+              </IconButton>
+            </Tooltip>
+            {canEdit &&
             <Tooltip arrow title="Supprimer">
               <IconButton
                 onClick={() => handleDelete(task)}
@@ -152,8 +166,8 @@ function NoteTable({tasks, canEdit, sort, handleEdit, handleDelete, displayStatu
                   className="font-size-sm"
                 />
               </IconButton>
-            </Tooltip>
-          </td>}
+            </Tooltip>}
+          </td>
         </tr>
       ))}
       </tbody>

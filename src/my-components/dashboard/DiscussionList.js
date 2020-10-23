@@ -39,7 +39,6 @@ DiscussionList.prototype = {
 
 export default function DiscussionList({items, title}) {
   const classes = useStyles();
-
   return (
     <>
       <div className={classes.root}>
@@ -62,7 +61,7 @@ export default function DiscussionList({items, title}) {
               <React.Fragment key={item.id}>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src={item.user.userProfile &&
+                    <Avatar src={item.user && item.user.userProfile &&
                     item.user.userProfile.photo ? item.user.userProfile.photo : ""}>
                       {item.user.username.charAt(0).toUpperCase()}
                     </Avatar>

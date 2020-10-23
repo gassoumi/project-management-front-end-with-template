@@ -62,8 +62,8 @@ function Note(props) {
   const {isFetching, fetchNotes, deleteNote, notes, pageSize, page, createNote, updateNote, isUpdating, count} = props;
 
 
-  const handleInput = (event) => {
-    setQuery(event.target.value);
+  const handleInput = (value) => {
+    setQuery(value);
   };
 
   const handleQuery = (event) => {
@@ -206,10 +206,10 @@ function Note(props) {
 
   return (
     <>
-      <PageTitle
-        titleHeading="Story"
-        // titleDescription="Building a projects related application? Start from this layout."
-      />
+      {/*<PageTitle*/}
+      {/*  titleHeading="Story"*/}
+      {/*  // titleDescription="Building a projects related application? Start from this layout."*/}
+      {/*/>*/}
       <NoteDetail
         note={note}
         open={openDetailDialog}
