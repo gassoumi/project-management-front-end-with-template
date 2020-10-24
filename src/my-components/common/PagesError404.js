@@ -49,7 +49,7 @@ export default function LivePreviewExample() {
                             <span className="btn-wrapper--icon">
                               <FontAwesomeIcon icon={['fas', 'arrow-left']}/>
                             </span>
-                          <span className="btn-wrapper--label">Back to dashboard</span>
+                          <span className="btn-wrapper--label">Retour au dashboard</span>
                         </Button>
                       </Grid>
                     </div>

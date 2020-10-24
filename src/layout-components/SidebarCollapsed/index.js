@@ -36,17 +36,6 @@ import ErrorIcon from '@material-ui/icons/ErrorOutline';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ChatIcon from '@material-ui/icons/ChatOutlined';
 
-import {
-  Settings,
-  CloudDrizzle,
-  Search,
-  Users,
-  LifeBuoy,
-  Coffee,
-  Briefcase,
-  Bell
-} from 'react-feather';
-
 const SidebarCollapsed = props => {
   const closeDrawer = () => setSidebarToggleMobile(!sidebarToggleMobile);
 
@@ -239,7 +228,7 @@ const SidebarCollapsed = props => {
                 </li>
               </ul>
               <div className="text-center mb-2">
-                <Tooltip arrow placement="right" title="Back to dashboard">
+                <Tooltip arrow placement="right" title="Retour au dashboard">
                   <Button
                     variant="contained"
                     color="secondary"

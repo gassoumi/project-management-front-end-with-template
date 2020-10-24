@@ -132,7 +132,7 @@ export function HeaderUserbox({logout, auth}) {
             </div>
             <Divider className="w-100 mt-2"/>
             {/*<ListItem button>My Account</ListItem>*/}
-            <ListItem button>Profile settings</ListItem>
+            <ListItem button>Paramètre de profil</ListItem>
             {/*<ListItem button>Active tasks</ListItem>*/}
             <ListItem onClick={handleLogout} button>Se déconnecter</ListItem>
             <>

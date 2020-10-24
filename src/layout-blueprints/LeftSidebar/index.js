@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import { Sidebar, Header, Footer } from '../../layout-components';
+import {Sidebar, Header, Footer} from '../../layout-components';
 
 const LeftSidebar = props => {
   const {
@@ -18,14 +18,14 @@ const LeftSidebar = props => {
   return (
     <Fragment>
       <div className={clsx('app-wrapper', contentBackground)}>
-        <Header />
+        <Header/>
         <div
           className={clsx('app-main', {
             'app-main-sidebar-static': !sidebarFixed
           })}>
-          <Sidebar />
+          <Sidebar/>
           <div
-            className={clsx('app-content', {
+            className={clsx('app-content mb-4', {
               'app-content-sidebar-collapsed': sidebarToggle,
               'app-content-sidebar-fixed': sidebarFixed,
               'app-content-footer-fixed': footerFixed
@@ -33,7 +33,7 @@ const LeftSidebar = props => {
             <div className="app-content--inner">
               <div className="app-content--inner__wrapper">{children}</div>
             </div>
-            <Footer />
+            {/*<Footer />*/}
           </div>
         </div>
       </div>
