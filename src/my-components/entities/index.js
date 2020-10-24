@@ -1,19 +1,27 @@
-import React from 'react';
+import React, {lazy} from 'react';
 import {Switch, Route, useLocation} from 'react-router-dom';
 import {motion} from 'framer-motion';
-import Project from './project';
-import Sprint from './sprint';
-import Task from './task';
-import Document from './document';
-import Note from './note';
-import Problem from './problem';
 import {tokenConfig} from "../../utils";
 import {returnErrors} from "../../redux/actions/messages";
 import * as Selector from "../../redux/selectors";
-import Discussion from './discussion';
-import Dashboard from '../dashboard';
 import {LeftSidebar} from "../../layout-blueprints";
 import ErrorBoundaryRoute from '../common/ErrorBoundaryRoute';
+// import Project from './project';
+// import Sprint from './sprint';
+// import Task from './task';
+// import Document from './document';
+// import Note from './note';
+// import Problem from './problem';
+// import Discussion from './discussion';
+// import Dashboard from '../dashboard';
+const Project = lazy(() => import('./project'));
+const Sprint = lazy(() => import('./sprint'));
+const Task = lazy(() => import('./task'));
+const Document = lazy(() => import('./document'));
+const Note = lazy(() => import('./note'));
+const Problem = lazy(() => import('./problem'));
+const Discussion = lazy(() => import('./discussion'));
+const Dashboard = lazy(() => import('../dashboard'));
 
 // add all entities here
 const Routes = (props) => {
