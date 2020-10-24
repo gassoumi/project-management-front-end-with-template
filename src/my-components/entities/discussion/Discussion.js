@@ -85,6 +85,7 @@ function Discussion(props) {
     const params = new URLSearchParams(props.location.search);
     const page = params.get('page') || 1;
     const sort = params.get('sort');
+    const search = params.get('search') || '';
     if (sort) {
       const sortSplit = sort.split(',');
       setPaginationState({
@@ -92,15 +93,18 @@ function Discussion(props) {
         activePage: parseInt(page),
         sort: sortSplit[0],
         order: sortSplit[1],
+        search,
       });
     } else {
       setPaginationState({
         ...paginationState,
         activePage: parseInt(page),
+        search
       });
     }
+    setQuery(search);
   }, [props.location.search]);
-  
+
   return (
     <>
       <DiscussionDialogForm

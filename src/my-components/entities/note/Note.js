@@ -1,11 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import DeleteDialog from "../common/DeleteDialog";
-import GreenButton from "../common/GreenButton";
-import Loading from "../common/Loading";
-import Grid from "@material-ui/core/Grid";
 import NoteUpdate from './NoteUpdate'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import NoteTable from "./NoteTable";
 import {Selector} from "../index";
 import {connect} from "react-redux";
@@ -121,6 +117,7 @@ function Note(props) {
     const params = new URLSearchParams(props.location.search);
     const page = params.get('page') || 1;
     const sort = params.get('sort');
+    const search = params.get('search') || '';
     if (sort) {
       const sortSplit = sort.split(',');
       setPaginationState({
@@ -128,13 +125,16 @@ function Note(props) {
         activePage: parseInt(page),
         sort: sortSplit[0],
         order: sortSplit[1],
+        search
       });
     } else {
       setPaginationState({
         ...paginationState,
         activePage: parseInt(page),
+        search
       });
     }
+    setQuery(search);
   }, [props.location.search]);
 
   useEffect(() => {

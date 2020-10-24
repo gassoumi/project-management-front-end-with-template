@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import Problem from './Problem';
 import ProblemUpdate from "./ProblemUpdate";
 import ProblemDetail from './ProblemDetail';

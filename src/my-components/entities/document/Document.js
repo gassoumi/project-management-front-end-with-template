@@ -286,6 +286,7 @@ function Document(props) {
     const params = new URLSearchParams(props.location.search);
     const page = params.get('page') || 1;
     const sort = params.get('sort');
+    const search = params.get('search') || '';
     if (sort) {
       const sortSplit = sort.split(',');
       setPaginationState({
@@ -293,12 +294,15 @@ function Document(props) {
         activePage: parseInt(page),
         sort: sortSplit[0],
         order: sortSplit[1],
+        search,
       });
     } else {
       setPaginationState({
         ...paginationState,
         activePage: parseInt(page),
+        search
       });
+      setQuery(search);
     }
     setStatus(queryString.parse(props.location.search).status || "AC")
   }, [props.location.search]);
