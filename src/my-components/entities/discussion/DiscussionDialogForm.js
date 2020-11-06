@@ -13,6 +13,10 @@ import TextField from '@material-ui/core/TextField';
 import {useForm} from "react-hook-form";
 import {connect} from "react-redux";
 import {updateDiscussion, createDiscussion} from "../../../redux/actions";
+import {
+  getMinLengthMessage,
+  getRequiredMessage,
+} from '../../utils/validationMessage';
 
 
 const styles = (theme) => ({
@@ -100,10 +104,10 @@ function DiscussionDialogForm({
             name="object"
             required
             inputRef={register({
-              required: 'this field is required',
+              required: getRequiredMessage(),
               minLength: {
                 value: 2,
-                message: 'Max length is 2',
+                message: getMinLengthMessage(2),
               },
             })}
             autoFocus
@@ -121,7 +125,7 @@ function DiscussionDialogForm({
             name="description"
             required
             inputRef={register({
-              required: 'this field is required',
+              required: getRequiredMessage(),
             })}
             rows={5}
             placeholder="Ecrire une description à propos votre discussion"

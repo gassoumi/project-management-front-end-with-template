@@ -20,7 +20,7 @@ const DEFAULT_PAGE_SIZE = 100;
 
 // https://codesandbox.io/s/react-hook-form-controller-079xx?file=/src/MuiAutoComplete.js
 function AsyncComboBox(props) {
-  const {name, errors, defaultValue, control, label, url, optionLabel, rules, disabled, variant} = props;
+  const {name, errors, defaultValue, control, label, url, optionLabel, rules, disabled, variant, urlParams} = props;
   const [open, setOpen] = React.useState(false);
 
   const [inputValue, setInputValue] = React.useState('');
@@ -42,7 +42,10 @@ function AsyncComboBox(props) {
       setLoading(true);
       try {
         await sleep(1e3); // For demo purposes.
-        const finalUrl = `${url}?${PARAM_SEARCH}${inputValue}&page_size=${DEFAULT_PAGE_SIZE}`;
+        let finalUrl = `${url}?${PARAM_SEARCH}${inputValue}&page_size=${DEFAULT_PAGE_SIZE}`;
+        if (urlParams) {
+          finalUrl = finalUrl + urlParams;
+        }
         const response = await axios.get(finalUrl);
         if (active && response.data && response.data.results) {
           setOptions(response.data.results);

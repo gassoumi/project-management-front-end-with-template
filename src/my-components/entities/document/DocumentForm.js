@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Grid from "@material-ui/core/Grid";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from '@material-ui/icons/Save';
@@ -17,6 +17,10 @@ import {createDocument, updateDocument} from "../../../redux";
 import {getFileName} from "./DocumentTable";
 import Link from "@material-ui/core/Link";
 import clsx from 'clsx';
+import {
+  getMinLengthMessage,
+  getRequiredMessage
+} from '../../utils/validationMessage';
 
 const URL_TASK = "/api/tasks/";
 
@@ -64,7 +68,7 @@ function DocumentForm(props) {
     docFile: null,
   };
 
-  const {register, handleSubmit, errors, control, getValues, clearError, triggerValidation, watch} =
+  const {register, handleSubmit, errors, control} =
     useForm({
       mode: "onChange",
       defaultValues: defaultValue,
@@ -114,10 +118,10 @@ function DocumentForm(props) {
               label="Code Document"
               name="code"
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 minLength: {
                   value: 2,
-                  message: 'Max length is 2',
+                  message: getMinLengthMessage(2),
                 },
               })}
               fullWidth
@@ -132,10 +136,10 @@ function DocumentForm(props) {
               label="Version"
               name="version"
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 minLength: {
                   value: 2,
-                  message: 'Max length is 2',
+                  message: getMinLengthMessage(2),
                 },
               })}
               fullWidth
@@ -190,7 +194,7 @@ function DocumentForm(props) {
               <label htmlFor="contained-button-file">
                 <Button startIcon={<CloudUploadIcon/>} variant="contained" color="secondary"
                         component="span">
-                  Upload
+                  Télécharger un fichier
                 </Button>
               </label>
               {errors.docFile &&
@@ -231,5 +235,10 @@ const mapStateToProps = state => ({
   updateSuccess: state.entity.document.updateSuccess,
   isUpdating: state.entity.document.isUpdating,
 });
+
+DocumentForm.prototype = {
+  updateSuccess: PropTypes.bool.isRequired,
+  isUpdating: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps, {createDocument, updateDocument})(DocumentForm);

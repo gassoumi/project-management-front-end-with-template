@@ -217,7 +217,16 @@ export const fetchProjectById = (id) => async dispatch => {
   } catch (error) {
     if (error.response) {
       const {data, status} = error.response;
+      dispatch({
+        type: ActionTypes.FETCH_FAILURE_PROJECT,
+        error: {data, status},
+      });
       dispatch(returnErrors(data, status));
+    } else {
+      dispatch({
+        type: ActionTypes.FETCH_FAILURE_PROJECT,
+        error: "il y'a une erreur"
+      });
     }
   } finally {
     // dispatch(hideLoading());

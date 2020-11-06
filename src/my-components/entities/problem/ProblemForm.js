@@ -21,7 +21,11 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import AsyncComboBox from "../common/AsyncComboBox";
-
+import {
+  getDateMessage,
+  getMinLengthMessage,
+  getRequiredMessage
+} from '../../utils/validationMessage';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -140,10 +144,10 @@ function ProblemForm(props) {
               label="Description"
               name="description"
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 minLength: {
                   value: 2,
-                  message: 'Max length is 2',
+                  message: getMinLengthMessage(2),
                 },
               })}
               fullWidth
@@ -162,10 +166,10 @@ function ProblemForm(props) {
               label="Cause"
               name="cause"
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 minLength: {
                   value: 2,
-                  message: 'Max length is 2',
+                  message: getMinLengthMessage(2),
                 },
               })}
               fullWidth
@@ -182,10 +186,10 @@ function ProblemForm(props) {
               label="Outils de résolution"
               name="resolutionTools"
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 minLength: {
                   value: 2,
-                  message: 'Max length is 2',
+                  message: getMinLengthMessage(2),
                 },
               })}
               fullWidth
@@ -216,7 +220,7 @@ function ProblemForm(props) {
                     <MenuItem value="NON_CLOTURE">Non Cloturé</MenuItem>
                   </Select>}
                 control={control}
-                rules={{required: 'this field is required'}}
+                rules={{required: getRequiredMessage()}}
               />
               {errors.status &&
               <FormHelperText>{errors.status.message}</FormHelperText>
@@ -237,7 +241,7 @@ function ProblemForm(props) {
                 label="Coisir une tache"
                 optionLabel="description"
                 url={URL_TASK}
-                rules={{required: 'this field is required',}}
+                rules={{required: getRequiredMessage(),}}
               />
             </FormControl>
           </Grid>
@@ -246,9 +250,9 @@ function ProblemForm(props) {
               name="start_at"
               control={control}
               rules={{
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 validate: {
-                  date: value => moment(value).isValid() || "Format de date non valide"
+                  date: value => moment(value).isValid() || getDateMessage()
                 }
               }}
               as={
@@ -275,9 +279,9 @@ function ProblemForm(props) {
               name="end_at"
               control={control}
               rules={{
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 validate: {
-                  date: value => moment(value).isValid() || "Format de date non valide",
+                  date: value => moment(value).isValid() || getDateMessage(),
                   greatOrEqualThan: value => {
                     return isGreatOrEqualThan(value) || "La date de fin doit etre superieur au date de debut";
                   },

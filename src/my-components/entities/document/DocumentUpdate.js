@@ -1,31 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Grid from "@material-ui/core/Grid";
-import {makeStyles} from '@material-ui/core/styles';
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import DocumentForm from './DocumentForm';
 import axios from "axios";
 import {SuspenseLoading} from "../../../Routes";
 import {Card, Divider} from "@material-ui/core";
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    color: theme.palette.text.black,
-  },
-  formTitle: {
-    textAlign: 'center',
-  }
-}));
 // TODO
 // handle not found
 function DocumentUpdate(props) {
 
-  const classes = useStyles();
+
   const isNew = !props.match.params || !props.match.params.id;
   // create state that receive props instead of using the props directly
   // it is the same

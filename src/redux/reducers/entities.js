@@ -1,5 +1,10 @@
 import {merge} from "lodash/object";
 import * as ActionTypes from "../actionTypes";
+import {
+  discussionSchema,
+  discussionsListSchema,
+} from "../../utils";
+import {normalize} from "normalizr";
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state, action) {
@@ -16,6 +21,7 @@ const initialState = {
 };
 //const initialState = {};
 export default function (state = initialState, action) {
+  console.log(action.type);
   switch (action.type) {
     case ActionTypes.STARRED_SUCCESS_PROJECTS:
     case ActionTypes.STARRED_SUCCESS_NOTES:
@@ -42,6 +48,8 @@ export default function (state = initialState, action) {
     case ActionTypes.FETCH_SUCCESS_COMMENT:
     case ActionTypes.FETCH_SUCCESS_PROBLEM:
       return entities(state, action);
+    case ActionTypes.SUCCESS('FETCH_DISCUSSION'):
+      return entities(state, normalize(action.payload.data, discussionSchema));
     case ActionTypes.LOGOUT_SUCCESS:
       return {
         ...initialState,

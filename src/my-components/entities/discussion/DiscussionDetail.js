@@ -21,6 +21,8 @@ import DiscussionDialogForm from "./DiscussionDialogForm";
 import DiscussionList from "../../dashboard/DiscussionList";
 import Comments from './Comments';
 import ReactMarkdown from 'react-markdown';
+import Alert from '../common/Alert';
+import ElementNotFound from '../../common/ElementNotFound';
 
 // https://stackoverflow.com/questions/23763482/text-not-wrapping-inside-a-div-element
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +65,7 @@ function DiscussionDetail(props) {
   const id = props.match.params.id;
   const {
     isDiscussionLoaded, discussion, fetchDiscussion, createComment, nextPageUrl, page, count,
-    fetchCommentsByDiscussion, comments, isFetchingComments, displayEditDiscussionButton,
+    fetchCommentsByDiscussion, comments, isFetchingComments, displayEditDiscussionButton, error,
     updateSuccessComment, updateSuccessDiscussion, authenticatedUser, clearCacheComment, isUpdating,
     updateComment, deleteCommentById, deleteSuccessComment, fetchTopDiscussions, topDiscussion,
   } = props;
@@ -127,11 +129,21 @@ function DiscussionDetail(props) {
     </div>
   );
 
-
-  if (!isDiscussionLoaded) {
-    return <Loading/>
+  // throw new Error("hello world");
+  if (error) {
+    if ((error.status && error.status === 404)) {
+      return (
+        <>
+          {/*<Redirect from={props.location.path} to={'/notFound'}/>*/}
+          <ElementNotFound/>
+          {/*<Route path='*' exact={true} component={PagesError404}/>*/}
+        </>
+      )
+    } else {
+      return <Alert label={error}/>
+    }
   }
-  // else
+
   return (
     <Grid container spacing={3}>
       <DiscussionDialogForm
@@ -142,98 +154,100 @@ function DiscussionDetail(props) {
         handleClose={() => setOpen(false)}
       />
       <Grid item xs={12} md={8}>
-        <Paper className={classes.paper} elevation={2}>
-          <Grid container item xs={12}>
-            <Grid container justify={"flex-start"} item xs={8}>
-              <Typography variant={"h5"} gutterBottom={true}>
-                {discussion.object}
-              </Typography>
-            </Grid>
-            {displayEditDiscussionButton &&
-            <Grid item xs={4} container justify={"flex-end"}>
-              <Grid item>
-                <Button startIcon={<EditIcon/>}
-                        onClick={() => setOpen(true)}
-                        type="button"
-                        variant="contained"
-                        color={"secondary"}
-                >
-                  Modifier
-                </Button>
+        {!isDiscussionLoaded ? <Loading/> :
+          <Paper className={classes.paper} elevation={2}>
+            <Grid container item xs={12}>
+              <Grid container justify={"flex-start"} item xs={8}>
+                <Typography variant={"h5"} gutterBottom={true}>
+                  {discussion.object}
+                </Typography>
               </Grid>
+              {displayEditDiscussionButton &&
+              <Grid item xs={4} container justify={"flex-end"}>
+                <Grid item>
+                  <Button startIcon={<EditIcon/>}
+                          onClick={() => setOpen(true)}
+                          type="button"
+                          variant="contained"
+                          color={"secondary"}
+                  >
+                    Modifier
+                  </Button>
+                </Grid>
+              </Grid>
+              }
             </Grid>
-            }
-          </Grid>
-          <Typography color={"textSecondary"} paragraph>
-            {`${moment(discussion.created_at).format('LL')} 
+            <Typography color={"textSecondary"} paragraph>
+              {`${moment(discussion.created_at).format('LL')} 
                                  par ${discussion.user.username}
                                  `}
-          </Typography>
-          <Divider/>
-          {/*<Typography*/}
-          {/*  className={classes.description} variant={"body1"} paragraph*/}
-          {/*  gutterBottom={true}>*/}
-          {/*  {discussion.description}*/}
-          {/*</Typography>*/}
-          <ReactMarkdown className={classes.description}>
-            {discussion.description}
-          </ReactMarkdown>
+            </Typography>
+            <Divider/>
+            {/*<Typography*/}
+            {/*  className={classes.description} variant={"body1"} paragraph*/}
+            {/*  gutterBottom={true}>*/}
+            {/*  {discussion.description}*/}
+            {/*</Typography>*/}
+            <ReactMarkdown className={classes.description}>
+              {discussion.description}
+            </ReactMarkdown>
 
-          <Divider/>
-          {
-            isFetchingComments && pageToFetch === 1 ?
-              getProgressElement() :
-              (<>
-                <Typography variant={"h6"} className={"pt-2"} gutterBottom>
-                  {`${count} commentaires`}
-                </Typography>
-                <div className={classes.comments}>
-                  <form onSubmit={handleSubmit} className={classes.inputComment} noValidate
-                        autoComplete="off">
-                    <TextField
-                      fullWidth
-                      value={inputComment}
-                      onChange={(e) => setInputComment(e.target.value)}
-                      name="commentInput"
-                      placeholder="Ajoouter un commentaire"
-                      multiline
-                    />
-                    <Grid container justify={"flex-end"} item xs={12}>
-                      <div className={classes.buttons}>
-                        <Button disabled={!inputComment} type="submit"
-                                variant="contained"
-                                color="primary">
-                          Ajouter un commentaire
-                        </Button>
-                      </div>
+            <Divider/>
+            {
+              isFetchingComments && pageToFetch === 1 ?
+                getProgressElement() :
+                (<>
+                  <Typography variant={"h6"} className={"pt-2"} gutterBottom>
+                    {`${count} commentaires`}
+                  </Typography>
+                  <div className={classes.comments}>
+                    <form onSubmit={handleSubmit} className={classes.inputComment} noValidate
+                          autoComplete="off">
+                      <TextField
+                        fullWidth
+                        value={inputComment}
+                        onChange={(e) => setInputComment(e.target.value)}
+                        name="commentInput"
+                        placeholder="Ajoouter un commentaire"
+                        multiline
+                      />
+                      <Grid container justify={"flex-end"} item xs={12}>
+                        <div className={classes.buttons}>
+                          <Button disabled={!inputComment} type="submit"
+                                  variant="contained"
+                                  color="primary">
+                            Ajouter un commentaire
+                          </Button>
+                        </div>
+                      </Grid>
+                    </form>
+                    <Grid item xs={12}>
+                      <Comments
+                        deleteCommentById={deleteCommentById}
+                        idDiscussion={id}
+                        updateComment={updateComment}
+                        comments={comments}
+                        authenticatedUser={authenticatedUser}
+                      />
                     </Grid>
-                  </form>
-                  <Grid item xs={12}>
-                    <Comments
-                      deleteCommentById={deleteCommentById}
-                      idDiscussion={id}
-                      updateComment={updateComment}
-                      comments={comments}
-                      authenticatedUser={authenticatedUser}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    {
-                      isFetchingComments ? getProgressElement() :
-                        (nextPageUrl != null && <Button
-                          className="mt-2"
-                          fullWidth
-                          onClick={handleLoadMoreComments}
-                          variant="contained"
-                          color="secondary">
-                          Charger plus de commentaires
-                        </Button>)
-                    }
-                  </Grid>
-                </div>
-              </>)
-          }
-        </Paper>
+                    <Grid item xs={12}>
+                      {
+                        isFetchingComments ? getProgressElement() :
+                          (nextPageUrl != null && <Button
+                            className="mt-2"
+                            fullWidth
+                            onClick={handleLoadMoreComments}
+                            variant="contained"
+                            color="secondary">
+                            Charger plus de commentaires
+                          </Button>)
+                      }
+                    </Grid>
+                  </div>
+                </>)
+            }
+          </Paper>}
+
       </Grid>
       <Grid item xs={12} md={4}>
         <DiscussionList title={'Top Discussions'} items={topDiscussion}/>
@@ -268,6 +282,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const topDiscussion = Selector.getTopDiscussionPage(state);
   const isLoaded = state.entity.discussion.isLoaded;
+  const error = state.entity.discussion.error;
   const discussion = isLoaded ? Selector.getDiscussionById(state, id) : {};
   const listComments = Selector.getCommentsByIdDiscussion(state, id);
 
@@ -278,6 +293,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     topDiscussion,
     discussion,
+    error,
     isDiscussionLoaded: isLoaded,
     comments: listComments,
     isFetchingComments: comments.isFetching,

@@ -118,7 +118,6 @@ const ApplicationsProjectsContent = (props) => {
   }, [props.deleteSuccess]);
 
   useEffect(() => {
-    console.log(props.location.search);
     const params = new URLSearchParams(props.location.search);
     const page = params.get('page') || 1;
     const sort = params.get('sort');

@@ -23,6 +23,12 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import {
+  getDateMessage,
+  getMaxLengthMessage,
+  getMinLengthMessage,
+  getRequiredMessage
+} from '../../utils/validationMessage';
 
 const styles = (theme) => ({
   root: {
@@ -141,10 +147,14 @@ function SprintUpdate({
               name="name"
               required
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
+                maxLength: {
+                  value: 500,
+                  message: getMaxLengthMessage(500)
+                },
                 minLength: {
                   value: 2,
-                  message: 'Min length is 2',
+                  message: getMinLengthMessage(2)
                 },
               })}
               autoFocus
@@ -165,7 +175,7 @@ function SprintUpdate({
                 label="Choisir un projet"
                 optionLabel="designation"
                 url={URL_PROJECT}
-                rules={{required: 'this field is required'}}
+                rules={{required: getRequiredMessage()}}
               />
             </FormControl>
             <FormControl
@@ -179,7 +189,7 @@ function SprintUpdate({
                 name="status"
                 // defaultValue={sprint.state || ""}
                 control={control}
-                rules={{required: 'this field is required'}}
+                rules={{required: getRequiredMessage()}}
                 as={
                   <Select
                     labelId="demo-simple-select-label"
@@ -203,9 +213,9 @@ function SprintUpdate({
               name="desired_at"
               control={control}
               rules={{
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 validate: {
-                  date: value => isDate(value) || "Format de date non valide"
+                  date: value => isDate(value) || getDateMessage()
                 }
               }}
               as={

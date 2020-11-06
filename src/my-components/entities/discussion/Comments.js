@@ -1,6 +1,5 @@
 import React, {useEffect, useState, Fragment} from 'react';
 import PropTypes from 'prop-types';
-
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
@@ -14,13 +13,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {Badge, Card, CardContent, Divider} from "@material-ui/core";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import avatar7 from "../../../assets/images/avatars/avatar7.jpg";
-import avatar1 from "../../../assets/images/avatars/avatar1.jpg";
-import avatar5 from "../../../assets/images/avatars/avatar5.jpg";
-import avatar3 from "../../../assets/images/avatars/avatar3.jpg";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -236,6 +228,12 @@ function Comments(props) {
   );
 }
 
-Comments.propTypes = {};
+Comments.propTypes = {
+  comments: PropTypes.array.isRequired,
+  authenticatedUser: PropTypes.object.isRequired,
+  updateComment: PropTypes.func.isRequired,
+  idDiscussion: PropTypes.string.isRequired,
+  deleteCommentById: PropTypes.func.isRequired
+};
 
 export default Comments;

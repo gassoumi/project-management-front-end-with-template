@@ -21,6 +21,12 @@ import moment from 'moment';
 import {connect} from "react-redux";
 import {createTask, updateTask} from "../../../redux";
 import AsyncComboBox from '../common/AsyncComboBox';
+import {
+  getDateMessage,
+  getMaxLengthMessage,
+  getMinLengthMessage,
+  getRequiredMessage
+} from '../../utils/validationMessage';
 
 const URL_SPRINT = '/api/activeSprints/';
 const URL_USER = '/api/auth/users';
@@ -73,13 +79,14 @@ function TaskForm(props) {
 
   const {
     register, handleSubmit, errors, control, getValues,
-    triggerValidation, reset, watch
+    triggerValidation, reset, watch, setValue
   } = useForm({
     mode: "onChange",
     defaultValues: defaultValue,
   });
 
   const watchStartAt = watch("start_at");
+  const watchUser = watch("user", task.user || null);
 
   const isGreatOrEqualThan = value => {
     const start_at_date = moment(getValues().start_at)
@@ -99,6 +106,10 @@ function TaskForm(props) {
       triggerValidation("end_at");
     }
   }, [watchStartAt]);
+
+  useEffect(() => {
+    setValue('sprint', '');
+  }, [watchUser]);
 
   useEffect(() => {
     if (updateSuccess) {
@@ -138,10 +149,14 @@ function TaskForm(props) {
               label="Description"
               name="description"
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
+                maxLength: {
+                  value: 200,
+                  message: getMaxLengthMessage(200),
+                },
                 minLength: {
                   value: 2,
-                  message: 'Max length is 2',
+                  message: getMinLengthMessage(2),
                 },
               })}
               fullWidth
@@ -154,9 +169,9 @@ function TaskForm(props) {
               name="start_at"
               control={control}
               rules={{
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 validate: {
-                  date: value => moment(value).isValid() || "Format de date non valide"
+                  date: value => moment(value).isValid() || getDateMessage()
                 }
               }}
               as={
@@ -182,9 +197,9 @@ function TaskForm(props) {
               name="end_at"
               control={control}
               rules={{
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 validate: {
-                  date: value => moment(value).isValid() || "Format de date non valide",
+                  date: value => moment(value).isValid() || getDateMessage(),
                   greatOrEqualThan: value => {
                     return isGreatOrEqualThan(value) || "La date de fin doit etre superieur au date de debut";
                   },
@@ -220,11 +235,11 @@ function TaskForm(props) {
                 control={control}
                 // defaultValue={task.sprint || null}
                 errors={errors}
-                name="sprint"
-                label="Choisir un sprint"
-                optionLabel="name"
-                url={URL_SPRINT}
-                rules={{required: 'this field is required'}}
+                name="user"
+                label="Choisir un responsable"
+                optionLabel="username"
+                url={URL_USER}
+                rules={{required: getRequiredMessage()}}
               />
             </FormControl>
           </Grid>
@@ -236,12 +251,14 @@ function TaskForm(props) {
               <AsyncComboBox
                 control={control}
                 // defaultValue={task.sprint || null}
+                disabled={!watchUser}
                 errors={errors}
-                name="user"
-                label="Choisir un responsable"
-                optionLabel="username"
-                url={URL_USER}
-                rules={{required: 'this field is required'}}
+                name="sprint"
+                label="Choisir un sprint"
+                optionLabel="name"
+                url={URL_SPRINT}
+                urlParams={watchUser && watchUser.id ? `&user_id=${watchUser.id}` : null}
+                rules={{required: getRequiredMessage()}}
               />
             </FormControl>
           </Grid>
@@ -271,7 +288,7 @@ function TaskForm(props) {
                   </Select>
                 }
                 control={control}
-                rules={{required: 'this field is required'}}
+                rules={{required: getRequiredMessage()}}
               />
               {errors.status &&
               <FormHelperText>{errors.status.message}</FormHelperText>

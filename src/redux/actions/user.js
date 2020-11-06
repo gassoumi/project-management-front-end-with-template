@@ -68,3 +68,10 @@ export const fetchUserById = (id) => async dispatch => {
     // dispatch(hideLoading());
   }
 };
+
+export const fetchUserById2 = (id) => {
+  return ({
+    type: 'FETCH_USER',
+    payload: axios.get(`/api/auth/users/${id}`)
+  });
+};

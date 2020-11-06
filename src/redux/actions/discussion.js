@@ -9,7 +9,7 @@ import {
 // import {showLoading, hideLoading} from 'react-redux-loading-bar';
 import _ from 'lodash';
 import {sleep} from "./sprint";
-import {fetchUserById} from "./user";
+import {fetchUserById, fetchUserById2} from "./user";
 
 
 //get list of discussions
@@ -184,18 +184,62 @@ export const fetchDiscussion = id => async (dispatch) => {
       response: normalizedData,
     });
   } catch (error) {
-    dispatch({
-      type: ActionTypes.FETCH_FAILURE_DISCUSSION,
-    });
+
     if (error.response) {
       const {data, status} = error.response;
+      dispatch({
+        type: ActionTypes.FETCH_FAILURE_DISCUSSION,
+        error: {data, status},
+      });
       dispatch(returnErrors(data, status));
+    } else {
+      dispatch({
+        type: ActionTypes.FETCH_FAILURE_DISCUSSION,
+        error: "il y'a une erreur"
+      });
     }
   } finally {
     // dispatch(hideLoading());
   }
 };
 
+export const fetchDiscussionNew = id => async (dispatch) => {
+  return dispatch({
+    type: 'FETCH_DISCUSSION',
+    async payload() {
+      await sleep(1e2);
+      const result = await axios.get(`/api/discussions/${id}/`);
+      await dispatch(fetchUserById2(result.data.user));
+      return result;
+    }
+  })
+};
+
+export const fetchDiscussionV2 = id => async (dispatch) => {
+  return await dispatch({
+    type: 'FETCH_DISCUSSION',
+    payload: axios.get(`/api/discussions/${id}/`)
+  }).then((value, action) => {
+    console.log(value);
+    fetchUserById(value.data.user)(dispatch)
+  })
+};
+
+// async payload() {
+//   await sleep(1e2);
+//   const result = await axios.get(`/api/discussions/${id}/`)
+//     .then();
+//   const resultUser = await fetchUserById(result.data.user)(dispatch);
+//   return resultUser;
+// }
+
+
+// export const fetchDiscussion = id => {
+//   return {
+//     type: 'FETCH_DISCUSSION',
+//     payload: axios.get(`/api/discussions/${id}/`)
+//   }
+// };
 
 // create a discussion
 export const createDiscussion = (discussion) => (dispatch, getState) => {

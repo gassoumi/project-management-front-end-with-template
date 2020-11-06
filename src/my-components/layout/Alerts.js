@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {toast} from 'react-toastify';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
+import {getDisplayString} from "../utils";
 
 class Alerts extends Component {
 
@@ -45,13 +46,13 @@ class Alerts extends Component {
         toast.error(message.passwordNotMatch);
       }
       if (message.deleted) {
-        toast.success(message.deleted);
+        toast.success(getDisplayString(message.deleted, 200));
       }
       if (message.added) {
-        toast.success(message.added);
+        toast.success(getDisplayString(message.added, 200));
       }
       if (message.updated) {
-        toast.success(message.updated);
+        toast.success(getDisplayString(message.updated, 200));
       }
     }
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import Discussion from './Discussion';
 import ErrorBoundaryRoute from '../../common/ErrorBoundaryRoute';
 import DiscussionDetail from './DiscussionDetail';

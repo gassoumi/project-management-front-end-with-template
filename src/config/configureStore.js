@@ -4,6 +4,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import rootReducer from "../redux/reducers";
 import thunk from "redux-thunk";
 import promiseMiddleware from 'redux-promise-middleware';
+import loggerMiddleware from './logger-middleware';
 
 
 const initialState = {};
@@ -12,7 +13,7 @@ const composeEnhancers = composeWithDevTools({
   trace: true
 });
 
-const middleware = [thunk, promiseMiddleware,];
+const middleware = [thunk, promiseMiddleware, loggerMiddleware];
 
 
 export default function configureStore() {

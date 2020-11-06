@@ -97,7 +97,9 @@ const Routes = () => {
             ]}>
               <PrivateRoute path="/" component={Entities}/>
             </Route>
-            <Route path='*'>
+            <Route
+              path='*'
+            >
               <MinimalLayout>
                 <Switch location={location} key={location.pathname}>
                   <motion.div

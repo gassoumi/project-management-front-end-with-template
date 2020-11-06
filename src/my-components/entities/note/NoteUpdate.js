@@ -19,6 +19,12 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
+import {
+  getDateMessage,
+  getMaxLengthMessage,
+  getMinLengthMessage,
+  getRequiredMessage
+} from '../../utils/validationMessage';
 
 
 const styles = (theme) => ({
@@ -94,7 +100,7 @@ function NoteUpdate({
       updateNote(note.id, newNote)
     }
   };
-  
+
   return (
     <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
       <DialogTitle className="bg-light" id="form-dialog-ajout-note">
@@ -123,14 +129,14 @@ function NoteUpdate({
               defaultValue={note.note || ""}
               required
               inputRef={register({
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 minLength: {
                   value: 2,
-                  message: 'Min length is 2',
+                  message: getMinLengthMessage(2),
                 },
                 maxLength: {
                   value: 60,
-                  message: 'Max length is 60',
+                  message: getMaxLengthMessage(60),
                 },
               })}
               // autoFocus
@@ -164,9 +170,9 @@ function NoteUpdate({
               defaultValue={moment(note.date).format('YYYY-MM-DD') ||
               moment().format('YYYY-MM-DD')}
               rules={{
-                required: 'this field is required',
+                required: getRequiredMessage(),
                 validate: {
-                  date: value => isDate(value) || "Format de date non valide"
+                  date: value => isDate(value) || getDateMessage()
                 }
               }}
               as={

@@ -17,6 +17,11 @@ import {green, red} from '@material-ui/core/colors';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {Tooltip} from "@material-ui/core";
 import PropTypes from 'prop-types';
+import {
+  getMaxLengthMessage,
+  getMinLengthMessage,
+  getRequiredMessage
+} from '../../utils/validationMessage';
 
 
 let id = 0;
@@ -219,14 +224,14 @@ const ProjectForm = ({
             label="Code Projet"
             name="code"
             inputRef={register({
-              required: 'Ce champ est obligatoire',
+              required: getRequiredMessage(),
               maxLength: {
                 value: 50,
-                message: 'La longueur maximale est de 50',
+                message: getMaxLengthMessage(50),
               },
               minLength: {
                 value: 2,
-                message: 'La longueur minimale est de 2',
+                message: getMinLengthMessage(2),
               },
             })}
             fullWidth
@@ -242,14 +247,14 @@ const ProjectForm = ({
             label="Designation"
             name="designation"
             inputRef={register({
-              required: 'Ce champ est obligatoire',
+              required: getRequiredMessage(),
               maxLength: {
                 value: 100,
-                message: 'La longueur maximale est de 100',
+                message: getMaxLengthMessage(100),
               },
               minLength: {
                 value: 2,
-                message: 'La longueur minimale est de 2',
+                message: getMinLengthMessage(2),
               },
             })}
             fullWidth
@@ -267,7 +272,7 @@ const ProjectForm = ({
             label="Objective"
             name="objective"
             inputRef={register({
-              required: 'Ce champ est obligatoire',
+              required: getRequiredMessage(),
             })}
             fullWidth
             error={!!errors.objective}

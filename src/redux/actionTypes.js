@@ -205,3 +205,22 @@ export const STARRED_SUCCESS_PROJECT_TASKS = "STARRED_SUCCESS_PROJECT_TASKS";
 export const STARRED_FAILURE_PROJECT_TASKS = "STARRED_FAILURE_PROJECT_TASKS";
 // clear cache project tasks
 export const CLEAR_CACHE_PROJECT_TASKS = "CLEAR_CACHE_PROJECT_TASKS";
+
+
+/**
+ * Appends REQUEST async action type
+ */
+
+export const REQUEST = actionType => `${actionType}_PENDING`;
+
+/**
+ * Appends SUCCESS async action type
+ */
+
+export const SUCCESS = actionType => `${actionType}_FULFILLED`;
+
+/**
+ * Appends FAILURE async action type
+ */
+
+export const FAILURE = actionType => `${actionType}_REJECTED`;

@@ -1,3 +1,5 @@
+import * as ActionTypes from "../actionTypes";
+
 const entity = ({types}) => {
 
   const [requestType, logout, updateSuccessType, removeSuccessType,
@@ -10,6 +12,7 @@ const entity = ({types}) => {
     deleteSuccess: false,
     isLoaded: false,
     isUpdating: false,
+    error: null,
   };
 
   return (state = initialState, action) => {
@@ -36,15 +39,28 @@ const entity = ({types}) => {
           isUpdating: false
         };
       case starredFetch:
+        return {
+          ...state,
+          isLoaded: false,
+          error: null,
+        };
+      // fail to fetch this entity
       case fetchFailure:
         return {
           ...state,
-          isLoaded: false
+          isLoaded: false,
+          error: action.error,
         };
       case fetchSuccess:
         return {
           ...state,
           isLoaded: true,
+        };
+      case  ActionTypes.SUCCESS('FETCH_DISCUSSION'):
+        console.log(action.payload);
+        return {
+          ...state,
+          isLoaded: true
         };
       case removeSuccessType:
         return {
